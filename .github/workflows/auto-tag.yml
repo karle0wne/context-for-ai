@@ -12,28 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout
+      - name: 📥 Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # needed to fetch tags
+          fetch-depth: 0
 
-      - name: 🧮 Get latest tag
-        id: get_tag
-        run: |
-          latest=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          echo "latest=$latest" >> $GITHUB_OUTPUT
+      - name: 🏗 Install autotag
+        run: curl -sL https://git.io/autotag-install | sudo sh -s -- -b /usr/bin
+        shell: bash
 
-      - name: 🔢 Bump patch version
-        id: bump
-        run: |
-          current="${{ steps.get_tag.outputs.latest }}"
-          echo "Current tag: $current"
-          version=$(echo "$current" | sed 's/^v//' | awk -F. '{ printf("v%d.%d.%d", $1, $2, $3 + 1) }')
-          echo "next=$version" >> $GITHUB_OUTPUT
+      - name: ⬆️ Increment version with autotag
+        run: autotag
+        shell: bash
 
-      - name: 🏷 Create and push tag
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git tag ${{ steps.bump.outputs.next }}
-          git push origin ${{ steps.bump.outputs.next }}
+      - name: ⤴️ Push new tag
+        run: git push --tags
+        shell: bash
