@@ -22,7 +22,7 @@
 ### 📥 Via Homebrew (recommended)
 
 ```bash
-brew tap karleowne/tap
+brew tap karle0wne/tap
 brew install context-for-ai
 ```
 
@@ -30,13 +30,13 @@ brew install context-for-ai
 
 ```bash
 brew install --no-quarantine \
-  https://raw.githubusercontent.com/karleowne/homebrew-tap/main/Formula/context-for-ai.rb
+  https://raw.githubusercontent.com/karle0wne/homebrew-tap/main/Formula/context-for-ai.rb
 ```
 
 ### Or run from source
 
 ```bash
-git clone https://github.com/karleowne/context-for-ai.git
+git clone https://github.com/karle0wne/context-for-ai.git
 cd context-for-ai
 chmod +x bin/context-for-ai
 ./bin/context-for-ai --version
