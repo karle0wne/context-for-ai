@@ -1,29 +1,30 @@
-name: Test install.sh
+name: Test install.sh after release
 
 on:
-  push:
-    paths:
-      - 'install.sh'
-  pull_request:
-    paths:
-      - 'install.sh'
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
 
 jobs:
   install-test:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
-      - name: 📥 Checkout code
+      - name: 📥 Checkout
         uses: actions/checkout@v4
 
-      - name: 🧪 Run dry-run
+      - name: 🧪 Dry-run check
         run: bash install.sh --dry-run
 
-      - name: 🧪 Real install with --prefix
+      - name: 🧪 Install latest release
         run: |
           chmod +x install.sh
-          bash install.sh --prefix "$HOME/.local/bin" --force
+          VERSION="$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | grep tag_name | cut -d '"' -f4)"
+          echo "Installing $VERSION"
+          VERSION="$VERSION" bash install.sh --prefix "$HOME/.local/bin" --force
 
-      - name: ✅ Verify CLI runs
+      - name: ✅ Run installed CLI
         run: $HOME/.local/bin/context-for-ai --version

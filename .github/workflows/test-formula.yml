@@ -1,4 +1,4 @@
-name: Test Generated Homebrew Formula
+name: Test Homebrew Formula after release
 
 on:
   workflow_run:
@@ -12,17 +12,17 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - name: 📥 Checkout context-for-ai repo
+      - name: 📥 Checkout
         uses: actions/checkout@v4
 
-      - name: 🧪 Set up Homebrew
+      - name: 🍺 Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
-      - name: 🔍 Audit generated formula
+      - name: 🔍 Audit dist formula
         run: brew audit --strict dist/context-for-ai.rb
 
-      - name: 🍺 Install context-for-ai from dist formula
+      - name: 🧪 Install from formula
         run: brew install --build-from-source dist/context-for-ai.rb
 
-      - name: 🧾 Check installed version
+      - name: ✅ Test CLI
         run: context-for-ai --version

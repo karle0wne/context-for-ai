@@ -11,8 +11,10 @@ jobs:
     name: Build and publish release
 
     steps:
-      - name: 📥 Checkout project
+      - name: 📥 Checkout project with full history
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: 📁 Prepare archive content
         run: |
