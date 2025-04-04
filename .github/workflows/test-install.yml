@@ -27,10 +27,14 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p "$BIN_DIR"
-          VERSION=$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name)
+
+          VERSION=$(gh release list --limit 1 --repo ${{ github.repository }} --json tagName --jq '.[0].tagName')
+          echo "👉 Installing version: $VERSION"
+
           VERSION="$VERSION" bash install.sh --prefix "$BIN_DIR" --force
         env:
           GH_TOKEN: ${{ github.token }}
+
 
       - name: ✅ Check version (direct path)
         run: ${{ env.BIN_DIR }}/context-for-ai --version
