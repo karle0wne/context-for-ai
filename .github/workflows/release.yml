@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-and-release:
+    name: Build and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create archive
+        run: |
+          mkdir dist
+          tar -czf dist/context-for-ai.tar.gz --transform='s,^,context-for-ai-/' bin LICENSE README.md Formula
+
+      - name: Calculate sha256
+        id: sha
+        run: |
+          SHA=$(shasum -a 256 dist/context-for-ai.tar.gz | cut -d ' ' -f1)
+          echo "sha256=$SHA" >> $GITHUB_OUTPUT
+
+      - name: Update Homebrew formula
+        run: |
+          sed "s|PUT_SHA256_HERE|${{ steps.sha.outputs.sha256 }}|g" Formula/context-for-ai.rb > dist/context-for-ai.rb
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: context-for-ai ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          files: |
+            dist/context-for-ai.tar.gz
+            dist/context-for-ai.rb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

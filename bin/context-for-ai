@@ -1,0 +1,186 @@
+#!/bin/bash
+
+VERSION="1.0.0"
+
+show_help() {
+  cat << EOF
+context-for-ai — generate a structured Markdown snapshot of your codebase.
+
+Usage:
+  context-for-ai [--default] [--all] [--ask "your question"]
+  context-for-ai --interactive
+  context-for-ai --version
+  context-for-ai --help
+
+Options:
+  --default         Run with default file types and settings
+  --all             Include full content of each file
+  --interactive     Select files and settings interactively
+  --ask "..."       Add a question/task prompt to the output
+  --version         Show version
+  --help            Show this help message
+EOF
+  exit 0
+}
+
+if [[ "$1" == "--help" ]]; then show_help; fi
+if [[ "$1" == "--version" ]]; then echo "context-for-ai v$VERSION"; exit 0; fi
+
+# === Auto-install tree if needed ===
+if ! command -v tree &> /dev/null; then
+  echo "🌲 'tree' not found. Attempting to install..."
+
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    if command -v apt &> /dev/null; then
+      sudo apt update && sudo apt install -y tree
+    elif command -v yum &> /dev/null; then
+      sudo yum install -y tree
+    elif command -v dnf &> /dev/null; then
+      sudo dnf install -y tree
+    else
+      echo "❌ Cannot auto-install 'tree'. Install it manually."
+      exit 1
+    fi
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "🔎 Detected macOS ($(uname -m))"
+    if command -v brew &> /dev/null; then
+      brew install tree
+    else
+      echo "❌ Homebrew not found. Install it first: https://brew.sh/"
+      exit 1
+    fi
+  else
+    echo "❌ Unsupported OS. Install 'tree' manually."
+    exit 1
+  fi
+fi
+
+# === CONFIG ===
+OUT_FILE="project_description.md"
+DEFAULT_LINES=40
+INCLUDE_ALL=false
+INTERACTIVE=false
+DEFAULT=false
+ASK_QUESTION=""
+
+# === Parse args ===
+for ((i=1; i<=$#; i++)); do
+  case "${!i}" in
+    --all) INCLUDE_ALL=true ;;
+    --interactive) INTERACTIVE=true ;;
+    --default) DEFAULT=true ;;
+    --ask)
+      next=$((i+1))
+      ASK_QUESTION="${!next}"
+      ;;
+  esac
+done
+
+echo "🔧 context-for-ai v$VERSION"
+
+# === Defaults ===
+EXTENSIONS=("kt" "java")
+EXTRA_FILES=("pom.xml" "build.gradle.kts" "application.yml")
+LINES_TO_SHOW=$DEFAULT_LINES
+
+# === Interactive Setup ===
+if [ "$INTERACTIVE" = true ]; then
+  echo "🧩 Which file types to include? (default: kt java)"
+  read -rp "Comma-separated (e.g. kt,java): " custom_ext
+  [[ -n "$custom_ext" ]] && IFS=',' read -ra EXTENSIONS <<< "$custom_ext"
+
+  echo "🧾 Include additional files (e.g. pom.xml)?"
+  read -rp "Comma-separated: " custom_extra
+  [[ -n "$custom_extra" ]] && IFS=',' read -ra EXTRA_FILES <<< "$custom_extra"
+
+  echo "📏 Show full code or just N lines?"
+  read -rp "Type number or 'all': " lines_input
+  [[ "$lines_input" == "all" ]] && INCLUDE_ALL=true || LINES_TO_SHOW=${lines_input:-$DEFAULT_LINES}
+fi
+
+[[ -z "$LINES_TO_SHOW" ]] && LINES_TO_SHOW=$DEFAULT_LINES
+
+echo -e "\n📄 Output: $OUT_FILE"
+echo "# 📦 Project Description" > "$OUT_FILE"
+echo "" >> "$OUT_FILE"
+
+# === TOC ===
+echo "## 📑 Contents" >> "$OUT_FILE"
+echo "- [📁 Directory Structure](#-directory-structure)" >> "$OUT_FILE"
+echo "- [🔥 Recently Changed Files](#-recently-changed-files)" >> "$OUT_FILE"
+echo "- [📊 Project Stats](#-project-stats)" >> "$OUT_FILE"
+echo "- [📄 Code Files](#-code-files)" >> "$OUT_FILE"
+echo "- [⚙️ Extra Project Files](#️-extra-project-files)" >> "$OUT_FILE"
+echo "- [💬 Task Prompt](#-task-prompt)" >> "$OUT_FILE"
+echo "" >> "$OUT_FILE"
+
+# === Directory Structure ===
+echo "## 📁 Directory Structure" >> "$OUT_FILE"
+echo '```' >> "$OUT_FILE"
+tree . -I 'build|out|.idea|.git|target|*.class' -L 10 --charset utf-8 >> "$OUT_FILE"
+echo '```' >> "$OUT_FILE"
+echo "" >> "$OUT_FILE"
+
+# === Changed files ===
+echo "## 🔥 Recently Changed Files (git diff)" >> "$OUT_FILE"
+GIT_CHANGED=$(git diff --name-only --diff-filter=ACMRTUXB HEAD | grep -E "\.($(IFS='|'; echo "${EXTENSIONS[*]}"))$")
+[[ -z "$GIT_CHANGED" ]] && echo "No recent changes." >> "$OUT_FILE" || echo "$GIT_CHANGED" >> "$OUT_FILE"
+echo "" >> "$OUT_FILE"
+
+# === Collect and sort all code files ===
+EXT_PATTERN=""
+for ext in "${EXTENSIONS[@]}"; do
+  EXT_PATTERN="$EXT_PATTERN -name '*.$ext' -o"
+done
+EXT_PATTERN="${EXT_PATTERN% -o}"
+
+ALL_FILES=()
+while IFS= read -r file; do
+  [[ "$file" =~ build/|target/|\.class$ ]] && continue
+  ALL_FILES+=("$file")
+done < <(eval "find . -type f \( $EXT_PATTERN \)" | sort)
+
+# === Basic stats ===
+total_files=${#ALL_FILES[@]}
+total_lines=0
+
+for file in "${ALL_FILES[@]}"; do
+  [[ -f "$file" ]] || continue
+  lines=$(wc -l < "$file")
+  total_lines=$((total_lines + lines))
+done
+
+echo "## 📊 Project Stats" >> "$OUT_FILE"
+echo "| Metric | Value |" >> "$OUT_FILE"
+echo "|--------|-------|" >> "$OUT_FILE"
+echo "| Code files | $total_files |" >> "$OUT_FILE"
+echo "| Total lines | $total_lines |" >> "$OUT_FILE"
+echo "" >> "$OUT_FILE"
+
+# === Output All Code Files ===
+echo "## 📄 Code Files" >> "$OUT_FILE"
+for file in "${ALL_FILES[@]}"; do
+  echo -e "\n---\n### 📄 File: \`$file\`\n---" >> "$OUT_FILE"
+  ext="${file##*.}"
+  echo '```'"$ext" >> "$OUT_FILE"
+  $INCLUDE_ALL && cat "$file" >> "$OUT_FILE" || head -n "$LINES_TO_SHOW" "$file" >> "$OUT_FILE"
+  echo '```' >> "$OUT_FILE"
+done
+
+# === Extra files ===
+echo -e "\n## ⚙️ Extra Project Files" >> "$OUT_FILE"
+for file in "${EXTRA_FILES[@]}"; do
+  [[ -f "$file" ]] || continue
+  echo -e "\n---\n### 🧾 File: \`$file\`\n---" >> "$OUT_FILE"
+  echo '```'$(basename "$file" | sed 's/.*\.//') >> "$OUT_FILE"
+  cat "$file" >> "$OUT_FILE"
+  echo '```' >> "$OUT_FILE"
+done
+
+# === Prompt block ===
+echo -e "\n## 💬 Task Prompt" >> "$OUT_FILE"
+echo '```' >> "$OUT_FILE"
+echo "This file contains a full description of my Kotlin/Java project: directory structure, full or partial source code, project stats, and key configuration files." >> "$OUT_FILE"
+echo "Use this as context for answering architectural, structural, or implementation-level questions." >> "$OUT_FILE"
+echo "" >> "$OUT_FILE"
+[[ -n "$ASK_QUESTION" ]] && echo_
