@@ -31,18 +31,15 @@ jobs:
           SHA=$(shasum -a 256 dist/context-for-ai.tar.gz | cut -d ' ' -f1)
           echo "sha256=$SHA" >> $GITHUB_OUTPUT
 
-      - name: 🧾 Update Homebrew formula with SHA
-        run: |
-          sed "s|PUT_SHA256_HERE|${{ steps.sha.outputs.sha256 }}|g" Formula/context-for-ai.rb > dist/context-for-ai.rb
-
       - name: 📝 Generate changelog from commits
         id: changelog
         run: |
-          echo "body<<EOF" >> $GITHUB_OUTPUT
-          echo "## Changes in ${{ github.ref_name }}" >> $GITHUB_OUTPUT
-          echo "" >> $GITHUB_OUTPUT
-          git log $(git describe --tags --abbrev=0)^..HEAD --pretty=format:"- %s" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          echo "## Changes in ${{ github.ref_name }}" > changelog.md
+          echo "" >> changelog.md
+          git log $(git describe --tags --abbrev=0)^..HEAD --pretty=format:"- %s" >> changelog.md
+
+          BODY=$(cat changelog.md | sed ':a;N;$!ba;s/\n/\\n/g')
+          echo "body=$BODY" >> $GITHUB_OUTPUT
 
       - name: 🚀 Create GitHub Release
         uses: softprops/action-gh-release@v1
