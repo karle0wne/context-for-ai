@@ -139,4 +139,3 @@ Optional flags:
 - `--prefix /some/path` – custom install path (default: `/usr/local/bin`)
 - `--force` – overwrite if already installed
 - `--dry-run` – show what will happen, but don’t execute
-  

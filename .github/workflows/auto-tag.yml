@@ -1,6 +1,17 @@
 name: Auto Tag
 
 on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Part of version to bump"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
   push:
     branches:
       - main
@@ -17,14 +28,42 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 🏗 Install autotag
-        run: curl -sL https://git.io/autotag-install | sudo sh -s -- -b /usr/bin
-        shell: bash
+      - name: 🔍 Get latest version tag
+        id: get_tag
+        run: |
+          git fetch --tags
+          TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1)
+          echo "Latest tag: $TAG"
+          if [ -z "$TAG" ]; then
+            echo "version=0.0.0" >> $GITHUB_OUTPUT
+          else
+            echo "version=${TAG#v}" >> $GITHUB_OUTPUT
+          fi
 
-      - name: ⬆️ Increment version with autotag
-        run: autotag
-        shell: bash
+      - name: 🧮 Calculate next version
+        id: next_tag
+        run: |
+          IFS='.' read -r MAJOR MINOR PATCH <<< "${{ steps.get_tag.outputs.version }}"
 
-      - name: ⤴️ Push new tag
-        run: git push --tags
-        shell: bash
+          BUMP="${{ github.event.inputs.bump || 'patch' }}"
+          echo "Bumping: $BUMP"
+
+          if [ "$BUMP" = "major" ]; then
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+          elif [ "$BUMP" = "minor" ]; then
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            PATCH=$((PATCH + 1))
+          fi
+
+          NEXT_TAG="v$MAJOR.$MINOR.$PATCH"
+          echo "Next tag: $NEXT_TAG"
+          echo "tag=$NEXT_TAG" >> $GITHUB_OUTPUT
+
+      - name: 🏷 Create and push new tag
+        run: |
+          git tag "${{ steps.next_tag.outputs.tag }}"
+          git push origin "${{ steps.next_tag.outputs.tag }}"
