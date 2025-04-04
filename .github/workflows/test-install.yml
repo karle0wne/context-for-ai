@@ -7,22 +7,40 @@ on:
       - completed
 
 jobs:
-  install-test:
+  test-install:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
+    env:
+      BIN_DIR: $HOME/.local/bin
+
     steps:
-      - name: 📥 Checkout
+      - name: 📥 Checkout repo
         uses: actions/checkout@v4
 
-      - name: 🧪 Dry-run
-        run: bash install.sh --dry-run
+      - name: 🧪 Run install.sh --dry-run
+        run: |
+          set -euo pipefail
+          bash install.sh --dry-run
 
       - name: 🧪 Install latest release
         run: |
-          mkdir -p "$HOME/.local/bin"
-          VERSION="$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | grep tag_name | cut -d '"' -f4)"
-          VERSION="$VERSION" bash install.sh --prefix "$HOME/.local/bin" --force
+          set -euo pipefail
+          mkdir -p "$BIN_DIR"
+          VERSION=$(gh api repos/${{ github.repository }}/releases/latest --jq .tag_name)
+          VERSION="$VERSION" bash install.sh --prefix "$BIN_DIR" --force
+        env:
+          GH_TOKEN: ${{ github.token }}
 
-      - name: ✅ Check version
-        run: $HOME/.local/bin/context-for-ai --version
+      - name: ✅ Check version (direct path)
+        run: ${{ env.BIN_DIR }}/context-for-ai --version
+
+      - name: ✅ Check version from PATH
+        run: context-for-ai --version
+        env:
+          PATH: ${{ env.BIN_DIR }}:$PATH
+
+      - name: ✅ Check help from PATH
+        run: context-for-ai --help
+        env:
+          PATH: ${{ env.BIN_DIR }}:$PATH
