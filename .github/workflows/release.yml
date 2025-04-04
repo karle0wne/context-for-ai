@@ -81,9 +81,15 @@ jobs:
 
       - name: 📝 Generate changelog
         run: |
+          PREV="${{ steps.get_tag.outputs.tag }}"
           echo "## Changes in ${{ steps.next_tag.outputs.tag }}" > changelog.md
           echo >> changelog.md
-          git log ${{ steps.get_tag.outputs.tag }}..HEAD --pretty=format:"- %s" >> changelog.md
+
+          if git rev-parse "$PREV" >/dev/null 2>&1; then
+            git log "$PREV"..HEAD --pretty=format:"- %s" >> changelog.md
+          else
+            git log --pretty=format:"- %s" >> changelog.md
+          fi
 
       - name: 🚀 Publish GitHub Release
         uses: softprops/action-gh-release@v1
