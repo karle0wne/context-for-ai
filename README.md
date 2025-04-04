@@ -129,3 +129,13 @@ Usage:
 - Architecture mapping
 - Internal documentation
 
+### 🧪 Install without Homebrew
+
+```bash
+curl -sSL https://raw.githubusercontent.com/karle0wne/context-for-ai/main/install.sh | bash
+```
+
+Optional flags:
+- `--prefix /some/path` – custom install path (default: `/usr/local/bin`)
+- `--force` – overwrite if already installed
+- `--dry-run` – show what will happen, but don’t execute

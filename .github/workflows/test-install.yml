@@ -1,0 +1,29 @@
+name: Test install.sh
+
+on:
+  push:
+    paths:
+      - 'install.sh'
+  pull_request:
+    paths:
+      - 'install.sh'
+
+jobs:
+  install-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🧪 Run dry-run
+        run: bash install.sh --dry-run
+
+      - name: 🧪 Real install with --prefix
+        run: |
+          chmod +x install.sh
+          bash install.sh --prefix "$HOME/.local/bin" --force
+
+      - name: ✅ Verify CLI runs
+        run: $HOME/.local/bin/context-for-ai --version

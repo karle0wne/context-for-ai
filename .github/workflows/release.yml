@@ -17,7 +17,7 @@ jobs:
       - name: 📁 Prepare archive content
         run: |
           mkdir -p dist/context-for-ai
-          cp -r bin LICENSE README.md Formula dist/context-for-ai/
+          cp -r bin LICENSE README.md Formula install.sh dist/context-for-ai/
 
       - name: 📦 Create tar.gz
         run: |
@@ -33,11 +33,21 @@ jobs:
         run: |
           sed "s|PUT_SHA256_HERE|${{ steps.sha.outputs.sha256 }}|g" Formula/context-for-ai.rb > dist/context-for-ai.rb
 
+      - name: 📝 Generate changelog from commits
+        id: changelog
+        run: |
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "## Changes in ${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          git log $(git describe --tags --abbrev=0)^..HEAD --pretty=format:"- %s" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: 🚀 Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           name: context-for-ai ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
+          body: ${{ steps.changelog.outputs.body }}
           files: |
             dist/context-for-ai.tar.gz
             dist/context-for-ai.rb
@@ -50,11 +60,8 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
           git clone https://x-access-token:${GH_PAT}@github.com/karle0wne/homebrew-tap.git
-
           cp dist/context-for-ai.rb homebrew-tap/Formula/context-for-ai.rb
-
           cd homebrew-tap
           git add Formula/context-for-ai.rb
           git commit -m "Update formula for context-for-ai ${{ github.ref_name }}"
