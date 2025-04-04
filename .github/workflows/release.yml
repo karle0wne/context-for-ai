@@ -11,25 +11,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: 🧾 Checkout code
         uses: actions/checkout@v4
 
-      - name: Create archive
+      - name: 🏗 Prepare archive folder
         run: |
-          mkdir dist
-          tar -czf dist/context-for-ai.tar.gz --transform='s,^,context-for-ai-/' bin LICENSE README.md Formula
+          mkdir -p dist/context-for-ai
+          cp -r bin LICENSE README.md Formula dist/context-for-ai/
 
-      - name: Calculate sha256
+      - name: 📦 Create .tar.gz
+        run: |
+          tar -czf dist/context-for-ai.tar.gz -C dist context-for-ai
+
+      - name: 🧮 Calculate SHA256
         id: sha
         run: |
           SHA=$(shasum -a 256 dist/context-for-ai.tar.gz | cut -d ' ' -f1)
           echo "sha256=$SHA" >> $GITHUB_OUTPUT
 
-      - name: Update Homebrew formula
+      - name: 🧾 Update Homebrew formula
         run: |
           sed "s|PUT_SHA256_HERE|${{ steps.sha.outputs.sha256 }}|g" Formula/context-for-ai.rb > dist/context-for-ai.rb
 
-      - name: Create GitHub release
+      - name: 🚀 Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           name: context-for-ai ${{ github.ref_name }}
