@@ -1,4 +1,4 @@
-name: Test Homebrew Formula after release
+name: Test Homebrew Formula
 
 on:
   workflow_run:
@@ -9,30 +9,25 @@ on:
 jobs:
   test-formula:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
-
-      - name: 📦 Download formula artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: formula
-          path: dist
-
-      - name: 🍺 Tap formula
+      - name: 🧪 Install Homebrew
         run: |
-          mkdir -p custom-tap/Formula
-          cp dist/context-for-ai.rb custom-tap/Formula/context-for-ai.rb
-          brew tap-new local/test
-          brew tap local/test ./custom-tap
+          sudo apt-get update
+          sudo apt-get install -y build-essential curl file git
+          bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $GITHUB_ENV
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-      - name: 🔍 Audit
-        run: brew audit context-for-ai
+      - name: 🍺 Tap homebrew-tap
+        run: |
+          brew tap karle0wne/tap
 
-      - name: 🧪 Install from tap
-        run: brew install context-for-ai
+      - name: 📦 Install context-for-ai
+        run: |
+          brew install karle0wne/tap/context-for-ai
 
-      - name: ✅ Run installed CLI
-        run: context-for-ai --version
+      - name: ✅ Verify context-for-ai --version
+        run: |
+          context-for-ai --version
