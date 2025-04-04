@@ -1,0 +1,39 @@
+name: Auto Tag
+
+on:
+  push:
+    branches:
+      - main
+      - release
+
+jobs:
+  tag:
+    name: Auto-increment version tag
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # needed to fetch tags
+
+      - name: 🧮 Get latest tag
+        id: get_tag
+        run: |
+          latest=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "latest=$latest" >> $GITHUB_OUTPUT
+
+      - name: 🔢 Bump patch version
+        id: bump
+        run: |
+          current="${{ steps.get_tag.outputs.latest }}"
+          echo "Current tag: $current"
+          version=$(echo "$current" | sed 's/^v//' | awk -F. '{ printf("v%d.%d.%d", $1, $2, $3 + 1) }')
+          echo "next=$version" >> $GITHUB_OUTPUT
+
+      - name: 🏷 Create and push tag
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git tag ${{ steps.bump.outputs.next }}
+          git push origin ${{ steps.bump.outputs.next }}

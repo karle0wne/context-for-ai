@@ -16,8 +16,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 🔍 Check binary exists
+        run: |
+          test -f bin/context-for-ai || (echo "❌ context-for-ai not found in bin/" && exit 1)
+
       - name: 📁 Prepare archive content
         run: |
+          chmod +x bin/context-for-ai 
           mkdir -p dist/context-for-ai
           cp -r bin LICENSE README.md Formula install.sh dist/context-for-ai/
 
@@ -66,3 +71,9 @@ jobs:
           git add Formula/context-for-ai.rb
           git commit -m "Update formula for context-for-ai ${{ github.ref_name }}"
           git push origin main
+
+      - name: 📦 Upload formula as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: formula
+          path: dist/context-for-ai.rb
