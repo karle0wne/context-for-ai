@@ -3,7 +3,7 @@
 set -e
 
 REPO="karle0wne/context-for-ai"
-VERSION="latest"
+VERSION="${VERSION:-latest}"
 PREFIX="/usr/local/bin"
 FORCE=false
 DRY_RUN=false
@@ -21,7 +21,6 @@ print_usage() {
 log() { echo "💬 $*"; }
 warn() { echo "⚠️ $*" >&2; }
 
-# --- Parse CLI args ---
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --prefix) PREFIX="$2"; shift 2 ;;
@@ -32,15 +31,16 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# --- Determine latest release ---
 if [ "$VERSION" = "latest" ]; then
   VERSION=$(curl -s "https://api.github.com/repos/$REPO/releases/latest" | grep tag_name | cut -d '"' -f4)
-  log "Detected latest version: $VERSION"
+  [ -z "$VERSION" ] && echo "❌ Failed to fetch latest version." && exit 1
 fi
 
 URL="https://github.com/$REPO/releases/download/$VERSION/context-for-ai.tar.gz"
 TMP_DIR=$(mktemp -d)
+DEST="$PREFIX/context-for-ai"
 
+log "Detected latest version: $VERSION"
 log "Downloading: $URL"
 $DRY_RUN || curl -sL "$URL" -o "$TMP_DIR/archive.tar.gz"
 
@@ -48,14 +48,15 @@ log "Extracting..."
 $DRY_RUN || tar -xzf "$TMP_DIR/archive.tar.gz" -C "$TMP_DIR"
 
 SRC="$TMP_DIR/context-for-ai/bin/context-for-ai"
-DEST="$PREFIX/context-for-ai"
+[ -f "$SRC" ] || { echo "❌ context-for-ai binary not found in archive"; exit 1; }
 
-if [ -f "$DEST" ] && [ "$FORCE" != true ]; then
+if [[ -f "$DEST" && "$FORCE" != true ]]; then
   warn "$DEST already exists. Use --force to overwrite."
   exit 1
 fi
 
 log "Installing to: $DEST"
+$DRY_RUN || mkdir -p "$PREFIX"
 $DRY_RUN || cp "$SRC" "$DEST"
 $DRY_RUN || chmod +x "$DEST"
 

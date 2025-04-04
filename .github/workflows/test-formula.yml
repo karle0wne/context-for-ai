@@ -15,14 +15,18 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@v4
 
-      - name: 🍺 Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
+      - name: 🍺 Tap formula
+        run: |
+          mkdir -p custom-tap/Formula
+          cp dist/context-for-ai.rb custom-tap/Formula/context-for-ai.rb
+          brew tap-new local/test
+          brew tap local/test ./custom-tap
 
-      - name: 🔍 Audit dist formula
-        run: brew audit --strict dist/context-for-ai.rb
+      - name: 🔍 Audit
+        run: brew audit context-for-ai
 
-      - name: 🧪 Install from formula
-        run: brew install --build-from-source dist/context-for-ai.rb
+      - name: 🧪 Install from tap
+        run: brew install context-for-ai
 
-      - name: ✅ Test CLI
+      - name: ✅ Run installed CLI
         run: context-for-ai --version

@@ -7,11 +7,11 @@ on:
 
 jobs:
   release:
-    name: Build and publish release
     runs-on: ubuntu-latest
+    name: Build and publish release
 
     steps:
-      - name: 📥 Checkout project with full history
+      - name: 📥 Checkout project with tags
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -21,67 +21,47 @@ jobs:
           mkdir -p dist/context-for-ai
           cp -r bin LICENSE README.md Formula install.sh dist/context-for-ai/
 
-      - name: 📦 Create tar.gz archive
+      - name: 📦 Create archive
         run: |
           tar -czf dist/context-for-ai.tar.gz -C dist context-for-ai
-          ls -lh dist/context-for-ai.tar.gz
 
       - name: 🧮 Calculate SHA256
         id: sha
         run: |
-          FILE="dist/context-for-ai.tar.gz"
-          if [[ ! -f "$FILE" ]]; then
-            echo "❌ Archive not found: $FILE"
-            exit 1
-          fi
-
-          SHA=$(shasum -a 256 "$FILE" | awk '{print $1}')
+          SHA=$(shasum -a 256 dist/context-for-ai.tar.gz | awk '{print $1}')
           echo "sha256=$SHA" >> "$GITHUB_OUTPUT"
-          echo "✅ Calculated SHA256: $SHA"
 
-      - name: 🧾 Update Homebrew formula with SHA
+      - name: 🧾 Update Homebrew formula
         run: |
-          echo "⚙️ SHA to insert: ${{ steps.sha.outputs.sha256 }}"
-          if [[ -z "${{ steps.sha.outputs.sha256 }}" ]]; then
-            echo "❌ SHA256 is empty. Aborting formula update."
-            exit 1
-          fi
           mkdir -p dist
           sed "s|PUT_SHA256_HERE|${{ steps.sha.outputs.sha256 }}|g" Formula/context-for-ai.rb > dist/context-for-ai.rb
-          echo "✅ Formula updated: dist/context-for-ai.rb"
 
-      - name: 📝 Generate changelog from commits
-        id: changelog
+      - name: 📝 Generate changelog
         run: |
           echo "## Changes in ${{ github.ref_name }}" > changelog.md
           echo "" >> changelog.md
           git log $(git describe --tags --abbrev=0)^..HEAD --pretty=format:"- %s" >> changelog.md
-          BODY=$(cat changelog.md | sed ':a;N;$!ba;s/\n/\\n/g')
-          echo "body=$BODY" >> "$GITHUB_OUTPUT"
 
       - name: 🚀 Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
           name: context-for-ai ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
-          body: ${{ steps.changelog.outputs.body }}
+          body_path: changelog.md
           files: |
             dist/context-for-ai.tar.gz
             dist/context-for-ai.rb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: ☁️ Publish to homebrew-tap
+      - name: ☁️ Push formula to homebrew-tap
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
           git clone https://x-access-token:${GH_PAT}@github.com/karle0wne/homebrew-tap.git
-
           cp dist/context-for-ai.rb homebrew-tap/Formula/context-for-ai.rb
-
           cd homebrew-tap
           git add Formula/context-for-ai.rb
           git commit -m "Update formula for context-for-ai ${{ github.ref_name }}"

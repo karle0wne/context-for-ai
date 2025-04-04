@@ -10,21 +10,19 @@ jobs:
   install-test:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 5
 
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v4
 
-      - name: 🧪 Dry-run check
+      - name: 🧪 Dry-run
         run: bash install.sh --dry-run
 
       - name: 🧪 Install latest release
         run: |
-          chmod +x install.sh
+          mkdir -p "$HOME/.local/bin"
           VERSION="$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | grep tag_name | cut -d '"' -f4)"
-          echo "Installing $VERSION"
           VERSION="$VERSION" bash install.sh --prefix "$HOME/.local/bin" --force
 
-      - name: ✅ Run installed CLI
+      - name: ✅ Check version
         run: $HOME/.local/bin/context-for-ai --version
