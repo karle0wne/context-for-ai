@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 REPO="karle0wne/context-for-ai"
 VERSION="${VERSION:-latest}"
@@ -18,7 +18,7 @@ print_usage() {
   exit 0
 }
 
-log() { echo "💬 $*"; }
+log()  { echo "💬 $*"; }
 warn() { echo "⚠️ $*" >&2; }
 
 while [[ $# -gt 0 ]]; do
@@ -47,8 +47,15 @@ $DRY_RUN || curl -sL "$URL" -o "$TMP_DIR/archive.tar.gz"
 log "Extracting..."
 $DRY_RUN || tar -xzf "$TMP_DIR/archive.tar.gz" -C "$TMP_DIR"
 
-SRC="$TMP_DIR/context-for-ai/bin/context-for-ai"
-[ -f "$SRC" ] || { echo "❌ context-for-ai binary not found in archive"; exit 1; }
+log "Searching for binary..."
+SRC=$($DRY_RUN || find "$TMP_DIR" -type f -name context-for-ai -perm -u+x | head -n 1)
+
+if [ -z "$SRC" ] || [ ! -f "$SRC" ]; then
+  echo "❌ context-for-ai binary not found in archive"
+  echo "📦 Archive contents:"
+  tar -tzf "$TMP_DIR/archive.tar.gz"
+  exit 1
+fi
 
 if [[ -f "$DEST" && "$FORCE" != true ]]; then
   warn "$DEST already exists. Use --force to overwrite."
@@ -61,4 +68,4 @@ $DRY_RUN || cp "$SRC" "$DEST"
 $DRY_RUN || chmod +x "$DEST"
 
 log "✅ Installed context-for-ai to $DEST"
-$DRY_RUN || $DEST --version
+$DRY_RUN || "$DEST" --version
