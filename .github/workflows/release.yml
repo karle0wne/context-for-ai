@@ -6,20 +6,20 @@ on:
       - "v*"
 
 jobs:
-  build-and-release:
-    name: Build and Release
+  release:
     runs-on: ubuntu-latest
+    name: Build and publish release
 
     steps:
-      - name: 🧾 Checkout code
+      - name: 📥 Checkout project
         uses: actions/checkout@v4
 
-      - name: 🏗 Prepare archive folder
+      - name: 📁 Prepare archive content
         run: |
           mkdir -p dist/context-for-ai
           cp -r bin LICENSE README.md Formula dist/context-for-ai/
 
-      - name: 📦 Create .tar.gz
+      - name: 📦 Create tar.gz
         run: |
           tar -czf dist/context-for-ai.tar.gz -C dist context-for-ai
 
@@ -29,7 +29,7 @@ jobs:
           SHA=$(shasum -a 256 dist/context-for-ai.tar.gz | cut -d ' ' -f1)
           echo "sha256=$SHA" >> $GITHUB_OUTPUT
 
-      - name: 🧾 Update Homebrew formula
+      - name: 🧾 Update Homebrew formula with SHA
         run: |
           sed "s|PUT_SHA256_HERE|${{ steps.sha.outputs.sha256 }}|g" Formula/context-for-ai.rb > dist/context-for-ai.rb
 
@@ -43,3 +43,19 @@ jobs:
             dist/context-for-ai.rb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ☁️ Publish to homebrew-tap
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git clone https://x-access-token:${GH_PAT}@github.com/karle0wne/homebrew-tap.git
+
+          cp dist/context-for-ai.rb homebrew-tap/Formula/context-for-ai.rb
+
+          cd homebrew-tap
+          git add Formula/context-for-ai.rb
+          git commit -m "Update formula for context-for-ai ${{ github.ref_name }}"
+          git push origin main
