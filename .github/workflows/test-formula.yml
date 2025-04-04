@@ -9,25 +9,20 @@ on:
 jobs:
   test-formula:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
 
     steps:
-      - name: 🧪 Install Homebrew
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential curl file git
-          bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> $GITHUB_ENV
-          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+      - name: 🧪 Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
 
       - name: 🍺 Tap homebrew-tap
-        run: |
-          brew tap karle0wne/tap
+        run: brew tap karle0wne/tap
 
       - name: 📦 Install context-for-ai
-        run: |
-          brew install karle0wne/tap/context-for-ai
+        run: brew install karle0wne/tap/context-for-ai
 
       - name: ✅ Verify context-for-ai --version
-        run: |
-          context-for-ai --version
+        run: context-for-ai --version
