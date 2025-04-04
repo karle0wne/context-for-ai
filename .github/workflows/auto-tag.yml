@@ -65,5 +65,7 @@ jobs:
 
       - name: 🏷 Create and push new tag
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git tag "${{ steps.next_tag.outputs.tag }}"
           git push origin "${{ steps.next_tag.outputs.tag }}"
