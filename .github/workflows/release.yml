@@ -51,6 +51,7 @@ jobs:
           git log $(git describe --tags --abbrev=0)^..HEAD --pretty=format:"- %s" >> changelog.md
 
       - name: 🚀 Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
           name: ${{ env.ARCHIVE_NAME }} ${{ github.ref_name }}
@@ -63,6 +64,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: ☁️ Push formula to homebrew-tap
+        if: startsWith(github.ref, 'refs/tags/')
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
