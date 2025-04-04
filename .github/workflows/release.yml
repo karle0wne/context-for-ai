@@ -8,8 +8,13 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
     name: Build and publish release
+    runs-on: ubuntu-latest
+
+    env:
+      ARCHIVE_NAME: context-for-ai
+      ARCHIVE_PATH: dist/context-for-ai
+      ARCHIVE_FILE: dist/context-for-ai.tar.gz
 
     steps:
       - name: 📥 Checkout project with tags
@@ -18,28 +23,25 @@ jobs:
           fetch-depth: 0
 
       - name: 🔍 Check binary exists
-        run: |
-          test -f bin/context-for-ai || (echo "❌ context-for-ai not found in bin/" && exit 1)
+        run: test -f bin/context-for-ai
 
-      - name: 📁 Prepare archive content
+      - name: 📁 Prepare archive contents
         run: |
-          chmod +x bin/context-for-ai 
-          mkdir -p dist/context-for-ai
-          cp -r bin LICENSE README.md Formula install.sh dist/context-for-ai/
+          chmod +x bin/context-for-ai
+          mkdir -p ${{ env.ARCHIVE_PATH }}
+          cp -r bin LICENSE README.md Formula install.sh ${{ env.ARCHIVE_PATH }}
 
       - name: 📦 Create archive
-        run: |
-          tar -czf dist/context-for-ai.tar.gz -C dist context-for-ai
+        run: tar -czf ${{ env.ARCHIVE_FILE }} -C dist context-for-ai
 
       - name: 🧮 Calculate SHA256
         id: sha
         run: |
-          SHA=$(shasum -a 256 dist/context-for-ai.tar.gz | awk '{print $1}')
+          SHA=$(shasum -a 256 ${{ env.ARCHIVE_FILE }} | awk '{print $1}')
           echo "sha256=$SHA" >> "$GITHUB_OUTPUT"
 
       - name: 🧾 Update Homebrew formula
         run: |
-          mkdir -p dist
           sed "s|PUT_SHA256_HERE|${{ steps.sha.outputs.sha256 }}|g" Formula/context-for-ai.rb > dist/context-for-ai.rb
 
       - name: 📝 Generate changelog
@@ -51,11 +53,11 @@ jobs:
       - name: 🚀 Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          name: context-for-ai ${{ github.ref_name }}
+          name: ${{ env.ARCHIVE_NAME }} ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
           body_path: changelog.md
           files: |
-            dist/context-for-ai.tar.gz
+            ${{ env.ARCHIVE_FILE }}
             dist/context-for-ai.rb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
