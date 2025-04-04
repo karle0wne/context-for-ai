@@ -20,7 +20,7 @@ jobs:
       - name: 🧮 Get latest tag
         id: get_tag
         run: |
-          latest=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")
+          latest=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
           echo "latest=$latest" >> $GITHUB_OUTPUT
 
       - name: 🔢 Bump patch version
