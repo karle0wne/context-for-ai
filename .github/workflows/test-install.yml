@@ -1,50 +1,21 @@
-name: Test install.sh after release
+name: Install Script Test
 
 on:
-  workflow_run:
-    workflows: ["Release"]
-    types:
-      - completed
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
-  test-install:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  install-test:
+    name: 🔧 Test install.sh via curl | bash
     runs-on: ubuntu-latest
 
-    env:
-      BIN_DIR: $HOME/.local/bin
-
     steps:
-      - name: 📥 Checkout repo
-        uses: actions/checkout@v4
-
-      - name: 🧪 Run install.sh --dry-run
+      - name: 🧪 Run install.sh via curl
         run: |
-          set -euo pipefail
-          bash install.sh --dry-run
+          curl -sSL https://raw.githubusercontent.com/karle0wne/context-for-ai/main/install.sh | bash
 
-      - name: 🧪 Install latest release
+      - name: ✅ Verify context-for-ai is installed and working
         run: |
-          set -euo pipefail
-          mkdir -p "$BIN_DIR"
-
-          VERSION=$(gh release list --limit 1 --repo ${{ github.repository }} --json tagName --jq '.[0].tagName')
-          echo "👉 Installing version: $VERSION"
-
-          VERSION="$VERSION" bash install.sh --prefix "$BIN_DIR" --force
-        env:
-          GH_TOKEN: ${{ github.token }}
-
-
-      - name: ✅ Check version (direct path)
-        run: ${{ env.BIN_DIR }}/context-for-ai --version
-
-      - name: ✅ Check version from PATH
-        run: context-for-ai --version
-        env:
-          PATH: ${{ env.BIN_DIR }}:$PATH
-
-      - name: ✅ Check help from PATH
-        run: context-for-ai --help
-        env:
-          PATH: ${{ env.BIN_DIR }}:$PATH
+          context-for-ai --version

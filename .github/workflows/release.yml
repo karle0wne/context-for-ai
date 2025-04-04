@@ -12,6 +12,10 @@ on:
           - patch
           - minor
           - major
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
   release:
