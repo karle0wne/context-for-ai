@@ -81,16 +81,17 @@ jobs:
 
       - name: 🧪 Generate Homebrew Formula
         run: |
-          VERSION=${{ steps.next_tag.outputs.tag }}
+          VERSION_RAW=${{ steps.next_tag.outputs.tag }}        
+          VERSION_NO_PREFIX=${VERSION_RAW#v}                  
           SHA=${{ steps.sha.outputs.sha256 }}
           cat > dist/context-for-ai.rb <<EOF
           class ContextForAi < Formula
             desc "CLI tool to describe your project and generate structured AI prompts"
             homepage "https://github.com/karle0wne/context-for-ai"
-            url "https://github.com/karle0wne/context-for-ai/releases/download/$VERSION/context-for-ai.tar.gz"
+            url "https://github.com/karle0wne/context-for-ai/releases/download/$VERSION_RAW/context-for-ai.tar.gz"
             sha256 "$SHA"
             license "MIT"
-            version "$VERSION"
+            version "$VERSION_NO_PREFIX"
 
             def install
               bin.install "bin/context-for-ai"
