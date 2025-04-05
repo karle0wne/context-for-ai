@@ -1,10 +1,10 @@
 name: Test Install Script
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
 
 jobs:
   install-script-test:
