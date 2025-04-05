@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="1.0.0"
+VERSION="VERSION_PLACEHOLDER"
 
 show_help() {
   cat << EOF

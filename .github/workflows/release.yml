@@ -53,6 +53,11 @@ jobs:
           esac
           echo "tag=v$MAJOR.$MINOR.$PATCH" >> $GITHUB_OUTPUT
 
+      - name: 🧬 Inject version into CLI (sed)
+        run: |
+          VERSION=${{ steps.next_tag.outputs.tag }}
+          sed -i.bak "s/VERSION_PLACEHOLDER/$VERSION/" bin/context-for-ai
+
       - name: 🏷 Create and push tag
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
