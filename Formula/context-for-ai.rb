@@ -4,7 +4,6 @@ class ContextForAi < Formula
   url "https://github.com/karle0wne/context-for-ai/releases/download/REPLACE_ME_WITH_VERSION/context-for-ai.tar.gz"
   sha256 "REPLACE_ME_WITH_SHA"
   license "MIT"
-  version "REPLACE_ME_WITH_VERSION"
 
   def install
     bin.install "bin/context-for-ai"
