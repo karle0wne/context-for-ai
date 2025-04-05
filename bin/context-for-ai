@@ -24,7 +24,7 @@ EOF
 }
 
 if [[ "$1" == "--help" ]]; then show_help; fi
-if [[ "$1" == "--version" ]]; then echo "context-for-ai v$VERSION"; exit 0; fi
+if [[ "$1" == "--version" ]]; then echo "context-for-ai $VERSION"; exit 0; fi
 
 # === Auto-install tree if needed ===
 if ! command -v tree &> /dev/null; then
@@ -76,7 +76,7 @@ for ((i=1; i<=$#; i++)); do
   esac
 done
 
-echo "🔧 context-for-ai v$VERSION"
+echo "🔧 context-for-ai $VERSION"
 
 # === Defaults ===
 EXTENSIONS=("kt" "java")
