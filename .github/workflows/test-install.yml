@@ -1,4 +1,4 @@
-name: Install Script Test
+name: Test Install Script
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  install-test:
+  install-script-test:
     name: 🔧 Test install.sh via curl | bash
     runs-on: ubuntu-latest
 

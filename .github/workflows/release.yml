@@ -79,9 +79,28 @@ jobs:
           SHA=$(shasum -a 256 ${{ env.ARCHIVE_FILE }} | awk '{print $1}')
           echo "sha256=$SHA" >> "$GITHUB_OUTPUT"
 
-      - name: 🧾 Update Homebrew formula
+      - name: 🧪 Generate Homebrew Formula
         run: |
-          sed "s|PUT_SHA256_HERE|${{ steps.sha.outputs.sha256 }}|g" Formula/context-for-ai.rb > dist/context-for-ai.rb
+          VERSION=${{ steps.next_tag.outputs.tag }}
+          SHA=${{ steps.sha.outputs.sha256 }}
+          cat > dist/context-for-ai.rb <<EOF
+          class ContextForAi < Formula
+            desc "CLI tool to describe your project and generate structured AI prompts"
+            homepage "https://github.com/karle0wne/context-for-ai"
+            url "https://github.com/karle0wne/context-for-ai/releases/download/$VERSION/context-for-ai.tar.gz"
+            sha256 "$SHA"
+            license "MIT"
+            version "$VERSION"
+
+            def install
+              bin.install "bin/context-for-ai"
+            end
+
+            test do
+              assert_match version.to_s, shell_output("\#{bin}/context-for-ai --version")
+            end
+          end
+          EOF
 
       - name: 📝 Generate changelog
         run: |
@@ -107,15 +126,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: ☁️ Push updated formula to Homebrew tap
+      - name: 📬 Update Homebrew tap
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git clone https://x-access-token:${GH_PAT}@github.com/karle0wne/homebrew-tap.git
-          cp dist/context-for-ai.rb homebrew-tap/Formula/context-for-ai.rb
           cd homebrew-tap
+          cp ../dist/context-for-ai.rb Formula/context-for-ai.rb
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add Formula/context-for-ai.rb
-          git commit -m "Update formula for context-for-ai ${{ steps.next_tag.outputs.tag }}"
+          git commit -m "Update context-for-ai formula to ${{ steps.next_tag.outputs.tag }}"
           git push origin main
