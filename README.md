@@ -1,4 +1,4 @@
-# 🤖 context-for-ai
+## 🤖 context-for-ai
 
 **context-for-ai** is a CLI tool that generates a clean, structured Markdown snapshot of your source code project — ideal for providing full context to AI systems, documentation tools, or just for human understanding.
 
@@ -9,7 +9,7 @@
 - 📂 Pretty directory tree
 - 📄 Source code blocks (partial or full)
 - 📊 Project stats (file count, lines)
-- 🧾 Extra files like `pom.xml`, `application.yml`, etc.
+- 🗞 Extra files like `pom.xml`, `application.yml`, etc.
 - 💬 Custom task prompt for AI agents
 - 🛠 Interactive or one-shot CLI
 - 🧱 Easy Homebrew install (`brew install`)
@@ -22,18 +22,18 @@
 ### 📥 Via Homebrew (recommended)
 
 ```bash
-brew tap karle0wne/tap
+brew tap karle0wne/homebrew-tap
 brew install context-for-ai
 ```
 
-### Or install directly
+### 📥 Or install directly
 
 ```bash
 brew install --no-quarantine \
   https://raw.githubusercontent.com/karle0wne/homebrew-tap/main/Formula/context-for-ai.rb
 ```
 
-### Or run from source
+### 🧪 Or run from source
 
 ```bash
 git clone https://github.com/karle0wne/context-for-ai.git
@@ -41,6 +41,17 @@ cd context-for-ai
 chmod +x bin/context-for-ai
 ./bin/context-for-ai --version
 ```
+
+### 🌀 Or install via curl
+
+```bash
+curl -sSL https://raw.githubusercontent.com/karle0wne/context-for-ai/main/install.sh | bash
+```
+
+Optional flags:
+- `--prefix /some/path` – custom install path (default: `/usr/local/bin`)
+- `--force` – overwrite if already installed
+- `--dry-run` – show what will happen, but don’t execute
 
 ---
 
@@ -52,7 +63,7 @@ chmod +x bin/context-for-ai
 context-for-ai --default
 ```
 
-Includes `.kt` and `.java` files, the first 40 lines of each, and standard config files.
+Includes: `.kt`, `.java`, `.xml` files, first 40 lines each, plus common configs (`pom.xml`, `application.yml`, etc).
 
 ### Full content mode
 
@@ -80,12 +91,6 @@ Guided selection of file types, extras, and line limits.
 
 ---
 
-## 🧪 Example Output
-
-See [`examples/sample-output.md`](examples/sample-output.md)
-
----
-
 ## 📁 Output
 
 Generates `project_description.md` with the following sections:
@@ -101,17 +106,19 @@ Generates `project_description.md` with the following sections:
 
 ## 🛠 CLI options
 
-```bash
-context-for-ai --help
-```
-
-```
+```text
 Usage:
   context-for-ai [--default] [--all] [--ask "your question"]
   context-for-ai --interactive
   context-for-ai --version
   context-for-ai --help
 ```
+
+---
+
+## 🥪 Example Output
+
+See [sample output](https://github.com/karle0wne/context-for-ai/blob/main/examples/sample-output.md)
 
 ---
 
@@ -128,14 +135,3 @@ Usage:
 - Code reviews and refactoring
 - Architecture mapping
 - Internal documentation
-
-### 🧪 Install without Homebrew
-
-```bash
-curl -sSL https://raw.githubusercontent.com/karle0wne/context-for-ai/main/install.sh | bash
-```
-
-Optional flags:
-- `--prefix /some/path` – custom install path (default: `/usr/local/bin`)
-- `--force` – overwrite if already installed
-- `--dry-run` – show what will happen, but don’t execute

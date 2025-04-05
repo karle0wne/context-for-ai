@@ -9,6 +9,7 @@ on:
 jobs:
   homebrew-formula-test:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: 🔧 Test ../homebrew-tap/context-for-ai
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
