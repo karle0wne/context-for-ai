@@ -1,5 +1,7 @@
 
 FILE: ./src/main/java/dev/vality/disputes/DisputesApiApplication.java
+MD5:  43f3efb77ccabd0dbed189d78b3403e0
+SHA1: 16066af55403b2ab7485d3c51ef0f20be3cd39c1
 package dev.vality.disputes;
 
 import org.springframework.boot.SpringApplication;
@@ -20,7 +22,10 @@ public class DisputesApiApplication extends SpringApplication {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/admin/callback/CallbackNotifier.java
+MD5:  1c8c01f51ba8391998510c416c0a8626
+SHA1: 6cfe3ca574a047922a32ee0c06dab04095914b26
 package dev.vality.disputes.admin.callback;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -35,7 +40,10 @@ public interface CallbackNotifier {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/admin/callback/DisputesTgBotCallbackNotifierImpl.java
+MD5:  867d556c1a9a9feb1d4325792e135df1
+SHA1: 4ff2546e38c7756235fc98c8845295096865f1ae
 package dev.vality.disputes.admin.callback;
 
 import dev.vality.disputes.admin.DisputeAlreadyCreated;
@@ -86,7 +94,10 @@ public class DisputesTgBotCallbackNotifierImpl implements CallbackNotifier {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/admin/callback/DummyCallbackNotifierImpl.java
+MD5:  729d486c8f827e107defac3b3d0b165d
+SHA1: b9c31fc069c15f7010bb5f9ba7001cfa6968eb08
 package dev.vality.disputes.admin.callback;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -119,7 +130,10 @@ public class DummyCallbackNotifierImpl implements CallbackNotifier {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/admin/management/AdminManagementDisputesService.java
+MD5:  5ee6d0cf9a61804c5c0d2178e0a44e17
+SHA1: 0c62301fab8fdd795e631026a80910280ed26ad5
 package dev.vality.disputes.admin.management;
 
 import dev.vality.adapter.flow.lib.model.PollingInfo;
@@ -308,7 +322,10 @@ public class AdminManagementDisputesService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/admin/management/AdminManagementHandler.java
+MD5:  fabb307e826656d5a302f655fa99a8e2
+SHA1: 602b8aa3e394410917f1c21cb8cf88439db43d2a
 package dev.vality.disputes.admin.management;
 
 import dev.vality.disputes.admin.*;
@@ -405,7 +422,10 @@ public class AdminManagementHandler implements AdminManagementServiceSrv.Iface {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/api/DisputesApiDelegate.java
+MD5:  9e77b943b6d4d7e960654c9fdf9c4a15
+SHA1: cde453d3d5e3053154c4d4b250f1b5ed4d326238
 package dev.vality.disputes.api;
 
 import dev.vality.swag.disputes.api.CreateApiDelegate;
@@ -431,7 +451,10 @@ public interface DisputesApiDelegate extends CreateApiDelegate, StatusApiDelegat
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/api/DisputesApiDelegateService.java
+MD5:  8cef921945edcafebb2a9ed7c992a321
+SHA1: ea729d2aa3b597703b903ff48c581dfd710b4378
 package dev.vality.disputes.api;
 
 import dev.vality.disputes.api.converter.Status200ResponseConverter;
@@ -494,7 +517,10 @@ public class DisputesApiDelegateService implements DisputesApiDelegate {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/api/controller/ErrorControllerAdvice.java
+MD5:  04e939e95b41bb7227007d41af44475e
+SHA1: 06aaa6a78ecce0218f790bd6d114ead3525dff4f
 package dev.vality.disputes.api.controller;
 
 import dev.vality.disputes.exception.AuthorizationException;
@@ -648,7 +674,10 @@ public class ErrorControllerAdvice {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/api/converter/DisputeConverter.java
+MD5:  34275386e7deb095d724bbf837844899
+SHA1: ecda88058a28ea56165719ca50344662dbd07e48
 package dev.vality.disputes.api.converter;
 
 import dev.vality.adapter.flow.lib.model.PollingInfo;
@@ -698,7 +727,10 @@ public class DisputeConverter {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/api/converter/Status200ResponseConverter.java
+MD5:  5bfbf20051735de70d1a4d1fbba7ea47
+SHA1: 1641ddd93b1201d8982fd10901e91ec2486ceffe
 package dev.vality.disputes.api.converter;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -737,7 +769,10 @@ public class Status200ResponseConverter {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/api/model/PaymentParams.java
+MD5:  e8bf8a87ed4533fdb9033a78243e06a5
+SHA1: 0c2c78fa1cb66d748d19e45afc9051d44ff39c3f
 package dev.vality.disputes.api.model;
 
 import lombok.Builder;
@@ -767,7 +802,10 @@ public class PaymentParams {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/api/service/ApiAttachmentsService.java
+MD5:  efe45dfe98ec48d351994a1f052c869b
+SHA1: 2eefba0ae0eee251640e6d6f946069bac96c0c7e
 package dev.vality.disputes.api.service;
 
 import dev.vality.disputes.dao.FileMetaDao;
@@ -803,7 +841,10 @@ public class ApiAttachmentsService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/api/service/ApiDisputesService.java
+MD5:  7111926a8d84ebc889caa856086f337a
+SHA1: 3c140849f2df7a548f928922892a0f956860041c
 package dev.vality.disputes.api.service;
 
 import dev.vality.disputes.api.converter.DisputeConverter;
@@ -886,7 +927,10 @@ public class ApiDisputesService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/api/service/ApiNotificationService.java
+MD5:  10d4fa98684f2cd6417384870a27cce6
+SHA1: 78fd6bcb33c63acac66c0ce8529164d7343a5ce5
 package dev.vality.disputes.api.service;
 
 import dev.vality.adapter.flow.lib.model.PollingInfo;
@@ -933,7 +977,10 @@ public class ApiNotificationService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/api/service/PaymentParamsBuilder.java
+MD5:  5db90e04acfeee1c099485bc2d135ad9
+SHA1: 0ecccd93a6f47b108690756740a25fa0e27911b8
 package dev.vality.disputes.api.service;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -993,7 +1040,10 @@ public class PaymentParamsBuilder {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/AccessConfig.java
+MD5:  7452e730d889376d20a932c332ae8313
+SHA1: 3d439d36613b6ce9fb20195e29c3c58b22f5e2d9
 package dev.vality.disputes.config;
 
 import dev.vality.bouncer.decisions.ArbiterSrv;
@@ -1030,7 +1080,10 @@ public class AccessConfig {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/ApplicationConfig.java
+MD5:  54daba6d3794c294f19e46410741ec93
+SHA1: db34953d2fff7bede6f2ddc55a0134e7e180d139
 package dev.vality.disputes.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -1081,7 +1134,10 @@ public class ApplicationConfig {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/AsyncMdcConfiguration.java
+MD5:  41e1f849470863b533d4c17919cdc67d
+SHA1: 2152de5bf9267484da528db56ce508c8a0936a84
 package dev.vality.disputes.config;
 
 import dev.vality.disputes.config.properties.AsyncProperties;
@@ -1113,7 +1169,10 @@ public class AsyncMdcConfiguration {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/CacheConfig.java
+MD5:  f0e72848128295832cdd48fbfc7d3882
+SHA1: d4cdad1c49f6bafe9896e01b21216e4f010750b2
 package dev.vality.disputes.config;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -1200,7 +1259,10 @@ public class CacheConfig {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/DominantConfig.java
+MD5:  c72581f46d45087c25c648a965646b4a
+SHA1: 3172883e2ffb208b6412fed92c7cdadf06c7343d
 package dev.vality.disputes.config;
 
 import dev.vality.damsel.domain_config.RepositoryClientSrv;
@@ -1226,7 +1288,10 @@ public class DominantConfig {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/FileStorageConfig.java
+MD5:  68d3a383fb0cf7c904a4c680e15dd584
+SHA1: 1dfa830ad78b8330b4446fa63b36b0a554938050
 package dev.vality.disputes.config;
 
 import dev.vality.file.storage.FileStorageSrv;
@@ -1252,7 +1317,10 @@ public class FileStorageConfig {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/HellgateConfig.java
+MD5:  62cea8ae2262952d6b9d5a4313bfd8bd
+SHA1: 24b644bf60ee95596511a6e02330cf5cbe11719f
 package dev.vality.disputes.config;
 
 import dev.vality.damsel.payment_processing.InvoicingSrv;
@@ -1278,7 +1346,10 @@ public class HellgateConfig {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/HttpClientConfig.java
+MD5:  ff7d185530ad982a61654f05f7708fcc
+SHA1: d01a6f2b6948902a0f5965fc522ee3c97718dfca
 package dev.vality.disputes.config;
 
 import dev.vality.disputes.config.properties.HttpClientProperties;
@@ -1350,7 +1421,10 @@ public class HttpClientConfig {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/NetworkConfig.java
+MD5:  a15542b4326fb9b452ee16b942db274d
+SHA1: acb4dd3f8774766f8f5a120d9de2ffbbf91c1f33
 package dev.vality.disputes.config;
 
 import dev.vality.woody.api.flow.WFlow;
@@ -1440,7 +1514,10 @@ public class NetworkConfig {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/OtelConfig.java
+MD5:  bd2a7ee2898e3ee06af9aa48d2ea0473
+SHA1: fa2daa0e24291b92fd33b5228c9a1c8b5e6d90ca
 package dev.vality.disputes.config;
 
 import dev.vality.disputes.config.properties.OtelProperties;
@@ -1512,7 +1589,10 @@ public class OtelConfig {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/PartyManagementConfig.java
+MD5:  333cb2cf6601643968fa1cd109273084
+SHA1: 15748b1f9580e5a4c5abc59646af70acadc1eaa5
 package dev.vality.disputes.config;
 
 import dev.vality.damsel.payment_processing.PartyManagementSrv;
@@ -1538,7 +1618,10 @@ public class PartyManagementConfig {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/TgBotConfig.java
+MD5:  75b2aea69e9c25adbdf767c922b54e01
+SHA1: b8bd2f8c8a2167f5dcc3e2cd8719b3067e62394b
 package dev.vality.disputes.config;
 
 import dev.vality.disputes.admin.AdminCallbackServiceSrv;
@@ -1575,7 +1658,10 @@ public class TgBotConfig {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/properties/AdaptersConnectionProperties.java
+MD5:  a0d29f5dabcef05aff9cba8ede324485
+SHA1: d05c034416111ab4da57d5f7b4b89495b3912c70
 package dev.vality.disputes.config.properties;
 
 import lombok.Getter;
@@ -1602,7 +1688,10 @@ public class AdaptersConnectionProperties {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/properties/AsyncProperties.java
+MD5:  b784acd63f9ccf5950719e83e544feff
+SHA1: 0d6a86baa997a5a0f67ceb6e2611cad52b9e1e1b
 package dev.vality.disputes.config.properties;
 
 import lombok.Getter;
@@ -1628,7 +1717,10 @@ public class AsyncProperties {
     private Integer queueCapacity;
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/properties/BouncerProperties.java
+MD5:  5488442ae648291a028be9ac608dd0a8
+SHA1: 3da364b4e07ec1f61f09f7df5b7ea16b61ba17c1
 package dev.vality.disputes.config.properties;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -1654,7 +1746,10 @@ public class BouncerProperties {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/properties/DisputesTimerProperties.java
+MD5:  7331aa845992517a8cee1aee92597afb
+SHA1: bf7e80775efcd69655cfd04688efcc2b222b8243
 package dev.vality.disputes.config.properties;
 
 import lombok.Getter;
@@ -1677,7 +1772,10 @@ public class DisputesTimerProperties {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/properties/DominantCacheProperties.java
+MD5:  3b1a99b2f581c6023d83ffaba60a27d8
+SHA1: fe2c438ba52b35c11f3afc4b8be9ff729e0a94e1
 package dev.vality.disputes.config.properties;
 
 import lombok.Getter;
@@ -1708,7 +1806,10 @@ public class DominantCacheProperties {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/properties/FileStorageProperties.java
+MD5:  e0547799675fb89c81d390f0dfa50b52
+SHA1: 287bf0c3be7db2e03f7d7b5240fed4bfe486511d
 package dev.vality.disputes.config.properties;
 
 import lombok.Getter;
@@ -1734,7 +1835,10 @@ public class FileStorageProperties {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/properties/HttpClientProperties.java
+MD5:  8234203a588fbf5af6af761a4f9d9c53
+SHA1: 242c6bd3caa1335f1a8bfd633c42b22d2dfae052
 package dev.vality.disputes.config.properties;
 
 import jakarta.validation.constraints.NotNull;
@@ -1764,7 +1868,10 @@ public class HttpClientProperties {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/config/properties/OtelProperties.java
+MD5:  39d5b97350e8aa79902decf45cd4c3f6
+SHA1: 8646dfb073256693cb8d585c4294b4bb87ff8c72
 package dev.vality.disputes.config.properties;
 
 import lombok.Getter;
@@ -1783,7 +1890,10 @@ public class OtelProperties {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/constant/ErrorMessage.java
+MD5:  e10f05560d67228590b2f8d7494cf885
+SHA1: 0aedd3a15509d79d437488186919ba2a04569210
 package dev.vality.disputes.constant;
 
 public class ErrorMessage {
@@ -1798,7 +1908,10 @@ public class ErrorMessage {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/constant/ModerationPrefix.java
+MD5:  d5051ed133d8e394633e3edc5ef7cad3
+SHA1: 64b09ad8cd9dcd2cddeffc7116ddba7eccc57e4a
 package dev.vality.disputes.constant;
 
 public class ModerationPrefix {
@@ -1807,7 +1920,10 @@ public class ModerationPrefix {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/constant/TerminalOptionsField.java
+MD5:  51c878d9214ad3efcf0e1ea696ebbba3
+SHA1: 8c929b584fa70be0582d3f223194a834ed7b9190
 package dev.vality.disputes.constant;
 
 import lombok.NoArgsConstructor;
@@ -1820,7 +1936,10 @@ public class TerminalOptionsField {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/dao/DisputeDao.java
+MD5:  012409d4c82e3bdcf0543442d7d85931
+SHA1: f0d9c54446aac8ec661487a6c885c4a2aceaa7f5
 package dev.vality.disputes.dao;
 
 import dev.vality.dao.impl.AbstractGenericDao;
@@ -1999,7 +2118,10 @@ public class DisputeDao extends AbstractGenericDao {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/dao/FileMetaDao.java
+MD5:  d20d0fe2d247462a98937da6c1f67a3e
+SHA1: 869c87ae03df8c7c15879fa2aa64f8bc99bf4c7f
 package dev.vality.disputes.dao;
 
 import dev.vality.dao.impl.AbstractGenericDao;
@@ -2048,7 +2170,10 @@ public class FileMetaDao extends AbstractGenericDao {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/dao/NotificationDao.java
+MD5:  f8335da2ea63997634f140ad3cec7584
+SHA1: 8bf520dd8057aff2fba75c74541c369b3dfc28bc
 package dev.vality.disputes.dao;
 
 import dev.vality.dao.impl.AbstractGenericDao;
@@ -2170,7 +2295,10 @@ public class NotificationDao extends AbstractGenericDao {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/dao/ProviderDisputeDao.java
+MD5:  380ce353a6ea1c387fc766a4b335c881
+SHA1: d526d5b9dc8c86339b46c31068fff908608abee5
 package dev.vality.disputes.dao;
 
 import dev.vality.dao.impl.AbstractGenericDao;
@@ -2224,7 +2352,10 @@ public class ProviderDisputeDao extends AbstractGenericDao {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/dao/mapper/NotifyRequestMapper.java
+MD5:  fa843563ee9e95db391dad8110344d6a
+SHA1: f50a37e8257424f9ca3b13a23609da3ace9640b1
 package dev.vality.disputes.dao.mapper;
 
 import dev.vality.disputes.domain.enums.DisputeStatus;
@@ -2265,7 +2396,10 @@ public class NotifyRequestMapper implements RowMapper<NotifyRequest> {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/AuthorizationException.java
+MD5:  2ebd07507c595c2be1d2a29d267a64c3
+SHA1: ddee0ed97b822a262ce1d54ea1c59e5d3bc4c1f5
 package dev.vality.disputes.exception;
 
 public class AuthorizationException extends RuntimeException {
@@ -2276,7 +2410,10 @@ public class AuthorizationException extends RuntimeException {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/BouncerException.java
+MD5:  1d0d4231fa9d61698ea4923534722690
+SHA1: 243516c384204c297d7d23b3c0ff0aed5509ae00
 package dev.vality.disputes.exception;
 
 public class BouncerException extends RuntimeException {
@@ -2290,7 +2427,10 @@ public class BouncerException extends RuntimeException {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/CapturedPaymentException.java
+MD5:  0789e7d9c6a87ede411c16a6c8ab009f
+SHA1: 7c90c59ebe6c5f3688d468a214d0ffc90105a963
 package dev.vality.disputes.exception;
 
 import dev.vality.damsel.domain.InvoicePaymentCaptured;
@@ -2309,13 +2449,19 @@ public class CapturedPaymentException extends InvoicingPaymentStatusRestrictions
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/DisputeStatusWasUpdatedByAnotherThreadException.java
+MD5:  efca1634b9f808005ff2dc1d94886d0a
+SHA1: 546490faf769830fee3e2a3761f478f526c5f7a2
 package dev.vality.disputes.exception;
 
 public class DisputeStatusWasUpdatedByAnotherThreadException extends RuntimeException {
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/DominantException.java
+MD5:  dcfd30ce367a4ba8f1ee660381bdd8e3
+SHA1: a8b0bb8a8680d1b4e8d7f341a59da0d4247a9467
 package dev.vality.disputes.exception;
 
 public class DominantException extends RuntimeException {
@@ -2325,7 +2471,10 @@ public class DominantException extends RuntimeException {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/FileStorageException.java
+MD5:  df33f952976e62d3de63a3632de2742a
+SHA1: db2d9be8fe42e0ed0064acbbf43864f6f0a1fefd
 package dev.vality.disputes.exception;
 
 public class FileStorageException extends RuntimeException {
@@ -2335,14 +2484,20 @@ public class FileStorageException extends RuntimeException {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/InvoicePaymentAdjustmentPendingException.java
+MD5:  714b30f9b2aa291b5e1e5ae4e5580148
+SHA1: 18e905d8a300b146fd0f0f195581d556e743ccaa
 package dev.vality.disputes.exception;
 
 public class InvoicePaymentAdjustmentPendingException extends RuntimeException {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/InvoicingException.java
+MD5:  e309f46ac87c2c464aa508422dbd72bb
+SHA1: 962e3b8b535c8238d7cf9ebbec91384fda95db74
 package dev.vality.disputes.exception;
 
 public class InvoicingException extends RuntimeException {
@@ -2352,7 +2507,10 @@ public class InvoicingException extends RuntimeException {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/InvoicingPaymentStatusRestrictionsException.java
+MD5:  d7e4208ec5c0d3b2fce79489b9ff3e34
+SHA1: 951d61b9bb0e61d729ff79a2c327aacd6abcdef9
 package dev.vality.disputes.exception;
 
 import dev.vality.damsel.domain.InvoicePaymentStatus;
@@ -2373,7 +2531,10 @@ public class InvoicingPaymentStatusRestrictionsException extends RuntimeExceptio
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/NotFoundException.java
+MD5:  d1e7edcdc7b7ddb46c4442d6bb2a61fc
+SHA1: c4ee8a11b0b80d5ba18441b7221ab317dfbd19b4
 package dev.vality.disputes.exception;
 
 import lombok.Getter;
@@ -2412,7 +2573,10 @@ public class NotFoundException extends RuntimeException {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/NotificationNotFinalStatusException.java
+MD5:  9260cd4c069289e76a792b1b4bd0d310
+SHA1: abb776782eb33165e20994c38cb66d6dc5cb57a7
 package dev.vality.disputes.exception;
 
 public class NotificationNotFinalStatusException extends RuntimeException {
@@ -2422,13 +2586,19 @@ public class NotificationNotFinalStatusException extends RuntimeException {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/NotificationStatusWasUpdatedByAnotherThreadException.java
+MD5:  3963108551ab8caf8d7d4ab83351246e
+SHA1: 845b90b374c9a787db1bc35c1171861d5cef89dc
 package dev.vality.disputes.exception;
 
 public class NotificationStatusWasUpdatedByAnotherThreadException extends RuntimeException {
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/PartyException.java
+MD5:  93a97fc4ba9e347fb9c668e08a3d7375
+SHA1: d0c254bf311fee4c3a43d6f0d2425d9658a194f1
 package dev.vality.disputes.exception;
 
 public class PartyException extends RuntimeException {
@@ -2438,7 +2608,10 @@ public class PartyException extends RuntimeException {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/PoolingExpiredException.java
+MD5:  9a38cab554663666d7264cfa4e64021e
+SHA1: 588e1ef3361981177e886df95b3d9c66ca2c7b84
 package dev.vality.disputes.exception;
 
 public class PoolingExpiredException extends RuntimeException {
@@ -2447,7 +2620,10 @@ public class PoolingExpiredException extends RuntimeException {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/RoutingException.java
+MD5:  6d5d8939ecb3232cf21d043d4aeb2662
+SHA1: be206a65a751791566e452a370702993aa85ad9c
 package dev.vality.disputes.exception;
 
 public class RoutingException extends RuntimeException {
@@ -2457,7 +2633,10 @@ public class RoutingException extends RuntimeException {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/exception/TokenKeeperException.java
+MD5:  e1a7ca85a93bd34c879289cda8d4f6d9
+SHA1: c690d0560df16ae770fc32f8d052ed9340a60f15
 package dev.vality.disputes.exception;
 
 public class TokenKeeperException extends RuntimeException {
@@ -2471,7 +2650,10 @@ public class TokenKeeperException extends RuntimeException {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/flow/DisputesStepResolver.java
+MD5:  49f9d00dd62d4f2c7dfe1b1e6c3aa263
+SHA1: 318d99900535dfea0ba0c7377fdb626bd45a7846
 package dev.vality.disputes.flow;
 
 import dev.vality.damsel.domain.Failure;
@@ -2627,7 +2809,10 @@ public class DisputesStepResolver {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/merchant/MerchantDisputesHandler.java
+MD5:  f3653a2ae6eec958bf09a14fc194bd5d
+SHA1: e17b501715ddeaf527c8760ed082843261a15e01
 package dev.vality.disputes.merchant;
 
 import dev.vality.disputes.api.DisputesApiDelegate;
@@ -2689,7 +2874,10 @@ public class MerchantDisputesHandler implements MerchantDisputesServiceSrv.Iface
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/merchant/converter/CreateRequestConverter.java
+MD5:  3d3279463617f017c77cefe21019aded
+SHA1: ed1d21203cc65b60d8b1d31a7f20e2ca730d1e76
 package dev.vality.disputes.merchant.converter;
 
 import dev.vality.disputes.merchant.DisputeParams;
@@ -2714,7 +2902,10 @@ public class CreateRequestConverter {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/polling/ExponentialBackOffPollingService.java
+MD5:  3b0176da19098e4358c2aeffab9f3832
+SHA1: 647c647eee7e53782ae0ff9fdd3ff43e263ad64f
 package dev.vality.disputes.polling;
 
 import dev.vality.adapter.flow.lib.model.PollingInfo;
@@ -2752,7 +2943,10 @@ public class ExponentialBackOffPollingService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/polling/ExponentialBackOffPollingServiceWrapper.java
+MD5:  49f9ab9d84202ca98f1da3ed750c0b5f
+SHA1: ddaeee572cd3d2703c4ace5ec16f5eb427195606
 package dev.vality.disputes.polling;
 
 import dev.vality.adapter.flow.lib.model.PollingInfo;
@@ -2801,7 +2995,10 @@ public class ExponentialBackOffPollingServiceWrapper {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/polling/PollingInfoService.java
+MD5:  f34c94b332b903e5875a6cb1b0285aa3
+SHA1: 385a668e973e603798f644adaab8abd7b18a3dcf
 package dev.vality.disputes.polling;
 
 import dev.vality.adapter.flow.lib.model.PollingInfo;
@@ -2872,7 +3069,10 @@ public class PollingInfoService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/polling/TimeOptionsExtractors.java
+MD5:  66f45d1f89559e4f6f6c67863d9d30ce
+SHA1: b45bc678bf240dc997796066cf2aca756ffdb030
 package dev.vality.disputes.polling;
 
 import lombok.AccessLevel;
@@ -2910,7 +3110,10 @@ public class TimeOptionsExtractors {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/callback/ProviderPaymentsCallbackHandler.java
+MD5:  2ff3fb6380100f5faf4079bcd2e525b7
+SHA1: 9b246f8933138e14cfaf9bc57311f3a1623a2b80
 package dev.vality.disputes.provider.payments.callback;
 
 import dev.vality.disputes.provider.payments.service.ProviderPaymentsService;
@@ -2946,7 +3149,10 @@ public class ProviderPaymentsCallbackHandler implements ProviderPaymentsCallback
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/client/ProviderPaymentsRemoteClient.java
+MD5:  6c9871e2b826b0c8634ae5bb2b5d240a
+SHA1: a8af23d86b2424a694928cc6621daff41456abbb
 package dev.vality.disputes.provider.payments.client;
 
 import dev.vality.damsel.domain.Currency;
@@ -2978,7 +3184,10 @@ public class ProviderPaymentsRemoteClient {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/converter/ProviderPaymentsToInvoicePaymentCapturedAdjustmentParamsConverter.java
+MD5:  8fb5266b9b01942b863a29ef751bbc15
+SHA1: fb50fafdd25d8b8cacbbaf5dd8bf7541a7da8dd1
 package dev.vality.disputes.provider.payments.converter;
 
 import dev.vality.damsel.domain.InvoicePaymentAdjustmentStatusChange;
@@ -3013,7 +3222,10 @@ public class ProviderPaymentsToInvoicePaymentCapturedAdjustmentParamsConverter {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/converter/ProviderPaymentsToInvoicePaymentCashFlowAdjustmentParamsConverter.java
+MD5:  9f58a9164ccdc354c2ab86368cc7e4d6
+SHA1: ee1f3dcd3fb9394b6683664b9d7c048c3bfbd438
 package dev.vality.disputes.provider.payments.converter;
 
 import dev.vality.damsel.domain.InvoicePaymentAdjustmentCashFlow;
@@ -3043,7 +3255,10 @@ public class ProviderPaymentsToInvoicePaymentCashFlowAdjustmentParamsConverter {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/converter/TransactionContextConverter.java
+MD5:  f54dffaa83576f4e5b38373154d39ca8
+SHA1: 78bfffa7c3b3c6b8bea327f3429f62bf74f6afb6
 package dev.vality.disputes.provider.payments.converter;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -3066,7 +3281,10 @@ public class TransactionContextConverter {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/dao/ProviderCallbackDao.java
+MD5:  167b9963d601b57feaccf9ceabae84c1
+SHA1: 5c99060254439a15331245ec655e87aeeaa1a71b
 package dev.vality.disputes.provider.payments.dao;
 
 import dev.vality.dao.impl.AbstractGenericDao;
@@ -3146,19 +3364,28 @@ public class ProviderCallbackDao extends AbstractGenericDao {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/exception/ProviderCallbackAlreadyExistException.java
+MD5:  dce778beaa9ca0c52cd1d183e1443c56
+SHA1: c7fb5411694082348ab3b4e5e0b32af1f893b6f1
 package dev.vality.disputes.provider.payments.exception;
 
 public class ProviderCallbackAlreadyExistException extends RuntimeException {
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/exception/ProviderCallbackStatusWasUpdatedByAnotherThreadException.java
+MD5:  98ee0b79a79cf915428be62b7d758a63
+SHA1: 759d04e00449ad91d0a57273b2dd6ba87a6098f5
 package dev.vality.disputes.provider.payments.exception;
 
 public class ProviderCallbackStatusWasUpdatedByAnotherThreadException extends RuntimeException {
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/exception/ProviderPaymentsUnexpectedPaymentStatus.java
+MD5:  271bb7c25afb7cc36296399ad8d38ae5
+SHA1: cffb97a028219bdac62814d73477f74dea59f8fa
 package dev.vality.disputes.provider.payments.exception;
 
 public class ProviderPaymentsUnexpectedPaymentStatus extends RuntimeException {
@@ -3168,7 +3395,10 @@ public class ProviderPaymentsUnexpectedPaymentStatus extends RuntimeException {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/handler/ProviderPaymentHandler.java
+MD5:  817129974070d3fcaa8072e1f57a45c1
+SHA1: 2484bdecf7dafc68618929eca8d50744a2acc6a6
 package dev.vality.disputes.provider.payments.handler;
 
 import dev.vality.disputes.domain.tables.pojos.ProviderCallback;
@@ -3204,7 +3434,10 @@ public class ProviderPaymentHandler {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/schedule/ProviderPaymentsTask.java
+MD5:  f39a36db85f939e8fe902c347896b02f
+SHA1: dcc427db1d5abb376c7050108226760b21213634
 package dev.vality.disputes.provider.payments.schedule;
 
 import dev.vality.disputes.domain.tables.pojos.ProviderCallback;
@@ -3256,7 +3489,10 @@ public class ProviderPaymentsTask {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/service/ProviderPaymentsAdjustmentExtractor.java
+MD5:  b3dce0570700d4cdf598859a62bab46c
+SHA1: 353207375b17960c1148736e2f3e2ab8888ec917
 package dev.vality.disputes.provider.payments.service;
 
 import dev.vality.damsel.domain.InvoicePaymentAdjustment;
@@ -3314,7 +3550,10 @@ public class ProviderPaymentsAdjustmentExtractor {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/service/ProviderPaymentsRouting.java
+MD5:  65f54ba5cd04064051c701f949260dbd
+SHA1: acb3008ee7ba294946051d1edb069c67e207ecc0
 package dev.vality.disputes.provider.payments.service;
 
 import dev.vality.disputes.exception.RoutingException;
@@ -3356,7 +3595,10 @@ public class ProviderPaymentsRouting {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/service/ProviderPaymentsService.java
+MD5:  85aaada4bccf31e123367017b1eb4ac9
+SHA1: 857c62d7ffa883c2a0dea0df3f0e40360872659e
 package dev.vality.disputes.provider.payments.service;
 
 import dev.vality.damsel.domain.Currency;
@@ -3594,7 +3836,10 @@ public class ProviderPaymentsService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/service/ProviderPaymentsThriftInterfaceBuilder.java
+MD5:  baece3da5da72a87025b1f0200d09625
+SHA1: b12d82dc25be65b145ad7116c68a64659ee6fa10
 package dev.vality.disputes.provider.payments.service;
 
 import dev.vality.disputes.config.properties.AdaptersConnectionProperties;
@@ -3626,7 +3871,10 @@ public class ProviderPaymentsThriftInterfaceBuilder {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/provider/payments/servlet/ProviderPaymentsCallbackServlet.java
+MD5:  72d012d40aac646f78289048e65c89ef
+SHA1: 102af9b320a66a8bb4111446e0e08f8d42e72b07
 package dev.vality.disputes.provider.payments.servlet;
 
 import dev.vality.provider.payments.ProviderPaymentsCallbackServiceSrv;
@@ -3658,7 +3906,10 @@ public class ProviderPaymentsCallbackServlet extends GenericServlet {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/CreatedDisputesTask.java
+MD5:  c83f4c9d823cac1b42c2d5432394721a
+SHA1: 95bba8f6a600d1475b45c69fe8dba9b1626fac25
 package dev.vality.disputes.schedule;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -3709,7 +3960,10 @@ public class CreatedDisputesTask {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/ForgottenDisputesTask.java
+MD5:  8511dfbf56a3a059a0c2fed43f581684
+SHA1: dd9003b300c15e4bf6390cc400509c32e421c8c1
 package dev.vality.disputes.schedule;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -3761,7 +4015,10 @@ public class ForgottenDisputesTask {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/NotificationTask.java
+MD5:  53ce28a61f176fc8bc9a088290fbfa67
+SHA1: 72ac6da32235c47dedea1f8f6fcfb22cd090869f
 package dev.vality.disputes.schedule;
 
 import dev.vality.disputes.schedule.core.NotificationService;
@@ -3812,7 +4069,10 @@ public class NotificationTask {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/PendingDisputesTask.java
+MD5:  b3a9b454bf09bf1307ed6f3f0a7ffdde
+SHA1: 36b907f2f526760b672ea8b4a111497f1a5f351b
 package dev.vality.disputes.schedule;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -3863,7 +4123,10 @@ public class PendingDisputesTask {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/catcher/WoodyRuntimeExceptionCatcher.java
+MD5:  5f2ab92b0afa8b2d8e896dab8f1b718b
+SHA1: 5a0726ad76945d58fd6fb9a7b035d599e3fa8b9f
 package dev.vality.disputes.schedule.catcher;
 
 import dev.vality.disputes.schedule.model.ProviderData;
@@ -3909,7 +4172,10 @@ public class WoodyRuntimeExceptionCatcher {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/client/DefaultRemoteClient.java
+MD5:  dc6fc8805b545532e0589fc367b47ac6
+SHA1: 22dd1327c9da89984edf1be79c648de4b05124e6
 package dev.vality.disputes.schedule.client;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -3929,7 +4195,10 @@ public interface DefaultRemoteClient {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/client/DisputesTgBotRemoteClientImpl.java
+MD5:  055d96744cb8260ca2b8c184b2e57e60
+SHA1: 32cc3371166561b02fd8561cd878acc4fa274f6a
 package dev.vality.disputes.schedule.client;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -3978,7 +4247,10 @@ public class DisputesTgBotRemoteClientImpl implements DefaultRemoteClient {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/client/DummyRemoteClientImpl.java
+MD5:  dc79fe81466fd74799e0e5483b9028a1
+SHA1: 18dd59460dcc60c456380ce90113e827004ba87e
 package dev.vality.disputes.schedule.client;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -4018,7 +4290,10 @@ public class DummyRemoteClientImpl implements DefaultRemoteClient {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/client/RemoteClient.java
+MD5:  345208d4deb3fed058ac5fa675226bbf
+SHA1: c77469811ec42da96dea706c8803cd9090ed253e
 package dev.vality.disputes.schedule.client;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -4077,7 +4352,10 @@ public class RemoteClient {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/converter/DisputeContextConverter.java
+MD5:  db5d23bc38c10f22a7e9c33ac9f44cbf
+SHA1: 57def95f36556ff438a99032ad80eb96a9d54984
 package dev.vality.disputes.schedule.converter;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -4107,7 +4385,10 @@ public class DisputeContextConverter {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/converter/DisputeCurrencyConverter.java
+MD5:  fd67fe0ecb8be71b7a68c5abab050c31
+SHA1: fd25bec0174123b123b13d0f0c738d6054fde3fd
 package dev.vality.disputes.schedule.converter;
 
 import dev.vality.damsel.domain.Currency;
@@ -4127,7 +4408,10 @@ public class DisputeCurrencyConverter {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/converter/DisputeParamsConverter.java
+MD5:  957cb2fed638e14cd176a64cc7064471
+SHA1: 3761d7bf0b0cec1240f833db0d657479de31cba0
 package dev.vality.disputes.schedule.converter;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -4172,7 +4456,10 @@ public class DisputeParamsConverter {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/core/CreatedDisputesService.java
+MD5:  ac6304578279ae0ee9ed01a3fa7cb5ab
+SHA1: 7661f4d2f1d1f5499a94d27b28cbbaf6afa214bc
 package dev.vality.disputes.schedule.core;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -4326,7 +4613,10 @@ public class CreatedDisputesService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/core/ForgottenDisputesService.java
+MD5:  9b64c3e3cf993b53ec8eab7bef24d91e
+SHA1: 42553b9a2f342434b7743cbabae7487eb9d2abc9
 package dev.vality.disputes.schedule.core;
 
 import dev.vality.disputes.constant.ErrorMessage;
@@ -4394,7 +4684,10 @@ public class ForgottenDisputesService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/core/NotificationService.java
+MD5:  5446837c514fd7926263e1edf2eb2164
+SHA1: 49bd79d417d167118868315dedc832fa72515b8b
 package dev.vality.disputes.schedule.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -4485,7 +4778,10 @@ public class NotificationService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/core/PendingDisputesService.java
+MD5:  a9bc35585986998bacfdc6e25bf1ef64
+SHA1: b0167e09002630c5ad7fddec70d13eccd2a8cd2b
 package dev.vality.disputes.schedule.core;
 
 import dev.vality.disputes.constant.ErrorMessage;
@@ -4592,7 +4888,10 @@ public class PendingDisputesService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/handler/CreatedDisputeHandler.java
+MD5:  6077e1f91c837b17bd895bc2374d8f99
+SHA1: a7561bb2e85ffafabbd7106da1bb0e21bc399a32
 package dev.vality.disputes.schedule.handler;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -4619,7 +4918,10 @@ public class CreatedDisputeHandler {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/handler/ForgottenDisputeHandler.java
+MD5:  7470a1f80c8c8ab201ab8f2bfe488dd9
+SHA1: c3622fd6c32f6bdfbbbbe086a208becd6d0f141a
 package dev.vality.disputes.schedule.handler;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -4646,7 +4948,10 @@ public class ForgottenDisputeHandler {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/handler/NotificationHandler.java
+MD5:  84188c2166055d0a07b08b3e502292f6
+SHA1: ba834dba7dda6c2ac2199ecb49dfc5e26c7da0f8
 package dev.vality.disputes.schedule.handler;
 
 import dev.vality.disputes.schedule.core.NotificationService;
@@ -4671,7 +4976,10 @@ public class NotificationHandler {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/handler/PendingDisputeHandler.java
+MD5:  1a8ea1e92ff5e1bd2dad3c3dbaeaa2ab
+SHA1: b76c1aff194896e5a10701ccbfe48bf21d69f6d0
 package dev.vality.disputes.schedule.handler;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -4698,7 +5006,10 @@ public class PendingDisputeHandler {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/model/ProviderData.java
+MD5:  275a6f313b21025d204554ae2ba95f52
+SHA1: 7d7fb04a9abcf75c097ae834a5a8736cc3bdf927
 package dev.vality.disputes.schedule.model;
 
 import lombok.Builder;
@@ -4716,7 +5027,10 @@ public class ProviderData {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/result/DisputeCreateResultHandler.java
+MD5:  f8335a76220ff38ddf2d169702143cf2
+SHA1: c5a45de88e09aede25775fee5be0a1773a8fc3dd
 package dev.vality.disputes.schedule.result;
 
 import dev.vality.disputes.admin.callback.CallbackNotifier;
@@ -4798,7 +5112,10 @@ public class DisputeCreateResultHandler {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/result/DisputeStatusResultHandler.java
+MD5:  f86a1b7b19fad7aa5581ff77ae7231f1
+SHA1: f87cb8147b318f4491d7652dc4658fae357056c3
 package dev.vality.disputes.schedule.result;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -4895,7 +5212,10 @@ public class DisputeStatusResultHandler {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/service/AttachmentsService.java
+MD5:  3296c4b0fab2082e9f475c375092440a
+SHA1: c6d590e9eaa159793be1f262c91ea92216aa010f
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.disputes.dao.FileMetaDao;
@@ -4931,7 +5251,10 @@ public class AttachmentsService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/service/ExternalGatewayChecker.java
+MD5:  bda739198540dd7c56719a682ea4cca1
+SHA1: 3dcdfc2cdd17e860c0a63f65a5eee2db465f5033
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.disputes.schedule.model.ProviderData;
@@ -4993,7 +5316,10 @@ public class ExternalGatewayChecker {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/service/ProviderDataService.java
+MD5:  852013d8d68d271b0086c725bfe6be53
+SHA1: 0cf16bbc31e02646adb78571ff9da470a6b3834d
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.damsel.domain.Currency;
@@ -5059,7 +5385,10 @@ public class ProviderDataService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/service/ProviderDisputesRouting.java
+MD5:  39b8b64bd8a2f6d6d3f61c1c6422f170
+SHA1: 321b0cd9ac64a02f958d4a0bbf7c948b546d2d6f
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.disputes.exception.RoutingException;
@@ -5101,7 +5430,10 @@ public class ProviderDisputesRouting {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/schedule/service/ProviderDisputesThriftInterfaceBuilder.java
+MD5:  60bd918d080d4931022cde35cbb67c81
+SHA1: 33f5d288e82d808b3dfc90a40cda0729522465b7
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.disputes.config.properties.AdaptersConnectionProperties;
@@ -5133,7 +5465,10 @@ public class ProviderDisputesThriftInterfaceBuilder {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/security/AccessData.java
+MD5:  88743282c871aaf6be264023da9c8bfb
+SHA1: 7127c0386518349e7b1414a2ff2957ad3357137c
 package dev.vality.disputes.security;
 
 import dev.vality.damsel.payment_processing.Invoice;
@@ -5156,7 +5491,10 @@ public class AccessData {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/security/AccessService.java
+MD5:  f57f9ec4685c7fcaf2713ff4ca1b3f5a
+SHA1: 336beea422fbd70274a6ef610e5100ec4e71ed31
 package dev.vality.disputes.security;
 
 import dev.vality.damsel.payment_processing.InvoicePayment;
@@ -5260,7 +5598,10 @@ public class AccessService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/security/BouncerContextFactory.java
+MD5:  27df3104a4ed28d503d80983ccb7c58a
+SHA1: c410fd3f91f8b37130da2876c4f692775276f274
 package dev.vality.disputes.security;
 
 import dev.vality.bouncer.context.v1.ContextFragment;
@@ -5326,7 +5667,10 @@ public class BouncerContextFactory {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/security/ContextFragmentName.java
+MD5:  85c3a90bc91bfea1b9e4f50d8ccaefe8
+SHA1: c6d3d9c7d41eb1ced4482bd883f4983e9650684d
 package dev.vality.disputes.security;
 
 import lombok.experimental.UtilityClass;
@@ -5339,7 +5683,10 @@ public class ContextFragmentName {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/security/converter/ContextFragmentV1ToContextFragmentConverter.java
+MD5:  f72aa1250e3d4ab151f6e1c0bcc64bec
+SHA1: cfc2be2e2589515d3309e976d4c602e22ee7cfa3
 package dev.vality.disputes.security.converter;
 
 import dev.vality.bouncer.ctx.ContextFragment;
@@ -5377,7 +5724,10 @@ public class ContextFragmentV1ToContextFragmentConverter {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/security/converter/PaymentProcessingInvoiceToBouncerInvoiceConverter.java
+MD5:  fb797e69d6ed4caffe7a40e2f025d7cb
+SHA1: e0944c5ce31ddd1b7174da1af6d7e82c55afaf79
 package dev.vality.disputes.security.converter;
 
 import dev.vality.bouncer.base.Entity;
@@ -5418,7 +5768,10 @@ implements Converter<Invoice, dev.vality.bouncer.context.v1.Invoice> {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/security/converter/PaymentProcessingInvoiceToCommonApiOperationConverter.java
+MD5:  e649d30c6de8b7833b26db65ba154639
+SHA1: 7fbe20650fd213bb5d33a445d36e5f604f132d9a
 package dev.vality.disputes.security.converter;
 
 import dev.vality.bouncer.base.Entity;
@@ -5448,7 +5801,10 @@ implements Converter<Invoice, dev.vality.bouncer.context.v1.ContextCommonAPI> {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/security/service/BouncerService.java
+MD5:  3c0b98e9eeb64c0b0829487e1432b458
+SHA1: d47f542d9b17979ca9fbfcc5501e974148f01beb
 package dev.vality.disputes.security.service;
 
 import dev.vality.bouncer.decisions.Resolution;
@@ -5460,7 +5816,10 @@ public interface BouncerService {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/security/service/TokenKeeperService.java
+MD5:  3f3f1e7078bd92c3ab86aa5cc114a74f
+SHA1: 96e327975c1d26ebd5a40f205f5fb2dabca27f78
 package dev.vality.disputes.security.service;
 
 import dev.vality.token.keeper.AuthData;
@@ -5471,7 +5830,10 @@ public interface TokenKeeperService {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/security/service/impl/BouncerServiceImpl.java
+MD5:  86e091311adfdbd8ba68d04acfa7c140
+SHA1: 9f3e509bbc64f48c7942678e35d5b185c9f1673d
 package dev.vality.disputes.security.service.impl;
 
 import dev.vality.bouncer.decisions.ArbiterSrv;
@@ -5513,7 +5875,10 @@ public class BouncerServiceImpl implements BouncerService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/security/service/impl/TokenKeeperServiceImpl.java
+MD5:  b3094fd61baa7f6b31211e9b4e0677d0
+SHA1: 5d44a51f9aabb2c9906e5c3d040ad5c5b8512c22
 package dev.vality.disputes.security.service.impl;
 
 import dev.vality.disputes.exception.TokenKeeperException;
@@ -5563,7 +5928,10 @@ public class TokenKeeperServiceImpl implements TokenKeeperService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/DisputesService.java
+MD5:  bf764a1980d7f4df34cdc1514420a662
+SHA1: c0f7489cdba6730d72b44cb89ebdb8376dae7fd5
 package dev.vality.disputes.service;
 
 import dev.vality.damsel.domain.Failure;
@@ -5741,7 +6109,10 @@ public class DisputesService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/MdcTaskDecorator.java
+MD5:  e394aae29694cab7fa22e23b1fa4c2cd
+SHA1: a86c5509668a4bac18809a324a408352acefd3c3
 package dev.vality.disputes.service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -5767,7 +6138,10 @@ public class MdcTaskDecorator implements TaskDecorator {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/external/DisputesTgBotService.java
+MD5:  83e28b1b6502d87e776a20ed84f331aa
+SHA1: a2f325df6ff98257c4f82b8f4eaf43c7becffc9b
 package dev.vality.disputes.service.external;
 
 import dev.vality.disputes.admin.DisputeAlreadyCreated;
@@ -5788,7 +6162,10 @@ public interface DisputesTgBotService {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/external/DominantService.java
+MD5:  179d5def74406500dfbcb50490bf6efa
+SHA1: d589751532c848e2b192b6d8682dbb3ea6eaf685
 package dev.vality.disputes.service.external;
 
 import dev.vality.damsel.domain.*;
@@ -5805,7 +6182,10 @@ public interface DominantService {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/external/FileStorageService.java
+MD5:  28e6d4f105f77ea33162d6ffb530feb7
+SHA1: abe1623c59345b4147174b3597e664492c503630
 package dev.vality.disputes.service.external;
 
 public interface FileStorageService {
@@ -5816,7 +6196,10 @@ public interface FileStorageService {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/external/InvoicingService.java
+MD5:  b369c2ec263ef0412acda2af596e8f28
+SHA1: bba684f8f3bab79fdbf3e6c1b5f40aa0b97f48c3
 package dev.vality.disputes.service.external;
 
 import dev.vality.damsel.payment_processing.Invoice;
@@ -5836,7 +6219,10 @@ public interface InvoicingService {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/external/PartyManagementService.java
+MD5:  e24e5ab1f79ce9dc8068cfd2461854b7
+SHA1: f4ab2a9cdf59559a3dca66fad83dc9a16dd9a38b
 package dev.vality.disputes.service.external;
 
 import dev.vality.damsel.domain.Shop;
@@ -5847,7 +6233,10 @@ public interface PartyManagementService {
 
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/external/impl/DisputesTgBotServiceImpl.java
+MD5:  aa4725953767b17e3123f2c232e2810b
+SHA1: 712dcd7ba4f9115d02c2581afc4772c047edddbb
 package dev.vality.disputes.service.external.impl;
 
 import dev.vality.disputes.admin.*;
@@ -5908,7 +6297,10 @@ public class DisputesTgBotServiceImpl implements DisputesTgBotService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/external/impl/DominantServiceImpl.java
+MD5:  62b58d00fb4863cdeb18341f5cd5e2d9
+SHA1: 42177d82e1b1162321ea0e266ceac313280826c0
 package dev.vality.disputes.service.external.impl;
 
 import dev.vality.damsel.domain.*;
@@ -5947,7 +6339,10 @@ public class DominantServiceImpl implements DominantService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/external/impl/FileStorageServiceImpl.java
+MD5:  d0b5777093b580d8e6908bac77186f30
+SHA1: a83b4b3621c013b8cfbf58fae918796f3f0add77
 package dev.vality.disputes.service.external.impl;
 
 import dev.vality.disputes.config.properties.FileStorageProperties;
@@ -6023,7 +6418,10 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/external/impl/InvoicingServiceImpl.java
+MD5:  a1a67ea38cbe29aae1cb44a0c92ff553
+SHA1: 959939598575596b1a26e4f363cee357833e8d4c
 package dev.vality.disputes.service.external.impl;
 
 import dev.vality.damsel.payment_processing.*;
@@ -6103,7 +6501,10 @@ public class InvoicingServiceImpl implements InvoicingService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/external/impl/PartyManagementServiceImpl.java
+MD5:  15aa34783e6c1233a60fe59ea5e6ddce
+SHA1: 241f395937c347aab87be8fca5f6262bbf412150
 package dev.vality.disputes.service.external.impl;
 
 import dev.vality.damsel.domain.Party;
@@ -6176,7 +6577,10 @@ public class PartyManagementServiceImpl implements PartyManagementService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/external/impl/dominant/DominantAsyncService.java
+MD5:  e5403ea7bbe105561ee51c83c75977b1
+SHA1: 42c4cacf68b61e8502ca577f593dcb407395192e
 package dev.vality.disputes.service.external.impl.dominant;
 
 import dev.vality.damsel.domain.*;
@@ -6236,7 +6640,10 @@ public class DominantAsyncService {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/service/external/impl/dominant/DominantCacheServiceImpl.java
+MD5:  35f689df4a389ac937e7904ad508e0fc
+SHA1: 8d204bf3650da2615a829c8ba4859c11f8ce6757
 package dev.vality.disputes.service.external.impl.dominant;
 
 import dev.vality.damsel.domain.*;
@@ -6359,7 +6766,10 @@ public class DominantCacheServiceImpl {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/servlet/AdminManagementServlet.java
+MD5:  6724a10a45bfa51d8bf00fa9949b1b5e
+SHA1: dc0f26f571d65ad65a332713d460c799335b243c
 package dev.vality.disputes.servlet;
 
 import dev.vality.disputes.admin.AdminManagementServiceSrv;
@@ -6391,7 +6801,10 @@ public class AdminManagementServlet extends GenericServlet {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/servlet/MerchantServlet.java
+MD5:  e354f2254ba6be24d031697bf17a537b
+SHA1: 62dcf6f538ab23b5799b91f807ea0e0ed4c4a88b
 package dev.vality.disputes.servlet;
 
 import dev.vality.disputes.merchant.MerchantDisputesServiceSrv;
@@ -6423,7 +6836,10 @@ public class MerchantServlet extends GenericServlet {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/util/ErrorFormatter.java
+MD5:  8f0adb8bb8f1213d068baa4964c8721a
+SHA1: 674b65da1e1aa5ced47ecbb36b1cf1d87eb0ce45
 package dev.vality.disputes.util;
 
 import dev.vality.damsel.domain.Failure;
@@ -6478,7 +6894,10 @@ public class ErrorFormatter {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/util/OptionsExtractor.java
+MD5:  fdcf2c04ccf588f06cabba821bc7b561
+SHA1: 3a9097e6fa3e91ac8eed80a3a50cfa2758aa1456
 package dev.vality.disputes.util;
 
 import dev.vality.damsel.domain.Provider;
@@ -6514,7 +6933,10 @@ public class OptionsExtractor {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/util/PaymentAmountUtil.java
+MD5:  c12f4baea222b27b8f8c480abf5fd6c1
+SHA1: 73311095682a8feba54569f1627da3245b9138dd
 package dev.vality.disputes.util;
 
 import dev.vality.damsel.domain.Cash;
@@ -6534,7 +6956,10 @@ public class PaymentAmountUtil {
     }
 }
 
+
 FILE: ./src/main/java/dev/vality/disputes/util/PaymentStatusValidator.java
+MD5:  2e4203afa2d435e6ec67cf3670cb6b65
+SHA1: b7c5d448f5dd54925d5205acd93509e35a62eaa6
 package dev.vality.disputes.util;
 
 import dev.vality.damsel.payment_processing.InvoicePayment;
@@ -6565,7 +6990,10 @@ public class PaymentStatusValidator {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/admin/management/DebugAdminManagementController.java
+MD5:  4d54f8e3129086d391687436572c8344
+SHA1: 31c1f8c288811c56b94cff672d9c32e99365d15e
 package dev.vality.disputes.admin.management;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -6717,7 +7145,10 @@ public class DebugAdminManagementController {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/admin/management/DebugAdminManagementControllerTest.java
+MD5:  ddeeb24e1da3da3fcfe133d34e482590
+SHA1: 6ee2975a6bd0c0df7de82ec7826b1d0c15644a65
 package dev.vality.disputes.admin.management;
 
 import dev.vality.disputes.admin.AdminManagementServiceSrv;
@@ -6817,7 +7248,10 @@ public class DebugAdminManagementControllerTest {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/admin/management/DebugAdminManagementHandlerTest.java
+MD5:  cdd61970039ed0c77c7bcd59299e6a00
+SHA1: c7b8f293ac7ce55031daf7cb73b4ca44286d192a
 package dev.vality.disputes.admin.management;
 
 import dev.vality.disputes.config.AbstractMockitoConfig;
@@ -6983,7 +7417,10 @@ public class DebugAdminManagementHandlerTest extends AbstractMockitoConfig {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/api/DisputesApiDelegateServiceTest.java
+MD5:  a5b5784615dfc5afb106d7468d77e9ea
+SHA1: b65c1587bb7129c40952ef9386c17dd654ccaafe
 package dev.vality.disputes.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7166,7 +7603,10 @@ public class DisputesApiDelegateServiceTest {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/api/ServletTest.java
+MD5:  ee5387197867a936a58059f8d6afd1fb
+SHA1: 37196a7569a9ba118ce2f7eb69bd1cdbb35b5b36
 package dev.vality.disputes.api;
 
 import dev.vality.damsel.payment_processing.InvoicingSrv;
@@ -7258,7 +7698,10 @@ public class ServletTest {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/config/AbstractMockitoConfig.java
+MD5:  4f6e9c8115adb185250b1adc926878c3
+SHA1: 3a4088eb04a9ee5918dd1c147799096c6992d7d6
 package dev.vality.disputes.config;
 
 import dev.vality.bouncer.decisions.ArbiterSrv;
@@ -7344,7 +7787,10 @@ public abstract class AbstractMockitoConfig {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/config/DisableFlyway.java
+MD5:  c3b77a0afe64e02734f574c322fb3640
+SHA1: 89a621124e3e97246f0d2755d128e49adc304dab
 package dev.vality.disputes.config;
 
 import org.springframework.test.context.TestPropertySource;
@@ -7365,7 +7811,10 @@ import java.lang.annotation.Target;
 public @interface DisableFlyway {
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/config/DisableScheduling.java
+MD5:  7e43236f5b30dfc1ee1a19626537264d
+SHA1: 3f3334cd4c2d9dc5a6f1c6a5a05d697f3b8329ce
 package dev.vality.disputes.config;
 
 import org.springframework.test.context.TestPropertySource;
@@ -7386,7 +7835,10 @@ import java.lang.annotation.Target;
 public @interface DisableScheduling {
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/config/EmbeddedPostgresWithFlyway.java
+MD5:  153be380c35ddb41b59376bcf48dc33f
+SHA1: 313919716925aa573b2a71636bedb8879aeaadc3
 package dev.vality.disputes.config;
 
 import org.springframework.context.annotation.Import;
@@ -7402,7 +7854,10 @@ import java.lang.annotation.Target;
 public @interface EmbeddedPostgresWithFlyway {
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/config/EmbeddedPostgresWithFlywayConfiguration.java
+MD5:  ea77d12698063a76b71033d4dbf82e51
+SHA1: 3e36a349e113194967334cbac0932d8efa12b878
 package dev.vality.disputes.config;
 
 import io.zonky.test.db.postgres.embedded.FlywayPreparer;
@@ -7424,7 +7879,10 @@ public class EmbeddedPostgresWithFlywayConfiguration {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/config/EmbeddedPostgresWithFlywaySpringBootITest.java
+MD5:  3cfbe535dde7263013016f7d872e460e
+SHA1: 702e8e8fe5ce96dc58e07d07f064434636745a81
 package dev.vality.disputes.config;
 
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7442,7 +7900,10 @@ import java.lang.annotation.Target;
 public @interface EmbeddedPostgresWithFlywaySpringBootITest {
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/config/PostgresqlSpringBootITest.java
+MD5:  3484b9071a43e9f08c46b42f644dd91b
+SHA1: 08c8be7955e6cec9855ee6c8fc54521e9b2e12b1
 package dev.vality.disputes.config;
 
 import dev.vality.testcontainers.annotations.DefaultSpringBootTest;
@@ -7461,7 +7922,10 @@ import java.lang.annotation.Target;
 public @interface PostgresqlSpringBootITest {
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/config/SpringBootUTest.java
+MD5:  5d7c77314a7b9336b094c8d6a9cfb107
+SHA1: ea45f9ac6718e03c5b22e4a4e8e0e449c71f5509
 package dev.vality.disputes.config;
 
 import dev.vality.testcontainers.annotations.DefaultSpringBootTest;
@@ -7479,7 +7943,10 @@ import java.lang.annotation.Target;
 public @interface SpringBootUTest {
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/config/WireMockSpringBootITest.java
+MD5:  e045bdfe76646bf6ff396f6aacbddf7f
+SHA1: c9dabeb36e0e6a4d2699543f44fcfc2a358fdbcf
 package dev.vality.disputes.config;
 
 import dev.vality.disputes.DisputesApiApplication;
@@ -7508,7 +7975,10 @@ properties = {"logging.level.WireMock=WARN"})
 public @interface WireMockSpringBootITest {
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/config/WiremockAddressesHolder.java
+MD5:  703cd74fa88077ee8aff5fb2d07ce63f
+SHA1: b89d83a79a16997212f8c42ee6e549ea0b3d20a6
 package dev.vality.disputes.config;
 
 import dev.vality.disputes.util.TestUrlPaths;
@@ -7534,7 +8004,10 @@ public class WiremockAddressesHolder {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/config/ZonkyEmbeddedPostgres.java
+MD5:  2e5707d58d7c03a8929ccae0d02fcfb6
+SHA1: 6b92af2390606f1cd75cd85df8f91d45b1e2f7b0
 package dev.vality.disputes.config;
 
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
@@ -7550,7 +8023,10 @@ import java.lang.annotation.Target;
 public @interface ZonkyEmbeddedPostgres {
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/config/ZonkyEmbeddedPostgresSpringBootITest.java
+MD5:  8248049f41b2828441a50f637808745f
+SHA1: 168de8d623e54aaa54377be7255fe3d166ba7655
 package dev.vality.disputes.config;
 
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7568,7 +8044,10 @@ import java.lang.annotation.Target;
 public @interface ZonkyEmbeddedPostgresSpringBootITest {
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/dao/DisputeDaoTest.java
+MD5:  069899c64f5c2cd19bf28fcaa13f1596
+SHA1: accb00ab683088f6ecfc98615a40781abd2136fa
 package dev.vality.disputes.dao;
 
 import dev.vality.disputes.domain.enums.DisputeStatus;
@@ -7648,7 +8127,10 @@ public abstract class DisputeDaoTest {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/dao/FileMetaDaoTest.java
+MD5:  9d3393b8234e67199c968cf98f20c8f5
+SHA1: 24912ae0dfd78c408193920dadd257d4e15d01d8
 package dev.vality.disputes.dao;
 
 import dev.vality.disputes.config.PostgresqlSpringBootITest;
@@ -7681,7 +8163,10 @@ public class FileMetaDaoTest {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/dao/NotificationDaoTest.java
+MD5:  f73d65a99670059fd7c9d74d87b242bb
+SHA1: fc305ff46bd941ef9772540cf30478d43ea46263
 package dev.vality.disputes.dao;
 
 import dev.vality.disputes.config.PostgresqlSpringBootITest;
@@ -7770,7 +8255,10 @@ public class NotificationDaoTest {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/dao/ProviderDisputeDaoTest.java
+MD5:  3152d149de7de73eff577a0fa7bc964e
+SHA1: 7ced08dbe0018f7cf90d2427419fbd201cc071cb
 package dev.vality.disputes.dao;
 
 import dev.vality.disputes.config.PostgresqlSpringBootITest;
@@ -7795,7 +8283,10 @@ public class ProviderDisputeDaoTest {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/dao/startup/WithEmbeddedPostgresWithFlywayDisputeDaoTest.java
+MD5:  4ffa45ccacebc0c9af778909928b2e5d
+SHA1: a374690d50fa04666ec1a29370667fce0dd3162e
 package dev.vality.disputes.dao.startup;
 
 import dev.vality.disputes.config.EmbeddedPostgresWithFlywaySpringBootITest;
@@ -7807,7 +8298,10 @@ import org.junit.jupiter.api.Disabled;
 public class WithEmbeddedPostgresWithFlywayDisputeDaoTest extends DisputeDaoTest {
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/dao/startup/WithTestcontainerDisputeDaoTest.java
+MD5:  8af0981569a38c270d86330d344d1500
+SHA1: 5e973f5226f586e124548fc8dc0437ee339af216
 package dev.vality.disputes.dao.startup;
 
 import dev.vality.disputes.config.PostgresqlSpringBootITest;
@@ -7817,7 +8311,10 @@ import dev.vality.disputes.dao.DisputeDaoTest;
 public class WithTestcontainerDisputeDaoTest extends DisputeDaoTest {
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/dao/startup/WithZonkyEmbeddedPostgresDisputeDaoTest.java
+MD5:  0f48e13cb2fa5ac4bb146afc1cdfd29f
+SHA1: f339be91a9e0ba18c8af2b29d47c21b421cffa9f
 package dev.vality.disputes.dao.startup;
 
 import dev.vality.disputes.config.ZonkyEmbeddedPostgresSpringBootITest;
@@ -7829,7 +8326,10 @@ import org.junit.jupiter.api.Disabled;
 public class WithZonkyEmbeddedPostgresDisputeDaoTest extends DisputeDaoTest {
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/provider/payments/ProviderCallbackHandlerTest.java
+MD5:  616164746cb636849a9d1f320aa7c3f2
+SHA1: 8321ce7b4ec623ef757bed137b8cbf935f4c4463
 package dev.vality.disputes.provider.payments;
 
 import dev.vality.disputes.config.AbstractMockitoConfig;
@@ -7918,7 +8418,10 @@ public class ProviderCallbackHandlerTest extends AbstractMockitoConfig {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/provider/payments/ProviderPaymentsServiceTest.java
+MD5:  eb117a01531a3fdb6b1509f4b15625cc
+SHA1: 3dc607ce58b81f9b3a6bfe43c2f01f24eb1bd196
 package dev.vality.disputes.provider.payments;
 
 import dev.vality.damsel.domain.InvoicePaymentCaptured;
@@ -7983,7 +8486,10 @@ public class ProviderPaymentsServiceTest extends AbstractMockitoConfig {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/schedule/service/CreatedDisputesServiceTest.java
+MD5:  ceb1448908865c2b3cbb89b4d3a4b968
+SHA1: 3ece7baac00389a0c212a65f25bd1443cf2d6c91
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.damsel.domain.InvoicePaymentCaptured;
@@ -8239,7 +8745,10 @@ public class CreatedDisputesServiceTest extends AbstractMockitoConfig {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/schedule/service/ForgottenDisputesServiceTest.java
+MD5:  d57487eb28c68445e58c80c0e5b154b2
+SHA1: 0be57dadbb17755ba7fd55a9fe6fe3b3e3b61355
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.damsel.domain.InvoicePaymentCaptured;
@@ -8300,7 +8809,10 @@ public class ForgottenDisputesServiceTest extends AbstractMockitoConfig {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/schedule/service/NotificationServiceTest.java
+MD5:  91cdb4266398bab14bfc45d600bda79d
+SHA1: 29067e3d718f415f6b410bbe61ac1c10f26e715d
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.disputes.config.AbstractMockitoConfig;
@@ -8351,7 +8863,10 @@ public class NotificationServiceTest extends AbstractMockitoConfig {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/schedule/service/PendingDisputesServiceTest.java
+MD5:  2ddd1dcecb9cd99ad057631ad6c90988
+SHA1: b5535b0a80b30aeac25cc43e736d1f6491a84727
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.damsel.domain.InvoicePaymentCaptured;
@@ -8497,7 +9012,10 @@ public class PendingDisputesServiceTest extends AbstractMockitoConfig {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/schedule/service/config/CreatedFlowHandler.java
+MD5:  72e4aa0479ddc007e4cd8aefb5d00504
+SHA1: 7997d20b4c1255c670f4abd8d99b7cdb2a8f205c
 package dev.vality.disputes.schedule.service.config;
 
 import dev.vality.damsel.payment_processing.InvoicingSrv;
@@ -8578,7 +9096,10 @@ public class CreatedFlowHandler {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/schedule/service/config/MerchantApiMvcPerformer.java
+MD5:  ccc5ce017968e52636288b3e72e39ae8
+SHA1: a94b5b1a2483780a48d6d5e78b9cbe0248790bee
 package dev.vality.disputes.schedule.service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8642,7 +9163,10 @@ public class MerchantApiMvcPerformer {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/schedule/service/config/PendingFlowHandler.java
+MD5:  6ecd6d970fec33534413c31b935f06b1
+SHA1: 9349e62ac8736fde82e0b9774ef340c6b82bad03
 package dev.vality.disputes.schedule.service.config;
 
 import dev.vality.disputes.dao.DisputeDao;
@@ -8694,7 +9218,10 @@ public class PendingFlowHandler {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/schedule/service/config/ProviderCallbackFlowHandler.java
+MD5:  bba102c834b003205d1f7c305021bde3
+SHA1: 1ee14dab1be2b735f154202caccef30ea9aeeb6f
 package dev.vality.disputes.schedule.service.config;
 
 import dev.vality.damsel.payment_processing.InvoicingSrv;
@@ -8745,7 +9272,10 @@ public class ProviderCallbackFlowHandler {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/util/DamselUtil.java
+MD5:  4f155593c7b010f82ff79d3d5721056b
+SHA1: 2fc10941196f6de9002d2aac8a23eca5e7c96a55
 package dev.vality.disputes.util;
 
 import dev.vality.geck.serializer.kit.mock.FieldHandler;
@@ -8780,7 +9310,10 @@ public class DamselUtil {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/util/MockUtil.java
+MD5:  7ada9028d296151d20c12f2013618466
+SHA1: 1be7bf17a1d9b6c0b3c81b30a93a53e3707e84bb
 package dev.vality.disputes.util;
 
 import dev.vality.bouncer.ctx.ContextFragment;
@@ -9005,7 +9538,10 @@ public class MockUtil {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/util/OpenApiUtil.java
+MD5:  e627f16cf9a344fe4defadc355b34452
+SHA1: f3f1acd834e45c8e236238f5b235c23102b262f8
 package dev.vality.disputes.util;
 
 import lombok.experimental.UtilityClass;
@@ -9147,7 +9683,10 @@ public class OpenApiUtil {
     }
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/util/TestUrlPaths.java
+MD5:  7878ea76234405505224bfe07a9019ac
+SHA1: e45c02b89881bea106de2186710d4febd7f6da34
 package dev.vality.disputes.util;
 
 import lombok.AccessLevel;
@@ -9164,7 +9703,10 @@ public class TestUrlPaths {
 
 }
 
+
 FILE: ./src/test/java/dev/vality/disputes/util/WiremockUtils.java
+MD5:  ad293652f6601bfcbe1800842408c9d2
+SHA1: c32a44315593e365a15875e39dd6161ee35dd5c4
 package dev.vality.disputes.util;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
@@ -9206,7 +9748,10 @@ public class WiremockUtils {
     }
 }
 
+
 FILE: pom.xml
+MD5:  13eabc5335e6da822bfb7269210b6dde
+SHA1: 67c26a1d7f4c6bc2559d38f8ebc38c21df8e2d6f
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">

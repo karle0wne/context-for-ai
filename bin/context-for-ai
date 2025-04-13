@@ -8,12 +8,14 @@ EXTRA_FILES=("pom.xml" "build.gradle.kts" "application.yml" "requirements.txt" "
 # === Show help ===
 show_help() {
   cat << EOF
-project-snapshot — generate a plain, machine-readable snapshot of your project.
+context-for-ai — generate a plain, machine-readable snapshot of your project.
 
 Usage:
-  project-snapshot.sh [--help] [--version]
+  context-for-ai [--help] [--version]
 
 Creates a plain .txt file with full contents of source and config files.
+Adds md5 and sha1 checksums before each file.
+
 Files are listed in order:
   1. src/ or src/main/
   2. tests/, test/, or src/test/
@@ -35,7 +37,7 @@ for arg in "$@"; do
       show_help
       ;;
     --version)
-      echo "project-snapshot $VERSION"
+      echo "context-for-ai $VERSION"
       exit 0
       ;;
   esac
@@ -58,7 +60,7 @@ while IFS= read -r file; do
   ALL_FILES+=("$file")
 done < <(eval "find . -type f \( $EXT_PATTERN \)" | sort)
 
-# === Categorize: main/src → test → other ===
+# === Categorize: src/main or src/ → test → other ===
 SRC_FILES=()
 TEST_FILES=()
 OTHER_FILES=()
@@ -75,19 +77,23 @@ done
 
 ORDERED_FILES=("${SRC_FILES[@]}" "${TEST_FILES[@]}" "${OTHER_FILES[@]}")
 
-# === Dump source files ===
-for file in "${ORDERED_FILES[@]}"; do
+# === Dump files with checksums ===
+dump_file_with_hashes() {
+  local file="$1"
   echo "FILE: $file" >> "$OUT_FILE"
+  echo "MD5:  $(md5sum "$file" | awk '{print $1}')" >> "$OUT_FILE"
+  echo "SHA1: $(sha1sum "$file" | awk '{print $1}')" >> "$OUT_FILE"
   cat "$file" >> "$OUT_FILE"
-  echo >> "$OUT_FILE"
+  echo -e '\n' >> "$OUT_FILE"
+}
+
+for file in "${ORDERED_FILES[@]}"; do
+  dump_file_with_hashes "$file"
 done
 
-# === Dump extra project files ===
 for file in "${EXTRA_FILES[@]}"; do
   [[ -f "$file" ]] || continue
-  echo "FILE: $file" >> "$OUT_FILE"
-  cat "$file" >> "$OUT_FILE"
-  echo >> "$OUT_FILE"
+  dump_file_with_hashes "$file"
 done
 
 echo "✅ Snapshot created: $OUT_FILE"
