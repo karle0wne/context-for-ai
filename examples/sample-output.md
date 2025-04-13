@@ -1,314 +1,5 @@
-# 📦 Project Description
 
-## 📑 Contents
-- [📁 Directory Structure](#-directory-structure)
-- [🔥 Recently Changed Files](#-recently-changed-files)
-- [📊 Project Stats](#-project-stats)
-- [📄 Code Files](#-code-files)
-- [⚙️ Extra Project Files](#️-extra-project-files)
-- [💬 Task Prompt](#-task-prompt)
-
-## 📁 Directory Structure
-```
-.
-├── OLD_README.md
-├── README.md
-├── STATUS_MODEL.md
-├── describe-project.sh
-├── disputes-api.iml
-├── pom.xml
-├── project_description.md
-├── renovate.json
-└── src
-    ├── main
-    │   ├── java
-    │   │   └── dev
-    │   │       └── vality
-    │   │           └── disputes
-    │   │               ├── DisputesApiApplication.java
-    │   │               ├── admin
-    │   │               │   ├── callback
-    │   │               │   │   ├── CallbackNotifier.java
-    │   │               │   │   ├── DisputesTgBotCallbackNotifierImpl.java
-    │   │               │   │   └── DummyCallbackNotifierImpl.java
-    │   │               │   └── management
-    │   │               │       ├── AdminManagementDisputesService.java
-    │   │               │       ├── AdminManagementHandler.java
-    │   │               │       └── MdcTopicProducer.java
-    │   │               ├── api
-    │   │               │   ├── DisputesApiDelegate.java
-    │   │               │   ├── DisputesApiDelegateService.java
-    │   │               │   ├── controller
-    │   │               │   │   └── ErrorControllerAdvice.java
-    │   │               │   ├── converter
-    │   │               │   │   ├── DisputeConverter.java
-    │   │               │   │   ├── NotifyRequestConverter.java
-    │   │               │   │   └── Status200ResponseConverter.java
-    │   │               │   ├── model
-    │   │               │   │   └── PaymentParams.java
-    │   │               │   └── service
-    │   │               │       ├── ApiAttachmentsService.java
-    │   │               │       ├── ApiDisputesService.java
-    │   │               │       ├── ApiNotificationService.java
-    │   │               │       └── PaymentParamsBuilder.java
-    │   │               ├── config
-    │   │               │   ├── AccessConfig.java
-    │   │               │   ├── ApplicationConfig.java
-    │   │               │   ├── AsyncMdcConfiguration.java
-    │   │               │   ├── CacheConfig.java
-    │   │               │   ├── DominantConfig.java
-    │   │               │   ├── FileStorageConfig.java
-    │   │               │   ├── HellgateConfig.java
-    │   │               │   ├── HttpClientConfig.java
-    │   │               │   ├── NetworkConfig.java
-    │   │               │   ├── OtelConfig.java
-    │   │               │   ├── PartyManagementConfig.java
-    │   │               │   ├── TgBotConfig.java
-    │   │               │   └── properties
-    │   │               │       ├── AdaptersConnectionProperties.java
-    │   │               │       ├── AsyncProperties.java
-    │   │               │       ├── BouncerProperties.java
-    │   │               │       ├── DisputesTimerProperties.java
-    │   │               │       ├── DominantCacheProperties.java
-    │   │               │       ├── FileStorageProperties.java
-    │   │               │       ├── HttpClientProperties.java
-    │   │               │       └── OtelProperties.java
-    │   │               ├── constant
-    │   │               │   ├── ErrorMessage.java
-    │   │               │   ├── ModerationPrefix.java
-    │   │               │   └── TerminalOptionsField.java
-    │   │               ├── dao
-    │   │               │   ├── DisputeDao.java
-    │   │               │   ├── FileMetaDao.java
-    │   │               │   ├── NotificationDao.java
-    │   │               │   ├── ProviderDisputeDao.java
-    │   │               │   ├── mapper
-    │   │               │   │   └── EnrichedNotificationMapper.java
-    │   │               │   └── model
-    │   │               │       └── EnrichedNotification.java
-    │   │               ├── exception
-    │   │               │   ├── AuthorizationException.java
-    │   │               │   ├── BouncerException.java
-    │   │               │   ├── CapturedPaymentException.java
-    │   │               │   ├── DisputeStatusWasUpdatedByAnotherThreadException.java
-    │   │               │   ├── DominantException.java
-    │   │               │   ├── FileStorageException.java
-    │   │               │   ├── InvoicePaymentAdjustmentPendingException.java
-    │   │               │   ├── InvoicingException.java
-    │   │               │   ├── InvoicingPaymentStatusRestrictionsException.java
-    │   │               │   ├── NotFoundException.java
-    │   │               │   ├── NotificationNotFinalStatusException.java
-    │   │               │   ├── NotificationStatusWasUpdatedByAnotherThreadException.java
-    │   │               │   ├── PartyException.java
-    │   │               │   ├── PoolingExpiredException.java
-    │   │               │   ├── RoutingException.java
-    │   │               │   └── TokenKeeperException.java
-    │   │               ├── flow
-    │   │               │   └── DisputesStepResolver.java
-    │   │               ├── merchant
-    │   │               │   ├── MerchantDisputesHandler.java
-    │   │               │   └── converter
-    │   │               │       └── CreateRequestConverter.java
-    │   │               ├── polling
-    │   │               │   ├── ExponentialBackOffPollingService.java
-    │   │               │   ├── ExponentialBackOffPollingServiceWrapper.java
-    │   │               │   ├── PollingInfoService.java
-    │   │               │   └── TimeOptionsExtractors.java
-    │   │               ├── provider
-    │   │               │   └── payments
-    │   │               │       ├── callback
-    │   │               │       │   └── ProviderPaymentsCallbackHandler.java
-    │   │               │       ├── client
-    │   │               │       │   └── ProviderPaymentsRemoteClient.java
-    │   │               │       ├── converter
-    │   │               │       │   ├── ProviderPaymentsToInvoicePaymentCapturedAdjustmentParamsConverter.java
-    │   │               │       │   ├── ProviderPaymentsToInvoicePaymentCashFlowAdjustmentParamsConverter.java
-    │   │               │       │   └── TransactionContextConverter.java
-    │   │               │       ├── dao
-    │   │               │       │   └── ProviderCallbackDao.java
-    │   │               │       ├── exception
-    │   │               │       │   ├── ProviderCallbackAlreadyExistException.java
-    │   │               │       │   ├── ProviderCallbackStatusWasUpdatedByAnotherThreadException.java
-    │   │               │       │   └── ProviderPaymentsUnexpectedPaymentStatus.java
-    │   │               │       ├── handler
-    │   │               │       │   └── ProviderPaymentHandler.java
-    │   │               │       ├── schedule
-    │   │               │       │   └── ProviderPaymentsTask.java
-    │   │               │       ├── service
-    │   │               │       │   ├── ProviderPaymentsAdjustmentExtractor.java
-    │   │               │       │   ├── ProviderPaymentsRouting.java
-    │   │               │       │   ├── ProviderPaymentsService.java
-    │   │               │       │   └── ProviderPaymentsThriftInterfaceBuilder.java
-    │   │               │       └── servlet
-    │   │               │           └── ProviderPaymentsCallbackServlet.java
-    │   │               ├── schedule
-    │   │               │   ├── CreatedDisputesTask.java
-    │   │               │   ├── ForgottenDisputesTask.java
-    │   │               │   ├── NotificationTask.java
-    │   │               │   ├── PendingDisputesTask.java
-    │   │               │   ├── catcher
-    │   │               │   │   └── WoodyRuntimeExceptionCatcher.java
-    │   │               │   ├── client
-    │   │               │   │   ├── DefaultRemoteClient.java
-    │   │               │   │   ├── DisputesTgBotRemoteClientImpl.java
-    │   │               │   │   ├── DummyRemoteClientImpl.java
-    │   │               │   │   └── RemoteClient.java
-    │   │               │   ├── converter
-    │   │               │   │   ├── DisputeContextConverter.java
-    │   │               │   │   ├── DisputeCurrencyConverter.java
-    │   │               │   │   └── DisputeParamsConverter.java
-    │   │               │   ├── core
-    │   │               │   │   ├── CreatedDisputesService.java
-    │   │               │   │   ├── ForgottenDisputesService.java
-    │   │               │   │   ├── NotificationService.java
-    │   │               │   │   └── PendingDisputesService.java
-    │   │               │   ├── handler
-    │   │               │   │   ├── CreatedDisputeHandler.java
-    │   │               │   │   ├── ForgottenDisputeHandler.java
-    │   │               │   │   ├── NotificationHandler.java
-    │   │               │   │   └── PendingDisputeHandler.java
-    │   │               │   ├── model
-    │   │               │   │   └── ProviderData.java
-    │   │               │   ├── result
-    │   │               │   │   ├── DisputeCreateResultHandler.java
-    │   │               │   │   └── DisputeStatusResultHandler.java
-    │   │               │   └── service
-    │   │               │       ├── AttachmentsService.java
-    │   │               │       ├── ExternalGatewayChecker.java
-    │   │               │       ├── ProviderDataService.java
-    │   │               │       ├── ProviderDisputesRouting.java
-    │   │               │       └── ProviderDisputesThriftInterfaceBuilder.java
-    │   │               ├── security
-    │   │               │   ├── AccessData.java
-    │   │               │   ├── AccessService.java
-    │   │               │   ├── BouncerContextFactory.java
-    │   │               │   ├── ContextFragmentName.java
-    │   │               │   ├── converter
-    │   │               │   │   ├── ContextFragmentV1ToContextFragmentConverter.java
-    │   │               │   │   ├── PaymentProcessingInvoiceToBouncerInvoiceConverter.java
-    │   │               │   │   └── PaymentProcessingInvoiceToCommonApiOperationConverter.java
-    │   │               │   └── service
-    │   │               │       ├── BouncerService.java
-    │   │               │       ├── TokenKeeperService.java
-    │   │               │       └── impl
-    │   │               │           ├── BouncerServiceImpl.java
-    │   │               │           └── TokenKeeperServiceImpl.java
-    │   │               ├── service
-    │   │               │   ├── DisputesService.java
-    │   │               │   ├── MdcTaskDecorator.java
-    │   │               │   └── external
-    │   │               │       ├── DisputesTgBotService.java
-    │   │               │       ├── DominantService.java
-    │   │               │       ├── FileStorageService.java
-    │   │               │       ├── InvoicingService.java
-    │   │               │       ├── PartyManagementService.java
-    │   │               │       └── impl
-    │   │               │           ├── DisputesTgBotServiceImpl.java
-    │   │               │           ├── DominantServiceImpl.java
-    │   │               │           ├── FileStorageServiceImpl.java
-    │   │               │           ├── InvoicingServiceImpl.java
-    │   │               │           ├── PartyManagementServiceImpl.java
-    │   │               │           └── dominant
-    │   │               ├── servlet
-    │   │               │   ├── AdminManagementServlet.java
-    │   │               │   └── MerchantServlet.java
-    │   │               └── util
-    │   │                   ├── ErrorFormatter.java
-    │   │                   ├── OptionsExtractor.java
-    │   │                   ├── PaymentAmountUtil.java
-    │   │                   └── PaymentStatusValidator.java
-    │   └── resources
-    │       ├── application.yml
-    │       └── db
-    │           └── migration
-    │               ├── V10__add_provider_callback_created_at.sql
-    │               ├── V11__drop_skip_call_hg_for_create_adjustment.sql
-    │               ├── V12__create_notification_table.sql
-    │               ├── V1__init.sql
-    │               ├── V2__add_shop_details.sql
-    │               ├── V3__add_mapping.sql
-    │               ├── V4__create_dispute_status_idx.sql
-    │               ├── V5__create_provider_callback_table.sql
-    │               ├── V6__add_provider_callback_amount.sql
-    │               ├── V7__create_uniq_idx_provider_callback.sql
-    │               ├── V8__create_retry_provider_payment_check_status_table.sql
-    │               └── V9__add_pooling_expired_status.sql
-    └── test
-        ├── java
-        │   └── dev
-        │       └── vality
-        │           └── disputes
-        │               ├── admin
-        │               │   └── management
-        │               │       ├── DebugAdminManagementController.java
-        │               │       ├── DebugAdminManagementControllerTest.java
-        │               │       └── DebugAdminManagementHandlerTest.java
-        │               ├── api
-        │               │   ├── DisputesApiDelegateServiceTest.java
-        │               │   └── ServletTest.java
-        │               ├── config
-        │               │   ├── AbstractMockitoConfig.java
-        │               │   ├── DisableFlyway.java
-        │               │   ├── DisableScheduling.java
-        │               │   ├── EmbeddedPostgresWithFlyway.java
-        │               │   ├── EmbeddedPostgresWithFlywayConfiguration.java
-        │               │   ├── EmbeddedPostgresWithFlywaySpringBootITest.java
-        │               │   ├── PostgresqlSpringBootITest.java
-        │               │   ├── SpringBootUTest.java
-        │               │   ├── WireMockSpringBootITest.java
-        │               │   ├── WiremockAddressesHolder.java
-        │               │   ├── ZonkyEmbeddedPostgres.java
-        │               │   └── ZonkyEmbeddedPostgresSpringBootITest.java
-        │               ├── dao
-        │               │   ├── DisputeDaoTest.java
-        │               │   ├── FileMetaDaoTest.java
-        │               │   ├── NotificationDaoTest.java
-        │               │   ├── ProviderDisputeDaoTest.java
-        │               │   └── startup
-        │               │       ├── WithEmbeddedPostgresWithFlywayDisputeDaoTest.java
-        │               │       ├── WithTestcontainerDisputeDaoTest.java
-        │               │       └── WithZonkyEmbeddedPostgresDisputeDaoTest.java
-        │               ├── provider
-        │               │   └── payments
-        │               │       ├── ProviderCallbackHandlerTest.java
-        │               │       └── ProviderPaymentsServiceTest.java
-        │               ├── schedule
-        │               │   └── service
-        │               │       ├── CreatedDisputesServiceTest.java
-        │               │       ├── ForgottenDisputesServiceTest.java
-        │               │       ├── NotificationServiceTest.java
-        │               │       ├── PendingDisputesServiceTest.java
-        │               │       └── config
-        │               │           ├── CreatedFlowHandler.java
-        │               │           ├── MerchantApiMvcPerformer.java
-        │               │           ├── PendingFlowHandler.java
-        │               │           └── ProviderCallbackFlowHandler.java
-        │               └── util
-        │                   ├── DamselUtil.java
-        │                   ├── MockUtil.java
-        │                   ├── OpenApiUtil.java
-        │                   ├── TestUrlPaths.java
-        │                   └── WiremockUtils.java
-        └── resources
-
-77 directories, 203 files
-```
-
-## 🔥 Recently Changed Files (git diff)
-No recent changes.
-
-## 📊 Project Stats
-| Metric | Value |
-|--------|-------|
-| Code files | 184 |
-| Total lines | 9071 |
-
-## 📄 Code Files
-
----
-### 📄 File: `./src/main/java/dev/vality/disputes/DisputesApiApplication.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/DisputesApiApplication.java
 package dev.vality.disputes;
 
 import org.springframework.boot.SpringApplication;
@@ -328,17 +19,11 @@ public class DisputesApiApplication extends SpringApplication {
     }
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/admin/callback/CallbackNotifier.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/admin/callback/CallbackNotifier.java
 package dev.vality.disputes.admin.callback;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
-
-import java.util.List;
 
 public interface CallbackNotifier {
 
@@ -346,31 +31,22 @@ public interface CallbackNotifier {
 
     void sendDisputePoolingExpired(Dispute dispute);
 
-    void sendDisputeReadyForCreateAdjustment(Dispute dispute);
-
     void sendDisputeManualPending(Dispute dispute, String errorMessage);
 
-    void sendForgottenDisputes(List<Dispute> disputes);
-
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/admin/callback/DisputesTgBotCallbackNotifierImpl.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/admin/callback/DisputesTgBotCallbackNotifierImpl.java
 package dev.vality.disputes.admin.callback;
 
-import dev.vality.disputes.admin.*;
+import dev.vality.disputes.admin.DisputeAlreadyCreated;
+import dev.vality.disputes.admin.DisputeManualPending;
+import dev.vality.disputes.admin.DisputePoolingExpired;
 import dev.vality.disputes.domain.tables.pojos.Dispute;
 import dev.vality.disputes.service.external.DisputesTgBotService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Objects;
 
 @Service
 @ConditionalOnProperty(value = "service.disputes-tg-bot.admin.enabled", havingValue = "true", matchIfMissing = true)
@@ -392,29 +68,8 @@ public class DisputesTgBotCallbackNotifierImpl implements CallbackNotifier {
     }
 
     @Override
-    public void sendDisputeReadyForCreateAdjustment(Dispute dispute) {
-        disputesTgBotService.sendDisputeReadyForCreateAdjustment(getCreateAdjustment(dispute));
-    }
-
-    @Override
     public void sendDisputeManualPending(Dispute dispute, String errorMessage) {
         disputesTgBotService.sendDisputeManualPending(getManualPending(dispute).setErrorMessage(errorMessage));
-    }
-
-    @Override
-    public void sendForgottenDisputes(List<Dispute> disputes) {
-        var notifications = disputes.stream()
-                .map(dispute -> switch (dispute.getStatus()) {
-                    case manual_pending -> Notification.disputeManualPending(getManualPending(dispute));
-                    case already_exist_created -> Notification.disputeAlreadyCreated(getAlreadyCreated(dispute));
-                    case create_adjustment -> Notification.disputeReadyForCreateAdjustment(
-                            getCreateAdjustment(dispute));
-                    case pooling_expired -> Notification.disputePoolingExpired(getPoolingExpired(dispute));
-                    default -> null;
-                })
-                .filter(Objects::nonNull)
-                .toList();
-        disputesTgBotService.sendForgottenDisputes(notifications);
     }
 
     private DisputeManualPending getManualPending(Dispute dispute) {
@@ -426,20 +81,12 @@ public class DisputesTgBotCallbackNotifierImpl implements CallbackNotifier {
         return new DisputeAlreadyCreated(dispute.getInvoiceId(), dispute.getPaymentId());
     }
 
-    private DisputeReadyForCreateAdjustment getCreateAdjustment(Dispute dispute) {
-        return new DisputeReadyForCreateAdjustment(dispute.getInvoiceId(), dispute.getPaymentId());
-    }
-
     private DisputePoolingExpired getPoolingExpired(Dispute dispute) {
         return new DisputePoolingExpired(dispute.getInvoiceId(), dispute.getPaymentId());
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/admin/callback/DummyCallbackNotifierImpl.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/admin/callback/DummyCallbackNotifierImpl.java
 package dev.vality.disputes.admin.callback;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -447,8 +94,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @ConditionalOnProperty(value = "service.disputes-tg-bot.admin.enabled", havingValue = "false")
@@ -468,26 +113,13 @@ public class DummyCallbackNotifierImpl implements CallbackNotifier {
     }
 
     @Override
-    public void sendDisputeReadyForCreateAdjustment(Dispute dispute) {
-        log.debug("Trying to call DummyCallbackNotifierImpl.sendDisputeReadyForCreateAdjustment() {}", dispute.getId());
-    }
-
-    @Override
     public void sendDisputeManualPending(Dispute dispute, String errorMessage) {
         log.debug("Trying to call DummyCallbackNotifierImpl.sendDisputeManualPending() {} {}", dispute.getId(), errorMessage);
     }
 
-    @Override
-    public void sendForgottenDisputes(List<Dispute> disputes) {
-        log.debug("Trying to call DummyCallbackNotifierImpl.sendForgottenDisputes() {}", disputes.size());
-    }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/admin/management/AdminManagementDisputesService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/admin/management/AdminManagementDisputesService.java
 package dev.vality.disputes.admin.management;
 
 import dev.vality.adapter.flow.lib.model.PollingInfo;
@@ -658,7 +290,7 @@ public class AdminManagementDisputesService {
 
     private void handleSucceededResultWithCreateAdjustment(
             dev.vality.disputes.domain.tables.pojos.Dispute dispute, Long changedAmount, ProviderData providerData, TransactionInfo transactionInfo) {
-        disputeStatusResultHandler.handleSucceededResult(dispute, getDisputeStatusResult(changedAmount), providerData, false, transactionInfo);
+        disputeStatusResultHandler.handleSucceededResult(dispute, getDisputeStatusResult(changedAmount), providerData, transactionInfo);
     }
 
     private DisputeStatusResult getDisputeStatusResult(Long changedAmount) {
@@ -675,12 +307,8 @@ public class AdminManagementDisputesService {
         return exponentialBackOffPollingService.prepareNextPollingInterval(pollingInfo, providerData.getOptions());
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/admin/management/AdminManagementHandler.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/admin/management/AdminManagementHandler.java
 package dev.vality.disputes.admin.management;
 
 import dev.vality.disputes.admin.*;
@@ -711,7 +339,7 @@ public class AdminManagementHandler implements AdminManagementServiceSrv.Iface {
                 log.warn("NotFound when handle CancelParamsRequest, type={}", ex.getType(), ex);
             }
         }
-        log.info("Finish cancelParamsRequest {}", cancelParamsRequest);
+        log.debug("Finish cancelParamsRequest {}", cancelParamsRequest);
     }
 
     @Override
@@ -724,7 +352,7 @@ public class AdminManagementHandler implements AdminManagementServiceSrv.Iface {
                 log.warn("NotFound when handle ApproveParamsRequest, type={}", ex.getType(), ex);
             }
         }
-        log.info("Finish approveParamsRequest {}", approveParamsRequest);
+        log.debug("Finish approveParamsRequest {}", approveParamsRequest);
     }
 
     @Override
@@ -737,7 +365,7 @@ public class AdminManagementHandler implements AdminManagementServiceSrv.Iface {
                 log.warn("NotFound when handle BindParamsRequest, type={}", ex.getType(), ex);
             }
         }
-        log.info("Finish bindParamsRequest {}", bindParamsRequest);
+        log.debug("Finish bindParamsRequest {}", bindParamsRequest);
     }
 
     @Override
@@ -752,7 +380,7 @@ public class AdminManagementHandler implements AdminManagementServiceSrv.Iface {
                 log.warn("NotFound when handle DisputeParamsRequest, type={}", ex.getType(), ex);
             }
         }
-        log.info("Finish disputeParamsRequest {}", disputeParamsRequest);
+        log.debug("Finish disputeParamsRequest {}", disputeParamsRequest);
         return disputeResult;
     }
 
@@ -766,106 +394,18 @@ public class AdminManagementHandler implements AdminManagementServiceSrv.Iface {
                 log.warn("NotFound when handle SetPendingForPoolingExpiredParamsRequest, type={}", ex.getType(), ex);
             }
         }
-        log.info("Finish setPendingForPoolingExpiredParamsRequest {}", setPendingForPoolingExpiredParamsRequest);
+        log.debug("Finish setPendingForPoolingExpiredParamsRequest {}", setPendingForPoolingExpiredParamsRequest);
     }
 
     @Override
     public void sendMerchantsNotification(MerchantsNotificationParamsRequest params) {
         log.info("Got sendMerchantsNotification {}", params);
         notificationService.sendMerchantsNotification(params);
-        log.info("Finish sendMerchantsNotification {}", params);
+        log.debug("Finish sendMerchantsNotification {}", params);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/admin/management/MdcTopicProducer.java`
----
-```java
-package dev.vality.disputes.admin.management;
-
-import dev.vality.disputes.domain.enums.DisputeStatus;
-import dev.vality.disputes.domain.tables.pojos.Dispute;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-@Service
-@RequiredArgsConstructor
-@Slf4j
-@SuppressWarnings({"LineLength"})
-public class MdcTopicProducer {
-
-    @Value("${service.mdc-topic-producer.enabled}")
-    private boolean enabled;
-
-    public void sendCreated(Dispute dispute, DisputeStatus disputeStatus, String errorMessage) {
-        if (!enabled) {
-            return;
-        }
-        var contextMap = getContextMap();
-        contextMap.put("dispute_id", dispute.getId().toString());
-        contextMap.put("dispute_status", disputeStatus.name());
-        if (errorMessage != null) {
-            contextMap.put("dispute_error_message", errorMessage);
-        }
-        MDC.setContextMap(contextMap);
-        log.warn("Manual parsing case");
-        MDC.clear();
-    }
-
-    public void sendPoolingExpired(Dispute dispute) {
-        if (!enabled) {
-            return;
-        }
-        var contextMap = getContextMap();
-        contextMap.put("dispute_id", dispute.getId().toString());
-        contextMap.put("dispute_status", DisputeStatus.manual_pending.name());
-        MDC.setContextMap(contextMap);
-        log.warn("Hg pooling expired case");
-        MDC.clear();
-    }
-
-    public void sendReadyForCreateAdjustments(List<Dispute> disputes) {
-        if (!enabled || disputes.isEmpty()) {
-            return;
-        }
-        var contextMap = getContextMap();
-        contextMap.put("dispute_ids", disputes.stream().map(Dispute::getId).map(String::valueOf).collect(Collectors.joining(", ")));
-        contextMap.put("dispute_status", DisputeStatus.create_adjustment.name());
-        MDC.setContextMap(contextMap);
-        log.warn("Ready for CreateAdjustments case");
-        MDC.clear();
-    }
-
-    public void sendForgottenDisputes(List<Dispute> disputes) {
-        if (!enabled || disputes.isEmpty()) {
-            return;
-        }
-        var contextMap = getContextMap();
-        contextMap.put("dispute_ids", disputes.stream().map(Dispute::getId).map(String::valueOf).collect(Collectors.joining(", ")));
-        MDC.setContextMap(contextMap);
-        log.warn("Ready for ForgottenDisputes case");
-        MDC.clear();
-    }
-
-    private Map<String, String> getContextMap() {
-        return MDC.getCopyOfContextMap() == null ? new HashMap<>() : MDC.getCopyOfContextMap();
-    }
-}
-```
-
----
-### 📄 File: `./src/main/java/dev/vality/disputes/api/DisputesApiDelegate.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/api/DisputesApiDelegate.java
 package dev.vality.disputes.api;
 
 import dev.vality.swag.disputes.api.CreateApiDelegate;
@@ -890,12 +430,8 @@ public interface DisputesApiDelegate extends CreateApiDelegate, StatusApiDelegat
         return Optional.empty();
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/api/DisputesApiDelegateService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/api/DisputesApiDelegateService.java
 package dev.vality.disputes.api;
 
 import dev.vality.disputes.api.converter.Status200ResponseConverter;
@@ -933,12 +469,12 @@ public class DisputesApiDelegateService implements DisputesApiDelegate {
         // диспут по платежу может быть открытым только один за раз, если существует, отдаем действующий
         var dispute = apiDisputesService.checkExistBeforeCreate(req.getInvoiceId(), req.getPaymentId());
         if (dispute.isPresent()) {
-            log.info("<- Res existing: {}, invoiceId={}, paymentId={}", "/create", req.getInvoiceId(), req.getPaymentId());
+            log.debug("<- Res existing: {}, invoiceId={}, paymentId={}", "/create", req.getInvoiceId(), req.getPaymentId());
             return ResponseEntity.ok(new Create200Response(String.valueOf(dispute.get().getId())));
         }
         var paymentParams = paymentParamsBuilder.buildGeneralPaymentContext(accessData);
         var disputeId = apiDisputesService.createDispute(req, paymentParams);
-        log.info("<- Res: {}, invoiceId={}, paymentId={}, source={}", "/create", req.getInvoiceId(), req.getPaymentId(), checkUserAccessData ? "api" : "merchThrift");
+        log.debug("<- Res: {}, invoiceId={}, paymentId={}, source={}", "/create", req.getInvoiceId(), req.getPaymentId(), checkUserAccessData ? "api" : "merchThrift");
         return ResponseEntity.ok(new Create200Response(String.valueOf(disputeId)));
     }
 
@@ -953,16 +489,12 @@ public class DisputesApiDelegateService implements DisputesApiDelegate {
         log.info("-> Req: {}, invoiceId={}, paymentId={}, disputeId={}, source={}", "/status", dispute.getInvoiceId(), dispute.getPaymentId(), disputeId, checkUserAccessData ? "api" : "merchThrift");
         accessService.approveUserAccess(dispute.getInvoiceId(), dispute.getPaymentId(), checkUserAccessData, false);
         var body = status200ResponseConverter.convert(dispute);
-        log.info("<- Res: {}, invoiceId={}, paymentId={}, disputeId={}, source={}", "/status", dispute.getInvoiceId(), dispute.getPaymentId(), disputeId, checkUserAccessData ? "api" : "merchThrift");
+        log.debug("<- Res: {}, invoiceId={}, paymentId={}, disputeId={}, source={}", "/status", dispute.getInvoiceId(), dispute.getPaymentId(), disputeId, checkUserAccessData ? "api" : "merchThrift");
         return ResponseEntity.ok(body);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/api/controller/ErrorControllerAdvice.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/api/controller/ErrorControllerAdvice.java
 package dev.vality.disputes.api.controller;
 
 import dev.vality.disputes.exception.AuthorizationException;
@@ -1115,12 +647,8 @@ public class ErrorControllerAdvice {
         return headers;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/api/converter/DisputeConverter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/api/converter/DisputeConverter.java
 package dev.vality.disputes.api.converter;
 
 import dev.vality.adapter.flow.lib.model.PollingInfo;
@@ -1169,58 +697,8 @@ public class DisputeConverter {
         return LocalDateTime.ofInstant(instant, ZoneOffset.UTC);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/api/converter/NotifyRequestConverter.java`
----
-```java
-package dev.vality.disputes.api.converter;
-
-import dev.vality.disputes.dao.model.EnrichedNotification;
-import dev.vality.disputes.domain.tables.pojos.Dispute;
-import dev.vality.disputes.exception.NotificationNotFinalStatusException;
-import dev.vality.swag.disputes.model.GeneralError;
-import dev.vality.swag.disputes.model.NotifyRequest;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Component;
-
-@Component
-@SuppressWarnings({"LineLength"})
-public class NotifyRequestConverter {
-
-    public NotifyRequest convert(EnrichedNotification enrichedNotification) {
-        var notification = enrichedNotification.getNotification();
-        var dispute = enrichedNotification.getDispute();
-        var body = new NotifyRequest()
-                .disputeId(notification.getDisputeId().toString())
-                .invoiceId(dispute.getInvoiceId())
-                .paymentId(dispute.getPaymentId());
-        body.setStatus(getStatus(dispute));
-        if (!StringUtils.isBlank(dispute.getMapping())) {
-            body.setReason(new GeneralError(dispute.getMapping()));
-        }
-        if (dispute.getChangedAmount() != null) {
-            body.setChangedAmount(dispute.getChangedAmount());
-        }
-        return body;
-    }
-
-    private NotifyRequest.StatusEnum getStatus(Dispute dispute) {
-        return switch (dispute.getStatus()) {
-            case succeeded -> NotifyRequest.StatusEnum.SUCCEEDED;
-            case cancelled, failed -> NotifyRequest.StatusEnum.FAILED;
-            default -> throw new NotificationNotFinalStatusException(
-                    String.format("Fail create NotifyRequest.StatusEnum, disputeId='%s', status'%s'", dispute.getId(), dispute.getStatus()));
-        };
-    }
-}
-```
-
----
-### 📄 File: `./src/main/java/dev/vality/disputes/api/converter/Status200ResponseConverter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/api/converter/Status200ResponseConverter.java
 package dev.vality.disputes.api.converter;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -1258,12 +736,8 @@ public class Status200ResponseConverter {
         };
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/api/model/PaymentParams.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/api/model/PaymentParams.java
 package dev.vality.disputes.api.model;
 
 import lombok.Builder;
@@ -1292,12 +766,8 @@ public class PaymentParams {
     private Long invoiceAmount;
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/api/service/ApiAttachmentsService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/api/service/ApiAttachmentsService.java
 package dev.vality.disputes.api.service;
 
 import dev.vality.disputes.dao.FileMetaDao;
@@ -1332,12 +802,8 @@ public class ApiAttachmentsService {
         log.debug("Attachments have been saved {}", disputeId);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/api/service/ApiDisputesService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/api/service/ApiDisputesService.java
 package dev.vality.disputes.api.service;
 
 import dev.vality.disputes.api.converter.DisputeConverter;
@@ -1419,12 +885,8 @@ public class ApiDisputesService {
         return d.getErrorMessage() == null ? "" : d.getErrorMessage();
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/api/service/ApiNotificationService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/api/service/ApiNotificationService.java
 package dev.vality.disputes.api.service;
 
 import dev.vality.adapter.flow.lib.model.PollingInfo;
@@ -1470,12 +932,8 @@ public class ApiNotificationService {
         return exponentialBackOffPollingService.prepareNextPollingInterval(pollingInfo, paymentParams.getOptions());
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/api/service/PaymentParamsBuilder.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/api/service/PaymentParamsBuilder.java
 package dev.vality.disputes.api.service;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -1534,12 +992,8 @@ public class PaymentParamsBuilder {
                         String.format("Payment with id: %s and filled ProviderTrxId not found!", payment.getPayment().getId()), NotFoundException.Type.PROVIDERTRXID));
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/AccessConfig.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/AccessConfig.java
 package dev.vality.disputes.config;
 
 import dev.vality.bouncer.decisions.ArbiterSrv;
@@ -1575,12 +1029,8 @@ public class AccessConfig {
                 .build(TokenAuthenticatorSrv.Iface.class);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/ApplicationConfig.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/ApplicationConfig.java
 package dev.vality.disputes.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -1630,12 +1080,8 @@ public class ApplicationConfig {
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/AsyncMdcConfiguration.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/AsyncMdcConfiguration.java
 package dev.vality.disputes.config;
 
 import dev.vality.disputes.config.properties.AsyncProperties;
@@ -1666,12 +1112,8 @@ public class AsyncMdcConfiguration {
         return executor;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/CacheConfig.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/CacheConfig.java
 package dev.vality.disputes.config;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -1757,12 +1199,8 @@ public class CacheConfig {
                 .maximumSize(cacheConfig.getPoolSize());
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/DominantConfig.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/DominantConfig.java
 package dev.vality.disputes.config;
 
 import dev.vality.damsel.domain_config.RepositoryClientSrv;
@@ -1787,12 +1225,8 @@ public class DominantConfig {
                 .build(RepositoryClientSrv.Iface.class);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/FileStorageConfig.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/FileStorageConfig.java
 package dev.vality.disputes.config;
 
 import dev.vality.file.storage.FileStorageSrv;
@@ -1817,12 +1251,8 @@ public class FileStorageConfig {
                 .build(FileStorageSrv.Iface.class);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/HellgateConfig.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/HellgateConfig.java
 package dev.vality.disputes.config;
 
 import dev.vality.damsel.payment_processing.InvoicingSrv;
@@ -1847,12 +1277,8 @@ public class HellgateConfig {
                 .build(InvoicingSrv.Iface.class);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/HttpClientConfig.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/HttpClientConfig.java
 package dev.vality.disputes.config;
 
 import dev.vality.disputes.config.properties.HttpClientProperties;
@@ -1923,12 +1349,8 @@ public class HttpClientConfig {
                 NoopHostnameVerifier.INSTANCE);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/NetworkConfig.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/NetworkConfig.java
 package dev.vality.disputes.config;
 
 import dev.vality.woody.api.flow.WFlow;
@@ -2017,12 +1439,8 @@ public class NetworkConfig {
         return filterRegistrationBean;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/OtelConfig.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/OtelConfig.java
 package dev.vality.disputes.config;
 
 import dev.vality.disputes.config.properties.OtelProperties;
@@ -2093,12 +1511,8 @@ public class OtelConfig {
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/PartyManagementConfig.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/PartyManagementConfig.java
 package dev.vality.disputes.config;
 
 import dev.vality.damsel.payment_processing.PartyManagementSrv;
@@ -2123,12 +1537,8 @@ public class PartyManagementConfig {
                 .build(PartyManagementSrv.Iface.class);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/TgBotConfig.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/TgBotConfig.java
 package dev.vality.disputes.config;
 
 import dev.vality.disputes.admin.AdminCallbackServiceSrv;
@@ -2164,12 +1574,8 @@ public class TgBotConfig {
                 .build(AdminCallbackServiceSrv.Iface.class);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/properties/AdaptersConnectionProperties.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/properties/AdaptersConnectionProperties.java
 package dev.vality.disputes.config.properties;
 
 import lombok.Getter;
@@ -2195,12 +1601,8 @@ public class AdaptersConnectionProperties {
         private int initialDelaySec;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/properties/AsyncProperties.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/properties/AsyncProperties.java
 package dev.vality.disputes.config.properties;
 
 import lombok.Getter;
@@ -2225,12 +1627,8 @@ public class AsyncProperties {
     @NotNull
     private Integer queueCapacity;
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/properties/BouncerProperties.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/properties/BouncerProperties.java
 package dev.vality.disputes.config.properties;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -2255,12 +1653,8 @@ public class BouncerProperties {
     private String operationId;
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/properties/DisputesTimerProperties.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/properties/DisputesTimerProperties.java
 package dev.vality.disputes.config.properties;
 
 import lombok.Getter;
@@ -2282,12 +1676,8 @@ public class DisputesTimerProperties {
     private int maxTimePollingMin;
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/properties/DominantCacheProperties.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/properties/DominantCacheProperties.java
 package dev.vality.disputes.config.properties;
 
 import lombok.Getter;
@@ -2317,12 +1707,8 @@ public class DominantCacheProperties {
         private int ttlSec;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/properties/FileStorageProperties.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/properties/FileStorageProperties.java
 package dev.vality.disputes.config.properties;
 
 import lombok.Getter;
@@ -2347,12 +1733,8 @@ public class FileStorageProperties {
     private ZoneId timeZone;
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/properties/HttpClientProperties.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/properties/HttpClientProperties.java
 package dev.vality.disputes.config.properties;
 
 import jakarta.validation.constraints.NotNull;
@@ -2381,12 +1763,8 @@ public class HttpClientProperties {
     private int connectionTimeout;
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/config/properties/OtelProperties.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/config/properties/OtelProperties.java
 package dev.vality.disputes.config.properties;
 
 import lombok.Getter;
@@ -2404,12 +1782,8 @@ public class OtelProperties {
     private Long timeout;
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/constant/ErrorMessage.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/constant/ErrorMessage.java
 package dev.vality.disputes.constant;
 
 public class ErrorMessage {
@@ -2423,12 +1797,8 @@ public class ErrorMessage {
     public static final String NEXT_STEP_AFTER_DEFAULT_REMOTE_CLIENT_CALL = "next step after defaultRemoteClient call";
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/constant/ModerationPrefix.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/constant/ModerationPrefix.java
 package dev.vality.disputes.constant;
 
 public class ModerationPrefix {
@@ -2436,12 +1806,8 @@ public class ModerationPrefix {
     public static final String DISPUTES_UNKNOWN_MAPPING = "disputes_unknown_mapping";
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/constant/TerminalOptionsField.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/constant/TerminalOptionsField.java
 package dev.vality.disputes.constant;
 
 import lombok.NoArgsConstructor;
@@ -2453,12 +1819,8 @@ public class TerminalOptionsField {
     public static final String DISPUTE_FLOW_PROVIDERS_API_EXIST = "DISPUTE_FLOW_PROVIDERS_API_EXIST";
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/dao/DisputeDao.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/dao/DisputeDao.java
 package dev.vality.disputes.dao;
 
 import dev.vality.dao.impl.AbstractGenericDao;
@@ -2636,12 +1998,8 @@ public class DisputeDao extends AbstractGenericDao {
         executeOne(query);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/dao/FileMetaDao.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/dao/FileMetaDao.java
 package dev.vality.disputes.dao;
 
 import dev.vality.dao.impl.AbstractGenericDao;
@@ -2689,22 +2047,18 @@ public class FileMetaDao extends AbstractGenericDao {
 
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/dao/NotificationDao.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/dao/NotificationDao.java
 package dev.vality.disputes.dao;
 
 import dev.vality.dao.impl.AbstractGenericDao;
-import dev.vality.disputes.dao.mapper.EnrichedNotificationMapper;
-import dev.vality.disputes.dao.model.EnrichedNotification;
+import dev.vality.disputes.dao.mapper.NotifyRequestMapper;
 import dev.vality.disputes.domain.enums.DisputeStatus;
 import dev.vality.disputes.domain.enums.NotificationStatus;
 import dev.vality.disputes.domain.tables.pojos.Notification;
 import dev.vality.disputes.exception.NotFoundException;
 import dev.vality.mapper.RecordRowMapper;
+import dev.vality.swag.disputes.model.NotifyRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -2726,13 +2080,13 @@ import static dev.vality.disputes.domain.tables.Notification.NOTIFICATION;
 public class NotificationDao extends AbstractGenericDao {
 
     private final RowMapper<Notification> notificationRowMapper;
-    private final EnrichedNotificationMapper enrichedNotificationMapper;
+    private final NotifyRequestMapper notifyRequestMapper;
 
     @Autowired
     public NotificationDao(DataSource dataSource) {
         super(dataSource);
         notificationRowMapper = new RecordRowMapper<>(NOTIFICATION, Notification.class);
-        enrichedNotificationMapper = new EnrichedNotificationMapper();
+        notifyRequestMapper = new NotifyRequestMapper();
     }
 
     public void save(Notification notification) {
@@ -2760,18 +2114,40 @@ public class NotificationDao extends AbstractGenericDao {
                         String.format("Notification not found, disputeId='%s'", disputeId), NotFoundException.Type.NOTIFICATION));
     }
 
-    public List<EnrichedNotification> getNotificationsForDelivery(int limit) {
-        var query = getDslContext().select().from(NOTIFICATION)
+    public List<NotifyRequest> getNotifyRequests(int limit) {
+        var query = getDslContext().select(
+                        NOTIFICATION.DISPUTE_ID.as("dispute_id"),
+                        DISPUTE.INVOICE_ID.as("invoice_id"),
+                        DISPUTE.PAYMENT_ID.as("payment_id"),
+                        DISPUTE.STATUS.as("dispute_status"),
+                        DISPUTE.MAPPING.as("mapping"),
+                        DISPUTE.CHANGED_AMOUNT.as("changed_amount")
+                ).from(NOTIFICATION)
                 .innerJoin(DISPUTE).on(NOTIFICATION.DISPUTE_ID.eq(DISPUTE.ID)
-                        .and(DISPUTE.STATUS.eq(DisputeStatus.succeeded)
-                                .or(DISPUTE.STATUS.eq(DisputeStatus.failed))
-                                .or(DISPUTE.STATUS.eq(DisputeStatus.cancelled))))
+                        .and(DISPUTE.STATUS.in(DisputeStatus.succeeded, DisputeStatus.failed, DisputeStatus.cancelled)))
                 .where(NOTIFICATION.NEXT_ATTEMPT_AFTER.le(LocalDateTime.now(ZoneOffset.UTC))
                         .and(NOTIFICATION.STATUS.eq(NotificationStatus.pending)))
                 .orderBy(NOTIFICATION.NEXT_ATTEMPT_AFTER)
                 .limit(limit);
-        return Optional.ofNullable(fetch(query, enrichedNotificationMapper))
+        return Optional.ofNullable(fetch(query, notifyRequestMapper))
                 .orElse(List.of());
+    }
+
+    public NotifyRequest getNotifyRequest(UUID disputeId) {
+        var query = getDslContext().select(
+                        NOTIFICATION.DISPUTE_ID.as("dispute_id"),
+                        DISPUTE.INVOICE_ID.as("invoice_id"),
+                        DISPUTE.PAYMENT_ID.as("payment_id"),
+                        DISPUTE.STATUS.as("dispute_status"),
+                        DISPUTE.MAPPING.as("mapping"),
+                        DISPUTE.CHANGED_AMOUNT.as("changed_amount")
+                ).from(NOTIFICATION)
+                .innerJoin(DISPUTE).on(NOTIFICATION.DISPUTE_ID.eq(DISPUTE.ID)
+                        .and(DISPUTE.STATUS.in(DisputeStatus.succeeded, DisputeStatus.failed, DisputeStatus.cancelled))
+                        .and(DISPUTE.ID.eq(disputeId)));
+        return Optional.ofNullable(fetchOne(query, notifyRequestMapper))
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Notification not found, disputeId='%s'", disputeId), NotFoundException.Type.NOTIFICATION));
     }
 
     public void delivered(Notification notification) {
@@ -2793,12 +2169,8 @@ public class NotificationDao extends AbstractGenericDao {
         executeOne(query);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/dao/ProviderDisputeDao.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/dao/ProviderDisputeDao.java
 package dev.vality.disputes.dao;
 
 import dev.vality.dao.impl.AbstractGenericDao;
@@ -2851,71 +2223,49 @@ public class ProviderDisputeDao extends AbstractGenericDao {
                         String.format("ProviderDispute not found, disputeId='%s'", disputeId), Type.PROVIDERDISPUTE));
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/dao/mapper/EnrichedNotificationMapper.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/dao/mapper/NotifyRequestMapper.java
 package dev.vality.disputes.dao.mapper;
 
-import dev.vality.disputes.dao.model.EnrichedNotification;
-import dev.vality.disputes.domain.tables.pojos.Dispute;
-import dev.vality.disputes.domain.tables.pojos.Notification;
-import dev.vality.mapper.RecordRowMapper;
+import dev.vality.disputes.domain.enums.DisputeStatus;
+import dev.vality.swag.disputes.model.GeneralError;
+import dev.vality.swag.disputes.model.NotifyRequest;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
+import java.util.UUID;
 
-import static dev.vality.disputes.domain.tables.Dispute.DISPUTE;
-import static dev.vality.disputes.domain.tables.Notification.NOTIFICATION;
+public class NotifyRequestMapper implements RowMapper<NotifyRequest> {
 
-public class EnrichedNotificationMapper implements RowMapper<EnrichedNotification> {
-
-    private final RowMapper<Notification> notificationRowMapper;
-    private final RowMapper<Dispute> disputeRowMapper;
-
-    public EnrichedNotificationMapper() {
-        notificationRowMapper = new RecordRowMapper<>(NOTIFICATION, Notification.class);
-        disputeRowMapper = new RecordRowMapper<>(DISPUTE, Dispute.class);
-    }
+    private static final Map<DisputeStatus, NotifyRequest.StatusEnum> STATUS_MAP = Map.of(
+            DisputeStatus.succeeded, NotifyRequest.StatusEnum.SUCCEEDED,
+            DisputeStatus.failed, NotifyRequest.StatusEnum.FAILED,
+            DisputeStatus.cancelled, NotifyRequest.StatusEnum.FAILED
+    );
 
     @Override
-    public EnrichedNotification mapRow(ResultSet resultSet, int i) throws SQLException {
-        return EnrichedNotification.builder()
-                .notification(notificationRowMapper.mapRow(resultSet, i))
-                .dispute(disputeRowMapper.mapRow(resultSet, i))
-                .build();
+    public NotifyRequest mapRow(ResultSet rs, int i) throws SQLException {
+        var request = new NotifyRequest();
+        request.setDisputeId(rs.getObject("dispute_id", UUID.class).toString());
+        request.setInvoiceId(rs.getString("invoice_id"));
+        request.setPaymentId(rs.getString("payment_id"));
+        var status = STATUS_MAP.get(DisputeStatus.valueOf(rs.getString("dispute_status")));
+        request.setStatus(status);
+        var mapping = rs.getString("mapping");
+        if (mapping != null && !mapping.isBlank()) {
+            request.setReason(new GeneralError(mapping));
+        }
+        var changedAmount = rs.getObject("changed_amount", Long.class);
+        if (changedAmount != null) {
+            request.setChangedAmount(changedAmount);
+        }
+        return request;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/dao/model/EnrichedNotification.java`
----
-```java
-package dev.vality.disputes.dao.model;
-
-import dev.vality.disputes.domain.tables.pojos.Dispute;
-import dev.vality.disputes.domain.tables.pojos.Notification;
-import lombok.Builder;
-import lombok.Data;
-
-@Builder
-@Data
-public class EnrichedNotification {
-
-    private Notification notification;
-    private Dispute dispute;
-
-}
-```
-
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/AuthorizationException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/AuthorizationException.java
 package dev.vality.disputes.exception;
 
 public class AuthorizationException extends RuntimeException {
@@ -2925,12 +2275,8 @@ public class AuthorizationException extends RuntimeException {
     }
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/BouncerException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/BouncerException.java
 package dev.vality.disputes.exception;
 
 public class BouncerException extends RuntimeException {
@@ -2943,12 +2289,8 @@ public class BouncerException extends RuntimeException {
         super(message, cause);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/CapturedPaymentException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/CapturedPaymentException.java
 package dev.vality.disputes.exception;
 
 import dev.vality.damsel.domain.InvoicePaymentCaptured;
@@ -2966,22 +2308,14 @@ public class CapturedPaymentException extends InvoicingPaymentStatusRestrictions
         this.invoicePayment = invoicePayment;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/DisputeStatusWasUpdatedByAnotherThreadException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/DisputeStatusWasUpdatedByAnotherThreadException.java
 package dev.vality.disputes.exception;
 
 public class DisputeStatusWasUpdatedByAnotherThreadException extends RuntimeException {
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/DominantException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/DominantException.java
 package dev.vality.disputes.exception;
 
 public class DominantException extends RuntimeException {
@@ -2990,12 +2324,8 @@ public class DominantException extends RuntimeException {
         super(message, cause);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/FileStorageException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/FileStorageException.java
 package dev.vality.disputes.exception;
 
 public class FileStorageException extends RuntimeException {
@@ -3004,23 +2334,15 @@ public class FileStorageException extends RuntimeException {
         super(message, cause);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/InvoicePaymentAdjustmentPendingException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/InvoicePaymentAdjustmentPendingException.java
 package dev.vality.disputes.exception;
 
 public class InvoicePaymentAdjustmentPendingException extends RuntimeException {
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/InvoicingException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/InvoicingException.java
 package dev.vality.disputes.exception;
 
 public class InvoicingException extends RuntimeException {
@@ -3029,12 +2351,8 @@ public class InvoicingException extends RuntimeException {
         super(message, cause);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/InvoicingPaymentStatusRestrictionsException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/InvoicingPaymentStatusRestrictionsException.java
 package dev.vality.disputes.exception;
 
 import dev.vality.damsel.domain.InvoicePaymentStatus;
@@ -3054,12 +2372,8 @@ public class InvoicingPaymentStatusRestrictionsException extends RuntimeExceptio
         this.status = status;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/NotFoundException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/NotFoundException.java
 package dev.vality.disputes.exception;
 
 import lombok.Getter;
@@ -3097,12 +2411,8 @@ public class NotFoundException extends RuntimeException {
         NOTIFICATION
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/NotificationNotFinalStatusException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/NotificationNotFinalStatusException.java
 package dev.vality.disputes.exception;
 
 public class NotificationNotFinalStatusException extends RuntimeException {
@@ -3111,22 +2421,14 @@ public class NotificationNotFinalStatusException extends RuntimeException {
         super(format);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/NotificationStatusWasUpdatedByAnotherThreadException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/NotificationStatusWasUpdatedByAnotherThreadException.java
 package dev.vality.disputes.exception;
 
 public class NotificationStatusWasUpdatedByAnotherThreadException extends RuntimeException {
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/PartyException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/PartyException.java
 package dev.vality.disputes.exception;
 
 public class PartyException extends RuntimeException {
@@ -3135,12 +2437,8 @@ public class PartyException extends RuntimeException {
         super(message, cause);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/PoolingExpiredException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/PoolingExpiredException.java
 package dev.vality.disputes.exception;
 
 public class PoolingExpiredException extends RuntimeException {
@@ -3148,12 +2446,8 @@ public class PoolingExpiredException extends RuntimeException {
     public PoolingExpiredException() {
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/RoutingException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/RoutingException.java
 package dev.vality.disputes.exception;
 
 public class RoutingException extends RuntimeException {
@@ -3162,12 +2456,8 @@ public class RoutingException extends RuntimeException {
         super(message, cause);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/exception/TokenKeeperException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/exception/TokenKeeperException.java
 package dev.vality.disputes.exception;
 
 public class TokenKeeperException extends RuntimeException {
@@ -3180,12 +2470,8 @@ public class TokenKeeperException extends RuntimeException {
         super(message, cause);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/flow/DisputesStepResolver.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/flow/DisputesStepResolver.java
 package dev.vality.disputes.flow;
 
 import dev.vality.damsel.domain.Failure;
@@ -3340,12 +2626,8 @@ public class DisputesStepResolver {
     public static class DeadEndFlowException extends RuntimeException {
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/merchant/MerchantDisputesHandler.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/merchant/MerchantDisputesHandler.java
 package dev.vality.disputes.merchant;
 
 import dev.vality.disputes.api.DisputesApiDelegate;
@@ -3369,20 +2651,20 @@ public class MerchantDisputesHandler implements MerchantDisputesServiceSrv.Iface
 
     @Override
     public DisputeCreatedResult createDispute(DisputeParams disputeParams) {
-        log.info("Got DisputeParams {}", disputeParams);
+        log.debug("Got DisputeParams {}", disputeParams);
         var createRequest = createRequestConverter.convert(disputeParams);
         var disputeId = disputesApiDelegate.create(createRequest, false)
                 .getBody()
                 .getDisputeId();
-        log.info("Finish DisputeParams {}", disputeParams);
+        log.debug("Finish DisputeParams {}", disputeParams);
         return DisputeCreatedResult.successResult(new DisputeCreatedSuccessResult(disputeId));
     }
 
     @Override
     public DisputeStatusResult checkDisputeStatus(DisputeContext disputeContext) {
-        log.info("Got DisputeContext {}", disputeContext);
+        log.debug("Got DisputeContext {}", disputeContext);
         var response = disputesApiDelegate.status(disputeContext.getDisputeId(), false).getBody();
-        log.info("Finish DisputeContext {}", disputeContext);
+        log.debug("Finish DisputeContext {}", disputeContext);
         return switch (response.getStatus()) {
             case PENDING -> DisputeStatusResult.statusPending(new DisputeStatusPendingResult());
             case FAILED -> DisputeStatusResult.statusFail(
@@ -3406,12 +2688,8 @@ public class MerchantDisputesHandler implements MerchantDisputesServiceSrv.Iface
                 .orElse(null);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/merchant/converter/CreateRequestConverter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/merchant/converter/CreateRequestConverter.java
 package dev.vality.disputes.merchant.converter;
 
 import dev.vality.disputes.merchant.DisputeParams;
@@ -3435,12 +2713,8 @@ public class CreateRequestConverter {
                 .notificationUrl(disputeParams.getNotificationUrl().orElse(null));
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/polling/ExponentialBackOffPollingService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/polling/ExponentialBackOffPollingService.java
 package dev.vality.disputes.polling;
 
 import dev.vality.adapter.flow.lib.model.PollingInfo;
@@ -3477,12 +2751,8 @@ public class ExponentialBackOffPollingService {
                 maxTimeBackOff);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/polling/ExponentialBackOffPollingServiceWrapper.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/polling/ExponentialBackOffPollingServiceWrapper.java
 package dev.vality.disputes.polling;
 
 import dev.vality.adapter.flow.lib.model.PollingInfo;
@@ -3530,12 +2800,8 @@ public class ExponentialBackOffPollingServiceWrapper {
         return LocalDateTime.ofInstant(instant, ZoneOffset.UTC);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/polling/PollingInfoService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/polling/PollingInfoService.java
 package dev.vality.disputes.polling;
 
 import dev.vality.adapter.flow.lib.model.PollingInfo;
@@ -3605,12 +2871,8 @@ public class PollingInfoService {
                 .orElse(new PollingInfo());
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/polling/TimeOptionsExtractors.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/polling/TimeOptionsExtractors.java
 package dev.vality.disputes.polling;
 
 import lombok.AccessLevel;
@@ -3647,12 +2909,8 @@ public class TimeOptionsExtractors {
                                 defaultInitialExponential))));
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/callback/ProviderPaymentsCallbackHandler.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/callback/ProviderPaymentsCallbackHandler.java
 package dev.vality.disputes.provider.payments.callback;
 
 import dev.vality.disputes.provider.payments.service.ProviderPaymentsService;
@@ -3681,18 +2939,14 @@ public class ProviderPaymentsCallbackHandler implements ProviderPaymentsCallback
             return;
         }
         if (callback.getInvoiceId().isEmpty() && callback.getPaymentId().isEmpty()) {
-            log.info("InvoiceId should be set, finish");
+            log.debug("InvoiceId should be set, finish");
             return;
         }
         providerPaymentsService.processCallback(callback);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/client/ProviderPaymentsRemoteClient.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/client/ProviderPaymentsRemoteClient.java
 package dev.vality.disputes.provider.payments.client;
 
 import dev.vality.damsel.domain.Currency;
@@ -3723,12 +2977,8 @@ public class ProviderPaymentsRemoteClient {
         return remoteClient.checkPaymentStatus(transactionContext, currency);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/converter/ProviderPaymentsToInvoicePaymentCapturedAdjustmentParamsConverter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/converter/ProviderPaymentsToInvoicePaymentCapturedAdjustmentParamsConverter.java
 package dev.vality.disputes.provider.payments.converter;
 
 import dev.vality.damsel.domain.InvoicePaymentAdjustmentStatusChange;
@@ -3762,12 +3012,8 @@ public class ProviderPaymentsToInvoicePaymentCapturedAdjustmentParamsConverter {
                 InvoicePaymentStatus.captured(captured)));
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/converter/ProviderPaymentsToInvoicePaymentCashFlowAdjustmentParamsConverter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/converter/ProviderPaymentsToInvoicePaymentCashFlowAdjustmentParamsConverter.java
 package dev.vality.disputes.provider.payments.converter;
 
 import dev.vality.damsel.domain.InvoicePaymentAdjustmentCashFlow;
@@ -3796,12 +3042,8 @@ public class ProviderPaymentsToInvoicePaymentCashFlowAdjustmentParamsConverter {
                 .setNewAmount(changedAmount));
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/converter/TransactionContextConverter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/converter/TransactionContextConverter.java
 package dev.vality.disputes.provider.payments.converter;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -3823,12 +3065,8 @@ public class TransactionContextConverter {
         return transactionContext;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/dao/ProviderCallbackDao.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/dao/ProviderCallbackDao.java
 package dev.vality.disputes.provider.payments.dao;
 
 import dev.vality.dao.impl.AbstractGenericDao;
@@ -3907,32 +3145,20 @@ public class ProviderCallbackDao extends AbstractGenericDao {
         execute(query);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/exception/ProviderCallbackAlreadyExistException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/exception/ProviderCallbackAlreadyExistException.java
 package dev.vality.disputes.provider.payments.exception;
 
 public class ProviderCallbackAlreadyExistException extends RuntimeException {
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/exception/ProviderCallbackStatusWasUpdatedByAnotherThreadException.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/exception/ProviderCallbackStatusWasUpdatedByAnotherThreadException.java
 package dev.vality.disputes.provider.payments.exception;
 
 public class ProviderCallbackStatusWasUpdatedByAnotherThreadException extends RuntimeException {
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/exception/ProviderPaymentsUnexpectedPaymentStatus.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/exception/ProviderPaymentsUnexpectedPaymentStatus.java
 package dev.vality.disputes.provider.payments.exception;
 
 public class ProviderPaymentsUnexpectedPaymentStatus extends RuntimeException {
@@ -3941,12 +3167,8 @@ public class ProviderPaymentsUnexpectedPaymentStatus extends RuntimeException {
         super(message);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/handler/ProviderPaymentHandler.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/handler/ProviderPaymentHandler.java
 package dev.vality.disputes.provider.payments.handler;
 
 import dev.vality.disputes.domain.tables.pojos.ProviderCallback;
@@ -3981,12 +3203,8 @@ public class ProviderPaymentHandler {
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/schedule/ProviderPaymentsTask.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/schedule/ProviderPaymentsTask.java
 package dev.vality.disputes.provider.payments.schedule;
 
 import dev.vality.disputes.domain.tables.pojos.ProviderCallback;
@@ -4037,12 +3255,8 @@ public class ProviderPaymentsTask {
         return () -> new ProviderPaymentHandler(providerPaymentsService).handle(providerCallback);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/service/ProviderPaymentsAdjustmentExtractor.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/service/ProviderPaymentsAdjustmentExtractor.java
 package dev.vality.disputes.provider.payments.service;
 
 import dev.vality.damsel.domain.InvoicePaymentAdjustment;
@@ -4099,12 +3313,8 @@ public class ProviderPaymentsAdjustmentExtractor {
                 && reason.equalsIgnoreCase(getReason(providerCallback));
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/service/ProviderPaymentsRouting.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/service/ProviderPaymentsRouting.java
 package dev.vality.disputes.provider.payments.service;
 
 import dev.vality.disputes.exception.RoutingException;
@@ -4145,12 +3355,8 @@ public class ProviderPaymentsRouting {
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/service/ProviderPaymentsService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/service/ProviderPaymentsService.java
 package dev.vality.disputes.provider.payments.service;
 
 import dev.vality.damsel.domain.Currency;
@@ -4169,6 +3375,7 @@ import dev.vality.disputes.provider.payments.converter.TransactionContextConvert
 import dev.vality.disputes.provider.payments.dao.ProviderCallbackDao;
 import dev.vality.disputes.provider.payments.exception.ProviderCallbackAlreadyExistException;
 import dev.vality.disputes.provider.payments.exception.ProviderCallbackStatusWasUpdatedByAnotherThreadException;
+import dev.vality.disputes.provider.payments.exception.ProviderPaymentsUnexpectedPaymentStatus;
 import dev.vality.disputes.schedule.model.ProviderData;
 import dev.vality.disputes.schedule.service.ProviderDataService;
 import dev.vality.disputes.service.DisputesService;
@@ -4221,7 +3428,7 @@ public class ProviderPaymentsService {
             var invoiceAmount = invoicePayment.getPayment().getCost().getAmount();
             checkPaymentStatusAndSave(transactionContext, currency, providerData, invoiceAmount);
         } catch (InvoicingPaymentStatusRestrictionsException ex) {
-            log.info("InvoicingPaymentStatusRestrictionsException when process {}", callback);
+            log.info("InvoicingPaymentStatusRestrictionsException when process ProviderPaymentsCallbackParams {}", callback);
         } catch (NotFoundException ex) {
             log.warn("NotFound when handle ProviderPaymentsCallbackParams, type={}", ex.getType(), ex);
         } catch (Throwable ex) {
@@ -4230,7 +3437,7 @@ public class ProviderPaymentsService {
     }
 
     @Transactional
-    public PaymentStatusResult checkPaymentStatusAndSave(TransactionContext transactionContext, Currency currency, ProviderData providerData, long amount) {
+    public void checkPaymentStatusAndSave(TransactionContext transactionContext, Currency currency, ProviderData providerData, long amount) {
         checkProviderCallbackExist(transactionContext.getInvoiceId(), transactionContext.getPaymentId());
         var paymentStatusResult = providerPaymentsRemoteClient.checkPaymentStatus(transactionContext, currency, providerData);
         if (paymentStatusResult.isSuccess()) {
@@ -4242,9 +3449,9 @@ public class ProviderPaymentsService {
             log.info("Save providerCallback {}", providerCallback);
             providerCallbackDao.save(providerCallback);
         } else {
-            log.info("providerPaymentsRemoteClient.checkPaymentStatus result was skipped by failed status");
+            throw new ProviderPaymentsUnexpectedPaymentStatus(
+                    "providerPaymentsService.checkPaymentStatusAndSave unsuccessful: Cant do createAdjustment");
         }
-        return paymentStatusResult;
     }
 
     @Transactional
@@ -4386,12 +3593,8 @@ public class ProviderPaymentsService {
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/service/ProviderPaymentsThriftInterfaceBuilder.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/service/ProviderPaymentsThriftInterfaceBuilder.java
 package dev.vality.disputes.provider.payments.service;
 
 import dev.vality.disputes.config.properties.AdaptersConnectionProperties;
@@ -4422,12 +3625,8 @@ public class ProviderPaymentsThriftInterfaceBuilder {
                 .build(ProviderPaymentsServiceSrv.Iface.class);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/provider/payments/servlet/ProviderPaymentsCallbackServlet.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/provider/payments/servlet/ProviderPaymentsCallbackServlet.java
 package dev.vality.disputes.provider.payments.servlet;
 
 import dev.vality.provider.payments.ProviderPaymentsCallbackServiceSrv;
@@ -4458,12 +3657,8 @@ public class ProviderPaymentsCallbackServlet extends GenericServlet {
         servlet.service(request, response);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/CreatedDisputesTask.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/CreatedDisputesTask.java
 package dev.vality.disputes.schedule;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -4513,12 +3708,8 @@ public class CreatedDisputesTask {
         return () -> new CreatedDisputeHandler(createdDisputesService).handle(dispute);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/ForgottenDisputesTask.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/ForgottenDisputesTask.java
 package dev.vality.disputes.schedule;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -4569,17 +3760,13 @@ public class ForgottenDisputesTask {
         return () -> new ForgottenDisputeHandler(forgottenDisputesService).handle(dispute);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/NotificationTask.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/NotificationTask.java
 package dev.vality.disputes.schedule;
 
-import dev.vality.disputes.dao.model.EnrichedNotification;
 import dev.vality.disputes.schedule.core.NotificationService;
 import dev.vality.disputes.schedule.handler.NotificationHandler;
+import dev.vality.swag.disputes.model.NotifyRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -4587,7 +3774,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
@@ -4608,7 +3794,7 @@ public class NotificationTask {
     @Scheduled(fixedDelayString = "${dispute.fixedDelayNotification}", initialDelayString = "${dispute.initialDelayNotification}")
     public void processNotifications() {
         try {
-            var notifications = notificationService.getNotificationsForDelivery(batchSize);
+            var notifications = notificationService.getNotifyRequests(batchSize);
             var callables = notifications.stream()
                     .map(this::handleNotification)
                     .collect(Collectors.toList());
@@ -4621,16 +3807,12 @@ public class NotificationTask {
         }
     }
 
-    private Callable<UUID> handleNotification(EnrichedNotification enrichedNotification) {
-        return () -> new NotificationHandler(notificationService).handle(enrichedNotification);
+    private Callable<String> handleNotification(NotifyRequest notifyRequest) {
+        return () -> new NotificationHandler(notificationService).handle(notifyRequest);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/PendingDisputesTask.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/PendingDisputesTask.java
 package dev.vality.disputes.schedule;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
@@ -4680,12 +3862,8 @@ public class PendingDisputesTask {
         return () -> new PendingDisputeHandler(pendingDisputesService).handle(dispute);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/catcher/WoodyRuntimeExceptionCatcher.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/catcher/WoodyRuntimeExceptionCatcher.java
 package dev.vality.disputes.schedule.catcher;
 
 import dev.vality.disputes.schedule.model.ProviderData;
@@ -4730,12 +3908,8 @@ public class WoodyRuntimeExceptionCatcher {
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/client/DefaultRemoteClient.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/client/DefaultRemoteClient.java
 package dev.vality.disputes.schedule.client;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -4754,12 +3928,8 @@ public interface DefaultRemoteClient {
     DisputeCreatedResult createDispute(Dispute dispute, List<Attachment> attachments, ProviderData providerData, TransactionInfo transactionInfo);
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/client/DisputesTgBotRemoteClientImpl.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/client/DisputesTgBotRemoteClientImpl.java
 package dev.vality.disputes.schedule.client;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -4807,12 +3977,8 @@ public class DisputesTgBotRemoteClientImpl implements DefaultRemoteClient {
         return result;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/client/DummyRemoteClientImpl.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/client/DummyRemoteClientImpl.java
 package dev.vality.disputes.schedule.client;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -4851,12 +4017,8 @@ public class DummyRemoteClientImpl implements DefaultRemoteClient {
         return DisputeCreatedResult.successResult(new DisputeCreatedSuccessResult(UUID.randomUUID().toString()));
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/client/RemoteClient.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/client/RemoteClient.java
 package dev.vality.disputes.schedule.client;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -4914,12 +4076,8 @@ public class RemoteClient {
         return result;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/converter/DisputeContextConverter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/converter/DisputeContextConverter.java
 package dev.vality.disputes.schedule.converter;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -4948,12 +4106,8 @@ public class DisputeContextConverter {
         return disputeContext;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/converter/DisputeCurrencyConverter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/converter/DisputeCurrencyConverter.java
 package dev.vality.disputes.schedule.converter;
 
 import dev.vality.damsel.domain.Currency;
@@ -4972,12 +4126,8 @@ public class DisputeCurrencyConverter {
         return currency;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/converter/DisputeParamsConverter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/converter/DisputeParamsConverter.java
 package dev.vality.disputes.schedule.converter;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -5021,12 +4171,8 @@ public class DisputeParamsConverter {
         return disputeParams;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/core/CreatedDisputesService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/core/CreatedDisputesService.java
 package dev.vality.disputes.schedule.core;
 
 import dev.vality.damsel.domain.TransactionInfo;
@@ -5170,7 +4316,7 @@ public class CreatedDisputesService {
 
     private void handleSucceededResultWithCreateAdjustment(Dispute dispute, PaymentStatusResult providerStatus, ProviderData providerData, TransactionInfo transactionInfo) {
         disputeStatusResultHandler.handleSucceededResult(
-                dispute, getDisputeStatusResult(providerStatus.getChangedAmount().orElse(null)), providerData, true, transactionInfo);
+                dispute, getDisputeStatusResult(providerStatus.getChangedAmount().orElse(null)), providerData, transactionInfo);
     }
 
     private DisputeStatusResult getDisputeStatusResult(Long changedAmount) {
@@ -5179,12 +4325,8 @@ public class CreatedDisputesService {
                 .orElse(DisputeStatusResult.statusSuccess(new DisputeStatusSuccessResult()));
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/core/ForgottenDisputesService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/core/ForgottenDisputesService.java
 package dev.vality.disputes.schedule.core;
 
 import dev.vality.disputes.constant.ErrorMessage;
@@ -5251,26 +4393,20 @@ public class ForgottenDisputesService {
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/core/NotificationService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/core/NotificationService.java
 package dev.vality.disputes.schedule.core;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.vality.disputes.admin.MerchantsNotificationParamsRequest;
-import dev.vality.disputes.api.converter.NotifyRequestConverter;
 import dev.vality.disputes.dao.DisputeDao;
 import dev.vality.disputes.dao.NotificationDao;
-import dev.vality.disputes.dao.model.EnrichedNotification;
 import dev.vality.disputes.domain.enums.NotificationStatus;
-import dev.vality.disputes.domain.tables.pojos.Dispute;
 import dev.vality.disputes.domain.tables.pojos.Notification;
 import dev.vality.disputes.exception.NotificationStatusWasUpdatedByAnotherThreadException;
 import dev.vality.disputes.polling.ExponentialBackOffPollingServiceWrapper;
 import dev.vality.disputes.schedule.service.ProviderDataService;
+import dev.vality.swag.disputes.model.NotifyRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -5284,6 +4420,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -5293,37 +4430,35 @@ public class NotificationService {
 
     private final DisputeDao disputeDao;
     private final NotificationDao notificationDao;
-    private final NotifyRequestConverter notifyRequestConverter;
     private final ProviderDataService providerDataService;
     private final CloseableHttpClient httpClient;
     private final ObjectMapper customObjectMapper;
     private final ExponentialBackOffPollingServiceWrapper exponentialBackOffPollingService;
 
     @Transactional
-    public List<EnrichedNotification> getNotificationsForDelivery(int batchSize) {
-        return notificationDao.getNotificationsForDelivery(batchSize);
+    public List<NotifyRequest> getNotifyRequests(int batchSize) {
+        return notificationDao.getNotifyRequests(batchSize);
     }
 
     @Transactional
     @SneakyThrows
-    public void process(EnrichedNotification enrichedNotification) {
-        var notification = enrichedNotification.getNotification();
-        var body = notifyRequestConverter.convert(enrichedNotification);
-        var plainTextBody = customObjectMapper.writeValueAsString(body);
+    public void process(NotifyRequest notifyRequest) {
+        var plainTextBody = customObjectMapper.writeValueAsString(notifyRequest);
         try {
-            var forUpdate = checkPending(notification);
+            var forUpdate = checkPending(notifyRequest);
             var httpRequest = new HttpPost(forUpdate.getNotificationUrl());
             httpRequest.setEntity(HttpEntities.create(plainTextBody, ContentType.APPLICATION_JSON));
             httpClient.execute(httpRequest, new BasicHttpClientResponseHandler());
             notificationDao.delivered(forUpdate);
+            log.info("Delivered NotifyRequest {}", notifyRequest);
         } catch (IOException ex) {
-            log.info("IOException when handle NotificationService.process {}", enrichedNotification, ex);
-            var forUpdate = checkPending(notification);
-            var dispute = enrichedNotification.getDispute();
+            log.info("IOException when handle NotificationService.process {}", notifyRequest, ex);
+            var forUpdate = checkPending(notifyRequest);
+            var dispute = disputeDao.get(UUID.fromString(notifyRequest.getDisputeId()));
             var providerData = providerDataService.getProviderData(dispute.getProviderId(), dispute.getTerminalId());
             var nextAttemptAfter = exponentialBackOffPollingService.prepareNextPollingInterval(forUpdate, dispute.getCreatedAt(), providerData.getOptions());
             notificationDao.updateNextAttempt(forUpdate, nextAttemptAfter);
-            log.debug("Finish IOException handler {}", enrichedNotification, ex);
+            log.debug("Finish IOException handler {}", notifyRequest, ex);
         } catch (NotificationStatusWasUpdatedByAnotherThreadException ex) {
             log.debug("NotificationStatusWasUpdatedByAnotherThreadException when handle NotificationService.process", ex);
         }
@@ -5332,36 +4467,25 @@ public class NotificationService {
     @SneakyThrows
     public void sendMerchantsNotification(MerchantsNotificationParamsRequest params) {
         var dispute = disputeDao.getByInvoiceId(params.getInvoiceId(), params.getPaymentId());
-        var notification = notificationDao.get(dispute.getId());
-        var enrichedNotification = getEnrichedNotification(notification, dispute);
-        var body = notifyRequestConverter.convert(enrichedNotification);
-        var plainTextBody = customObjectMapper.writeValueAsString(body);
-        var httpRequest = new HttpPost(notification.getNotificationUrl());
+        var notifyRequest = notificationDao.getNotifyRequest(dispute.getId());
+        var forUpdate = checkPending(notifyRequest);
+        var httpRequest = new HttpPost(forUpdate.getNotificationUrl());
+        var plainTextBody = customObjectMapper.writeValueAsString(notifyRequest);
         httpRequest.setEntity(HttpEntities.create(plainTextBody, ContentType.APPLICATION_JSON));
         httpClient.execute(httpRequest, new BasicHttpClientResponseHandler());
+        log.info("Delivered NotifyRequest by MerchantsNotificationParamsRequest {}", notifyRequest);
     }
 
-    private Notification checkPending(Notification notification) {
-        var forUpdate = notificationDao.getSkipLocked(notification.getDisputeId());
+    private Notification checkPending(NotifyRequest notifyRequest) {
+        var forUpdate = notificationDao.getSkipLocked(UUID.fromString(notifyRequest.getDisputeId()));
         if (forUpdate.getStatus() != NotificationStatus.pending) {
             throw new NotificationStatusWasUpdatedByAnotherThreadException();
         }
         return forUpdate;
     }
-
-    private EnrichedNotification getEnrichedNotification(Notification notification, Dispute dispute) {
-        return EnrichedNotification.builder()
-                .notification(notification)
-                .dispute(dispute)
-                .build();
-    }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/core/PendingDisputesService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/core/PendingDisputesService.java
 package dev.vality.disputes.schedule.core;
 
 import dev.vality.disputes.constant.ErrorMessage;
@@ -5423,7 +4547,7 @@ public class PendingDisputesService {
             var finishCheckDisputeStatusResult = (Consumer<DisputeStatusResult>) result -> {
                 switch (result.getSetField()) {
                     case STATUS_SUCCESS -> disputeStatusResultHandler.handleSucceededResult(
-                            dispute, result, providerData, true, invoicePayment.getLastTransactionInfo());
+                            dispute, result, providerData, invoicePayment.getLastTransactionInfo());
                     case STATUS_FAIL -> disputeStatusResultHandler.handleFailedResult(dispute, result);
                     case STATUS_PENDING -> disputeStatusResultHandler.handlePendingResult(dispute, providerData);
                     default -> throw new IllegalArgumentException(result.getSetField().getFieldName());
@@ -5467,23 +4591,17 @@ public class PendingDisputesService {
         return providerDataService.getProviderData(dispute.getProviderId(), dispute.getTerminalId());
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/handler/CreatedDisputeHandler.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/handler/CreatedDisputeHandler.java
 package dev.vality.disputes.schedule.handler;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
 import dev.vality.disputes.schedule.core.CreatedDisputesService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@Slf4j
 public class CreatedDisputeHandler {
 
     private final CreatedDisputesService createdDisputesService;
@@ -5495,31 +4613,22 @@ public class CreatedDisputeHandler {
         try {
             createdDisputesService.callCreateDisputeRemotely(dispute);
             return dispute.getId();
-        } catch (Throwable ex) {
-            log.error("Received exception while scheduler processed callCreateDisputeRemotely", ex);
-            throw ex;
         } finally {
             currentThread.setName(oldName);
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/handler/ForgottenDisputeHandler.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/handler/ForgottenDisputeHandler.java
 package dev.vality.disputes.schedule.handler;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
 import dev.vality.disputes.schedule.core.ForgottenDisputesService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@Slf4j
 public class ForgottenDisputeHandler {
 
     private final ForgottenDisputesService forgottenDisputesService;
@@ -5531,68 +4640,47 @@ public class ForgottenDisputeHandler {
         try {
             forgottenDisputesService.process(dispute);
             return dispute.getId();
-        } catch (Throwable ex) {
-            log.error("Received exception while scheduler processed ForgottenDisputesService.process", ex);
-            throw ex;
         } finally {
             currentThread.setName(oldName);
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/handler/NotificationHandler.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/handler/NotificationHandler.java
 package dev.vality.disputes.schedule.handler;
 
-import dev.vality.disputes.dao.model.EnrichedNotification;
 import dev.vality.disputes.schedule.core.NotificationService;
+import dev.vality.swag.disputes.model.NotifyRequest;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.UUID;
 
 @RequiredArgsConstructor
-@Slf4j
 public class NotificationHandler {
 
     private final NotificationService notificationService;
 
-    public UUID handle(EnrichedNotification enrichedNotification) {
+    public String handle(NotifyRequest notifyRequest) {
         final var currentThread = Thread.currentThread();
         final var oldName = currentThread.getName();
-        currentThread.setName("notification-id-" +
-                enrichedNotification.getNotification().getDisputeId() + "-" + oldName);
+        currentThread.setName("notification-id-" + notifyRequest.getDisputeId() + "-" + oldName);
         try {
-            notificationService.process(enrichedNotification);
-            return enrichedNotification.getNotification().getDisputeId();
-        } catch (Throwable ex) {
-            log.error("Received exception while scheduler processed NotificationService.process", ex);
-            throw ex;
+            notificationService.process(notifyRequest);
+            return notifyRequest.getDisputeId();
         } finally {
             currentThread.setName(oldName);
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/handler/PendingDisputeHandler.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/handler/PendingDisputeHandler.java
 package dev.vality.disputes.schedule.handler;
 
 import dev.vality.disputes.domain.tables.pojos.Dispute;
 import dev.vality.disputes.schedule.core.PendingDisputesService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@Slf4j
 public class PendingDisputeHandler {
 
     private final PendingDisputesService pendingDisputesService;
@@ -5604,20 +4692,13 @@ public class PendingDisputeHandler {
         try {
             pendingDisputesService.callPendingDisputeRemotely(dispute);
             return dispute.getId();
-        } catch (Throwable ex) {
-            log.error("Received exception while scheduler processed callPendingDisputeRemotely", ex);
-            throw ex;
         } finally {
             currentThread.setName(oldName);
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/model/ProviderData.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/model/ProviderData.java
 package dev.vality.disputes.schedule.model;
 
 import lombok.Builder;
@@ -5634,19 +4715,13 @@ public class ProviderData {
     private String routeUrl;
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/result/DisputeCreateResultHandler.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/result/DisputeCreateResultHandler.java
 package dev.vality.disputes.schedule.result;
 
 import dev.vality.disputes.admin.callback.CallbackNotifier;
-import dev.vality.disputes.admin.management.MdcTopicProducer;
 import dev.vality.disputes.constant.ErrorMessage;
 import dev.vality.disputes.dao.ProviderDisputeDao;
-import dev.vality.disputes.domain.enums.DisputeStatus;
 import dev.vality.disputes.domain.tables.pojos.Dispute;
 import dev.vality.disputes.provider.DisputeCreatedResult;
 import dev.vality.disputes.schedule.client.DefaultRemoteClient;
@@ -5670,7 +4745,6 @@ public class DisputeCreateResultHandler {
     private final DefaultRemoteClient defaultRemoteClient;
     private final ProviderDisputeDao providerDisputeDao;
     private final CallbackNotifier callbackNotifier;
-    private final MdcTopicProducer mdcTopicProducer;
 
     public void handleRetryLaterResult(Dispute dispute, ProviderData providerData) {
         // дергаем update() чтоб обновить время вызова next_check_after,
@@ -5710,7 +4784,6 @@ public class DisputeCreateResultHandler {
     public void handleAlreadyExistResult(Dispute dispute) {
         disputesService.setNextStepToAlreadyExist(dispute);
         callbackNotifier.sendDisputeAlreadyCreated(dispute);
-        mdcTopicProducer.sendCreated(dispute, DisputeStatus.already_exist_created, "dispute already exist");
     }
 
     public void handleUnexpectedResultMapping(Dispute dispute, WRuntimeException ex) {
@@ -5722,27 +4795,19 @@ public class DisputeCreateResultHandler {
         var errorMessage = ErrorFormatter.getErrorMessage(errorCode, errorDescription);
         disputesService.setNextStepToManualPending(dispute, errorMessage);
         callbackNotifier.sendDisputeManualPending(dispute, errorMessage);
-        mdcTopicProducer.sendCreated(dispute, DisputeStatus.manual_pending, errorMessage);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/result/DisputeStatusResultHandler.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/result/DisputeStatusResultHandler.java
 package dev.vality.disputes.schedule.result;
 
 import dev.vality.damsel.domain.TransactionInfo;
 import dev.vality.disputes.admin.callback.CallbackNotifier;
-import dev.vality.disputes.admin.management.MdcTopicProducer;
 import dev.vality.disputes.constant.ErrorMessage;
-import dev.vality.disputes.domain.enums.DisputeStatus;
 import dev.vality.disputes.domain.tables.pojos.Dispute;
 import dev.vality.disputes.provider.DisputeStatusResult;
 import dev.vality.disputes.provider.payments.converter.TransactionContextConverter;
 import dev.vality.disputes.provider.payments.exception.ProviderCallbackAlreadyExistException;
-import dev.vality.disputes.provider.payments.exception.ProviderPaymentsUnexpectedPaymentStatus;
 import dev.vality.disputes.provider.payments.service.ProviderPaymentsService;
 import dev.vality.disputes.schedule.converter.DisputeCurrencyConverter;
 import dev.vality.disputes.schedule.model.ProviderData;
@@ -5752,8 +4817,6 @@ import dev.vality.woody.api.flow.error.WRuntimeException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 import static dev.vality.disputes.constant.ModerationPrefix.DISPUTES_UNKNOWN_MAPPING;
 
@@ -5768,7 +4831,6 @@ public class DisputeStatusResultHandler {
     private final TransactionContextConverter transactionContextConverter;
     private final DisputeCurrencyConverter disputeCurrencyConverter;
     private final CallbackNotifier callbackNotifier;
-    private final MdcTopicProducer mdcTopicProducer;
 
     public void handlePendingResult(Dispute dispute, ProviderData providerData) {
         // дергаем update() чтоб обновить время вызова next_check_after,
@@ -5795,20 +4857,15 @@ public class DisputeStatusResultHandler {
         disputesService.finishSucceeded(dispute, changedAmount);
     }
 
-    public void handleSucceededResult(Dispute dispute, DisputeStatusResult result, ProviderData providerData, boolean notify, TransactionInfo transactionInfo) {
+    public void handleSucceededResult(Dispute dispute, DisputeStatusResult result, ProviderData providerData, TransactionInfo transactionInfo) {
         var changedAmount = result.getStatusSuccess().getChangedAmount().orElse(null);
         disputesService.setNextStepToCreateAdjustment(dispute, changedAmount);
         createAdjustment(dispute, providerData, transactionInfo);
-        if (notify) {
-            callbackNotifier.sendDisputeReadyForCreateAdjustment(dispute);
-            mdcTopicProducer.sendReadyForCreateAdjustments(List.of(dispute));
-        }
     }
 
     public void handlePoolingExpired(Dispute dispute) {
         disputesService.setNextStepToPoolingExpired(dispute, ErrorMessage.POOLING_EXPIRED);
         callbackNotifier.sendDisputePoolingExpired(dispute);
-        mdcTopicProducer.sendPoolingExpired(dispute);
     }
 
     public void handleProviderDisputeNotFound(Dispute dispute, ProviderData providerData) {
@@ -5825,28 +4882,20 @@ public class DisputeStatusResultHandler {
         var errorMessage = ErrorFormatter.getErrorMessage(errorCode, errorDescription);
         disputesService.setNextStepToManualPending(dispute, errorMessage);
         callbackNotifier.sendDisputeManualPending(dispute, errorMessage);
-        mdcTopicProducer.sendCreated(dispute, DisputeStatus.manual_pending, errorMessage);
     }
 
     private void createAdjustment(Dispute dispute, ProviderData providerData, TransactionInfo transactionInfo) {
         var transactionContext = transactionContextConverter.convert(dispute.getInvoiceId(), dispute.getPaymentId(), dispute.getProviderTrxId(), providerData, transactionInfo);
         var currency = disputeCurrencyConverter.convert(dispute);
         try {
-            var paymentStatusResult = providerPaymentsService.checkPaymentStatusAndSave(transactionContext, currency, providerData, dispute.getAmount());
-            if (!paymentStatusResult.isSuccess()) {
-                throw new ProviderPaymentsUnexpectedPaymentStatus("Cant do createAdjustment");
-            }
+            providerPaymentsService.checkPaymentStatusAndSave(transactionContext, currency, providerData, dispute.getAmount());
         } catch (ProviderCallbackAlreadyExistException ex) {
-            log.warn("ProviderCallbackAlreadyExist when handle DisputeStatusResultHandler.createAdjustment", ex);
+            log.warn("ProviderCallbackAlreadyExist when handle providerPaymentsService.checkPaymentStatusAndSave", ex);
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/service/AttachmentsService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/service/AttachmentsService.java
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.disputes.dao.FileMetaDao;
@@ -5881,12 +4930,8 @@ public class AttachmentsService {
         return attachments;
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/service/ExternalGatewayChecker.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/service/ExternalGatewayChecker.java
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.disputes.schedule.model.ProviderData;
@@ -5947,12 +4992,8 @@ public class ExternalGatewayChecker {
         };
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/service/ProviderDataService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/service/ProviderDataService.java
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.damsel.domain.Currency;
@@ -6017,12 +5058,8 @@ public class ProviderDataService {
         return dominantAsyncService.getCurrency(payment.getPayment().getCost().getCurrency()).get();
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/service/ProviderDisputesRouting.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/service/ProviderDisputesRouting.java
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.disputes.exception.RoutingException;
@@ -6063,12 +5100,8 @@ public class ProviderDisputesRouting {
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/schedule/service/ProviderDisputesThriftInterfaceBuilder.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/schedule/service/ProviderDisputesThriftInterfaceBuilder.java
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.disputes.config.properties.AdaptersConnectionProperties;
@@ -6099,12 +5132,8 @@ public class ProviderDisputesThriftInterfaceBuilder {
                 .build(ProviderDisputesServiceSrv.Iface.class);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/security/AccessData.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/security/AccessData.java
 package dev.vality.disputes.security;
 
 import dev.vality.damsel.payment_processing.Invoice;
@@ -6126,12 +5155,8 @@ public class AccessData {
     private AuthData authData;
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/security/AccessService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/security/AccessService.java
 package dev.vality.disputes.security;
 
 import dev.vality.damsel.payment_processing.InvoicePayment;
@@ -6234,12 +5259,8 @@ public class AccessService {
                         String.format("Payment with id: %s and filled route not found!", paymentId), Type.PAYMENT));
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/security/BouncerContextFactory.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/security/BouncerContextFactory.java
 package dev.vality.disputes.security;
 
 import dev.vality.bouncer.context.v1.ContextFragment;
@@ -6304,12 +5325,8 @@ public class BouncerContextFactory {
                 .setInvoice(invoiceToPaymentProcConverter.convert(accessData.getInvoice()));
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/security/ContextFragmentName.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/security/ContextFragmentName.java
 package dev.vality.disputes.security;
 
 import lombok.experimental.UtilityClass;
@@ -6321,12 +5338,8 @@ public class ContextFragmentName {
     public static final String TOKEN_KEEPER = "token-keeper";
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/security/converter/ContextFragmentV1ToContextFragmentConverter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/security/converter/ContextFragmentV1ToContextFragmentConverter.java
 package dev.vality.disputes.security.converter;
 
 import dev.vality.bouncer.ctx.ContextFragment;
@@ -6363,12 +5376,8 @@ public class ContextFragmentV1ToContextFragmentConverter {
                 .setContent(v1ContextContent);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/security/converter/PaymentProcessingInvoiceToBouncerInvoiceConverter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/security/converter/PaymentProcessingInvoiceToBouncerInvoiceConverter.java
 package dev.vality.disputes.security.converter;
 
 import dev.vality.bouncer.base.Entity;
@@ -6383,7 +5392,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class PaymentProcessingInvoiceToBouncerInvoiceConverter
-        implements Converter<Invoice, dev.vality.bouncer.context.v1.Invoice> {
+implements Converter<Invoice, dev.vality.bouncer.context.v1.Invoice> {
 
     @Override
     public dev.vality.bouncer.context.v1.Invoice convert(Invoice source) {
@@ -6408,12 +5417,8 @@ public class PaymentProcessingInvoiceToBouncerInvoiceConverter
         return new Entity().setId(invoiceRefund.getRefund().getId());
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/security/converter/PaymentProcessingInvoiceToCommonApiOperationConverter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/security/converter/PaymentProcessingInvoiceToCommonApiOperationConverter.java
 package dev.vality.disputes.security.converter;
 
 import dev.vality.bouncer.base.Entity;
@@ -6427,7 +5432,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class PaymentProcessingInvoiceToCommonApiOperationConverter
-        implements Converter<Invoice, dev.vality.bouncer.context.v1.ContextCommonAPI> {
+implements Converter<Invoice, dev.vality.bouncer.context.v1.ContextCommonAPI> {
 
     private final BouncerProperties bouncerProperties;
 
@@ -6442,12 +5447,8 @@ public class PaymentProcessingInvoiceToCommonApiOperationConverter
                         .setShop(new Entity().setId(invoice.getShopId())));
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/security/service/BouncerService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/security/service/BouncerService.java
 package dev.vality.disputes.security.service;
 
 import dev.vality.bouncer.decisions.Resolution;
@@ -6458,12 +5459,8 @@ public interface BouncerService {
     Resolution getResolution(AccessData accessData);
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/security/service/TokenKeeperService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/security/service/TokenKeeperService.java
 package dev.vality.disputes.security.service;
 
 import dev.vality.token.keeper.AuthData;
@@ -6473,12 +5470,8 @@ public interface TokenKeeperService {
     AuthData getAuthData();
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/security/service/impl/BouncerServiceImpl.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/security/service/impl/BouncerServiceImpl.java
 package dev.vality.disputes.security.service.impl;
 
 import dev.vality.bouncer.decisions.ArbiterSrv;
@@ -6519,12 +5512,8 @@ public class BouncerServiceImpl implements BouncerService {
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/security/service/impl/TokenKeeperServiceImpl.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/security/service/impl/TokenKeeperServiceImpl.java
 package dev.vality.disputes.security.service.impl;
 
 import dev.vality.disputes.exception.TokenKeeperException;
@@ -6573,12 +5562,8 @@ public class TokenKeeperServiceImpl implements TokenKeeperService {
         return Optional.of(token);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/DisputesService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/DisputesService.java
 package dev.vality.disputes.service;
 
 import dev.vality.damsel.domain.Failure;
@@ -6755,12 +5740,8 @@ public class DisputesService {
                 DisputeStatus.pooling_expired);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/MdcTaskDecorator.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/MdcTaskDecorator.java
 package dev.vality.disputes.service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -6785,19 +5766,15 @@ public class MdcTaskDecorator implements TaskDecorator {
         };
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/external/DisputesTgBotService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/external/DisputesTgBotService.java
 package dev.vality.disputes.service.external;
 
-import dev.vality.disputes.admin.*;
+import dev.vality.disputes.admin.DisputeAlreadyCreated;
+import dev.vality.disputes.admin.DisputeManualPending;
+import dev.vality.disputes.admin.DisputePoolingExpired;
 import dev.vality.disputes.provider.DisputeCreatedResult;
 import dev.vality.disputes.provider.DisputeParams;
-
-import java.util.List;
 
 public interface DisputesTgBotService {
 
@@ -6807,19 +5784,11 @@ public interface DisputesTgBotService {
 
     void sendDisputePoolingExpired(DisputePoolingExpired disputePoolingExpired);
 
-    void sendDisputeReadyForCreateAdjustment(DisputeReadyForCreateAdjustment disputeReadyForCreateAdjustment);
-
     void sendDisputeManualPending(DisputeManualPending disputeManualPending);
 
-    void sendForgottenDisputes(List<Notification> notifications);
-
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/external/DominantService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/external/DominantService.java
 package dev.vality.disputes.service.external;
 
 import dev.vality.damsel.domain.*;
@@ -6835,12 +5804,8 @@ public interface DominantService {
     Provider getProvider(ProviderRef providerRef);
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/external/FileStorageService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/external/FileStorageService.java
 package dev.vality.disputes.service.external;
 
 public interface FileStorageService {
@@ -6850,12 +5815,8 @@ public interface FileStorageService {
     String generateDownloadUrl(String fileId);
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/external/InvoicingService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/external/InvoicingService.java
 package dev.vality.disputes.service.external;
 
 import dev.vality.damsel.payment_processing.Invoice;
@@ -6874,12 +5835,8 @@ public interface InvoicingService {
             InvoicePaymentAdjustmentParams params);
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/external/PartyManagementService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/external/PartyManagementService.java
 package dev.vality.disputes.service.external;
 
 import dev.vality.damsel.domain.Shop;
@@ -6889,12 +5846,8 @@ public interface PartyManagementService {
     Shop getShop(String partyId, String shopId);
 
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/external/impl/DisputesTgBotServiceImpl.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/external/impl/DisputesTgBotServiceImpl.java
 package dev.vality.disputes.service.external.impl;
 
 import dev.vality.disputes.admin.*;
@@ -6947,36 +5900,15 @@ public class DisputesTgBotServiceImpl implements DisputesTgBotService {
 
     @Override
     @SneakyThrows
-    public void sendDisputeReadyForCreateAdjustment(DisputeReadyForCreateAdjustment disputeReadyForCreateAdjustment) {
-        log.debug("Trying to call adminCallbackDisputesTgBotClient.sendDisputeReadyForCreateAdjustment() {}", disputeReadyForCreateAdjustment.getInvoiceId());
-        adminCallbackDisputesTgBotClient.notify(
-                new NotificationParamsRequest(List.of(Notification.disputeReadyForCreateAdjustment(disputeReadyForCreateAdjustment))));
-        log.debug("adminCallbackDisputesTgBotClient.sendDisputeReadyForCreateAdjustment() has been called {}", disputeReadyForCreateAdjustment.getInvoiceId());
-    }
-
-    @Override
-    @SneakyThrows
     public void sendDisputeManualPending(DisputeManualPending disputeManualPending) {
         log.debug("Trying to call adminCallbackDisputesTgBotClient.sendDisputeManualPending() {}", disputeManualPending.getInvoiceId());
         adminCallbackDisputesTgBotClient.notify(
                 new NotificationParamsRequest(List.of(Notification.disputeManualPending(disputeManualPending))));
         log.debug("adminCallbackDisputesTgBotClient.sendDisputeManualPending() has been called {}", disputeManualPending.getInvoiceId());
     }
-
-    @Override
-    @SneakyThrows
-    public void sendForgottenDisputes(List<Notification> notifications) {
-        log.debug("Trying to call adminCallbackDisputesTgBotClient.sendForgottenDisputes() {}", notifications.size());
-        adminCallbackDisputesTgBotClient.notify(new NotificationParamsRequest(notifications));
-        log.debug("adminCallbackDisputesTgBotClient.sendForgottenDisputes() has been called {}", notifications.size());
-    }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/external/impl/DominantServiceImpl.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/external/impl/DominantServiceImpl.java
 package dev.vality.disputes.service.external.impl;
 
 import dev.vality.damsel.domain.*;
@@ -7014,12 +5946,8 @@ public class DominantServiceImpl implements DominantService {
         return dominantCacheService.getProvider(providerRef);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/external/impl/FileStorageServiceImpl.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/external/impl/FileStorageServiceImpl.java
 package dev.vality.disputes.service.external.impl;
 
 import dev.vality.disputes.config.properties.FileStorageProperties;
@@ -7094,12 +6022,8 @@ public class FileStorageServiceImpl implements FileStorageService {
                 .toInstant(ZoneOffset.UTC);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/external/impl/InvoicingServiceImpl.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/external/impl/InvoicingServiceImpl.java
 package dev.vality.disputes.service.external.impl;
 
 import dev.vality.damsel.payment_processing.*;
@@ -7178,12 +6102,8 @@ public class InvoicingServiceImpl implements InvoicingService {
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/external/impl/PartyManagementServiceImpl.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/external/impl/PartyManagementServiceImpl.java
 package dev.vality.disputes.service.external.impl;
 
 import dev.vality.damsel.domain.Party;
@@ -7255,12 +6175,8 @@ public class PartyManagementServiceImpl implements PartyManagementService {
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/external/impl/dominant/DominantAsyncService.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/external/impl/dominant/DominantAsyncService.java
 package dev.vality.disputes.service.external.impl.dominant;
 
 import dev.vality.damsel.domain.*;
@@ -7319,12 +6235,8 @@ public class DominantAsyncService {
         }
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/service/external/impl/dominant/DominantCacheServiceImpl.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/service/external/impl/dominant/DominantCacheServiceImpl.java
 package dev.vality.disputes.service.external.impl.dominant;
 
 import dev.vality.damsel.domain.*;
@@ -7446,12 +6358,8 @@ public class DominantCacheServiceImpl {
         return dominantClient.checkoutObject(revisionReference, reference);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/servlet/AdminManagementServlet.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/servlet/AdminManagementServlet.java
 package dev.vality.disputes.servlet;
 
 import dev.vality.disputes.admin.AdminManagementServiceSrv;
@@ -7482,12 +6390,8 @@ public class AdminManagementServlet extends GenericServlet {
         servlet.service(request, response);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/servlet/MerchantServlet.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/servlet/MerchantServlet.java
 package dev.vality.disputes.servlet;
 
 import dev.vality.disputes.merchant.MerchantDisputesServiceSrv;
@@ -7518,12 +6422,8 @@ public class MerchantServlet extends GenericServlet {
         servlet.service(request, response);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/util/ErrorFormatter.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/util/ErrorFormatter.java
 package dev.vality.disputes.util;
 
 import dev.vality.damsel.domain.Failure;
@@ -7577,12 +6477,8 @@ public class ErrorFormatter {
         return result.toString();
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/util/OptionsExtractor.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/util/OptionsExtractor.java
 package dev.vality.disputes.util;
 
 import dev.vality.damsel.domain.Provider;
@@ -7617,12 +6513,8 @@ public class OptionsExtractor {
                 .orElse(new HashMap<>());
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/util/PaymentAmountUtil.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/util/PaymentAmountUtil.java
 package dev.vality.disputes.util;
 
 import dev.vality.damsel.domain.Cash;
@@ -7641,12 +6533,8 @@ public class PaymentAmountUtil {
                 .orElse(null);
     }
 }
-```
 
----
-### 📄 File: `./src/main/java/dev/vality/disputes/util/PaymentStatusValidator.java`
----
-```java
+FILE: ./src/main/java/dev/vality/disputes/util/PaymentStatusValidator.java
 package dev.vality.disputes.util;
 
 import dev.vality.damsel.payment_processing.InvoicePayment;
@@ -7676,12 +6564,8 @@ public class PaymentStatusValidator {
         return ErrorMessage.PAYMENT_STATUS_RESTRICTIONS;
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/admin/management/DebugAdminManagementController.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/admin/management/DebugAdminManagementController.java
 package dev.vality.disputes.admin.management;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -7832,12 +6716,8 @@ public class DebugAdminManagementController {
         }
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/admin/management/DebugAdminManagementControllerTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/admin/management/DebugAdminManagementControllerTest.java
 package dev.vality.disputes.admin.management;
 
 import dev.vality.disputes.admin.AdminManagementServiceSrv;
@@ -7936,12 +6816,8 @@ public class DebugAdminManagementControllerTest {
         assertEquals(2, disputes.getDisputes().size());
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/admin/management/DebugAdminManagementHandlerTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/admin/management/DebugAdminManagementHandlerTest.java
 package dev.vality.disputes.admin.management;
 
 import dev.vality.disputes.config.AbstractMockitoConfig;
@@ -8106,12 +6982,8 @@ public class DebugAdminManagementHandlerTest extends AbstractMockitoConfig {
         disputeDao.finishFailed(disputeId, null);
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/api/DisputesApiDelegateServiceTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/api/DisputesApiDelegateServiceTest.java
 package dev.vality.disputes.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8293,12 +7165,8 @@ public class DisputesApiDelegateServiceTest {
                 .andExpect(status().is4xxClientError());
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/api/ServletTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/api/ServletTest.java
 package dev.vality.disputes.api;
 
 import dev.vality.damsel.payment_processing.InvoicingSrv;
@@ -8325,7 +7193,7 @@ import static dev.vality.disputes.config.NetworkConfig.*;
 
 @WireMockSpringBootITest
 @TestPropertySource(properties = {
-        "server.port=${local.server.port}"})
+"server.port=${local.server.port}"})
 public class ServletTest {
 
     @MockitoBean
@@ -8389,12 +7257,8 @@ public class ServletTest {
         Assertions.assertThrows(WRuntimeException.class, () -> iface.createDispute(request));
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/config/AbstractMockitoConfig.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/config/AbstractMockitoConfig.java
 package dev.vality.disputes.config;
 
 import dev.vality.bouncer.decisions.ArbiterSrv;
@@ -8479,12 +7343,8 @@ public abstract class AbstractMockitoConfig {
         providerCallbackFlowHandler = new ProviderCallbackFlowHandler(invoicingClient, disputeDao, providerCallbackDao, pendingFlowHandler, providerPaymentsService, providerPaymentsAdjustmentExtractor);
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/config/DisableFlyway.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/config/DisableFlyway.java
 package dev.vality.disputes.config;
 
 import org.springframework.test.context.TestPropertySource;
@@ -8499,17 +7359,13 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @TestPropertySource(properties = {
-        "spring.flyway.enabled=false",
+"spring.flyway.enabled=false",
 })
 @MockitoBean(types = {DataSource.class})
 public @interface DisableFlyway {
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/config/DisableScheduling.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/config/DisableScheduling.java
 package dev.vality.disputes.config;
 
 import org.springframework.test.context.TestPropertySource;
@@ -8522,19 +7378,15 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @TestPropertySource(properties = {
-        "dispute.isScheduleCreatedEnabled=false",
-        "dispute.isSchedulePendingEnabled=false",
-        "dispute.isScheduleForgottenEnabled=false",
-        "provider.payments.isScheduleCreateAdjustmentsEnabled=false",
+"dispute.isScheduleCreatedEnabled=false",
+"dispute.isSchedulePendingEnabled=false",
+"dispute.isScheduleForgottenEnabled=false",
+"provider.payments.isScheduleCreateAdjustmentsEnabled=false",
 })
 public @interface DisableScheduling {
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/config/EmbeddedPostgresWithFlyway.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/config/EmbeddedPostgresWithFlyway.java
 package dev.vality.disputes.config;
 
 import org.springframework.context.annotation.Import;
@@ -8549,12 +7401,8 @@ import java.lang.annotation.Target;
 @Import(EmbeddedPostgresWithFlywayConfiguration.class)
 public @interface EmbeddedPostgresWithFlyway {
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/config/EmbeddedPostgresWithFlywayConfiguration.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/config/EmbeddedPostgresWithFlywayConfiguration.java
 package dev.vality.disputes.config;
 
 import io.zonky.test.db.postgres.embedded.FlywayPreparer;
@@ -8575,12 +7423,8 @@ public class EmbeddedPostgresWithFlywayConfiguration {
                 .createDataSource();
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/config/EmbeddedPostgresWithFlywaySpringBootITest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/config/EmbeddedPostgresWithFlywaySpringBootITest.java
 package dev.vality.disputes.config;
 
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8597,12 +7441,8 @@ import java.lang.annotation.Target;
 @SpringBootTest
 public @interface EmbeddedPostgresWithFlywaySpringBootITest {
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/config/PostgresqlSpringBootITest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/config/PostgresqlSpringBootITest.java
 package dev.vality.disputes.config;
 
 import dev.vality.testcontainers.annotations.DefaultSpringBootTest;
@@ -8620,12 +7460,8 @@ import java.lang.annotation.Target;
 @DefaultSpringBootTest
 public @interface PostgresqlSpringBootITest {
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/config/SpringBootUTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/config/SpringBootUTest.java
 package dev.vality.disputes.config;
 
 import dev.vality.testcontainers.annotations.DefaultSpringBootTest;
@@ -8642,12 +7478,8 @@ import java.lang.annotation.Target;
 @DefaultSpringBootTest
 public @interface SpringBootUTest {
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/config/WireMockSpringBootITest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/config/WireMockSpringBootITest.java
 package dev.vality.disputes.config;
 
 import dev.vality.disputes.DisputesApiApplication;
@@ -8670,17 +7502,13 @@ import java.lang.annotation.Target;
 @Import(WiremockAddressesHolder.class)
 @EnableWireMock
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = DisputesApiApplication.class,
-        properties = {"logging.level.WireMock=WARN"})
+webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+classes = DisputesApiApplication.class,
+properties = {"logging.level.WireMock=WARN"})
 public @interface WireMockSpringBootITest {
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/config/WiremockAddressesHolder.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/config/WiremockAddressesHolder.java
 package dev.vality.disputes.config;
 
 import dev.vality.disputes.util.TestUrlPaths;
@@ -8705,12 +7533,8 @@ public class WiremockAddressesHolder {
         return String.format(baseUrl + TestUrlPaths.NOTIFICATION_PATH);
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/config/ZonkyEmbeddedPostgres.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/config/ZonkyEmbeddedPostgres.java
 package dev.vality.disputes.config;
 
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
@@ -8725,12 +7549,8 @@ import java.lang.annotation.Target;
 @AutoConfigureEmbeddedDatabase(provider = AutoConfigureEmbeddedDatabase.DatabaseProvider.ZONKY)
 public @interface ZonkyEmbeddedPostgres {
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/config/ZonkyEmbeddedPostgresSpringBootITest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/config/ZonkyEmbeddedPostgresSpringBootITest.java
 package dev.vality.disputes.config;
 
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8747,12 +7567,8 @@ import java.lang.annotation.Target;
 @SpringBootTest
 public @interface ZonkyEmbeddedPostgresSpringBootITest {
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/dao/DisputeDaoTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/dao/DisputeDaoTest.java
 package dev.vality.disputes.dao;
 
 import dev.vality.disputes.domain.enums.DisputeStatus;
@@ -8831,12 +7647,8 @@ public abstract class DisputeDaoTest {
         disputeDao.finishFailed(random.getId(), null);
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/dao/FileMetaDaoTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/dao/FileMetaDaoTest.java
 package dev.vality.disputes.dao;
 
 import dev.vality.disputes.config.PostgresqlSpringBootITest;
@@ -8868,12 +7680,8 @@ public class FileMetaDaoTest {
         assertEquals(2, fileMetaDao.getDisputeFiles(disputeId).size());
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/dao/NotificationDaoTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/dao/NotificationDaoTest.java
 package dev.vality.disputes.dao;
 
 import dev.vality.disputes.config.PostgresqlSpringBootITest;
@@ -8917,8 +7725,8 @@ public class NotificationDaoTest {
         notificationDao.save(getNotification(NotificationStatus.pending, createdAt.plusSeconds(10), getDispute().getId()));
         notificationDao.save(getNotification(NotificationStatus.pending, createdAt, UUID.randomUUID()));
         notificationDao.save(getNotification(NotificationStatus.pending, createdAt, UUID.randomUUID()));
-        var enrichedNotifications = notificationDao.getNotificationsForDelivery(10);
-        assertEquals(1, enrichedNotifications.size());
+        var notifyRequests = notificationDao.getNotifyRequests(10);
+        assertEquals(1, notifyRequests.size());
     }
 
     @Test
@@ -8961,12 +7769,8 @@ public class NotificationDaoTest {
         return random;
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/dao/ProviderDisputeDaoTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/dao/ProviderDisputeDaoTest.java
 package dev.vality.disputes.dao;
 
 import dev.vality.disputes.config.PostgresqlSpringBootITest;
@@ -8990,12 +7794,8 @@ public class ProviderDisputeDaoTest {
         assertEquals(random, providerDisputeDao.get(random.getDisputeId()));
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/dao/startup/WithEmbeddedPostgresWithFlywayDisputeDaoTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/dao/startup/WithEmbeddedPostgresWithFlywayDisputeDaoTest.java
 package dev.vality.disputes.dao.startup;
 
 import dev.vality.disputes.config.EmbeddedPostgresWithFlywaySpringBootITest;
@@ -9006,12 +7806,8 @@ import org.junit.jupiter.api.Disabled;
 @EmbeddedPostgresWithFlywaySpringBootITest
 public class WithEmbeddedPostgresWithFlywayDisputeDaoTest extends DisputeDaoTest {
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/dao/startup/WithTestcontainerDisputeDaoTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/dao/startup/WithTestcontainerDisputeDaoTest.java
 package dev.vality.disputes.dao.startup;
 
 import dev.vality.disputes.config.PostgresqlSpringBootITest;
@@ -9020,12 +7816,8 @@ import dev.vality.disputes.dao.DisputeDaoTest;
 @PostgresqlSpringBootITest
 public class WithTestcontainerDisputeDaoTest extends DisputeDaoTest {
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/dao/startup/WithZonkyEmbeddedPostgresDisputeDaoTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/dao/startup/WithZonkyEmbeddedPostgresDisputeDaoTest.java
 package dev.vality.disputes.dao.startup;
 
 import dev.vality.disputes.config.ZonkyEmbeddedPostgresSpringBootITest;
@@ -9036,12 +7828,8 @@ import org.junit.jupiter.api.Disabled;
 @ZonkyEmbeddedPostgresSpringBootITest
 public class WithZonkyEmbeddedPostgresDisputeDaoTest extends DisputeDaoTest {
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/provider/payments/ProviderCallbackHandlerTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/provider/payments/ProviderCallbackHandlerTest.java
 package dev.vality.disputes.provider.payments;
 
 import dev.vality.disputes.config.AbstractMockitoConfig;
@@ -9072,8 +7860,8 @@ import static org.mockito.Mockito.*;
 
 @WireMockSpringBootITest
 @TestPropertySource(properties = {
-        "server.port=${local.server.port}",
-        "provider.payments.isProviderCallbackEnabled=true",
+"server.port=${local.server.port}",
+"provider.payments.isProviderCallbackEnabled=true",
 })
 @SuppressWarnings({"LineLength"})
 public class ProviderCallbackHandlerTest extends AbstractMockitoConfig {
@@ -9129,12 +7917,8 @@ public class ProviderCallbackHandlerTest extends AbstractMockitoConfig {
                 .build(ProviderPaymentsCallbackServiceSrv.Iface.class);
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/provider/payments/ProviderPaymentsServiceTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/provider/payments/ProviderPaymentsServiceTest.java
 package dev.vality.disputes.provider.payments;
 
 import dev.vality.damsel.domain.InvoicePaymentCaptured;
@@ -9155,8 +7939,8 @@ import static org.mockito.Mockito.when;
 
 @WireMockSpringBootITest
 @TestPropertySource(properties = {
-        "server.port=${local.server.port}",
-        "provider.payments.isProviderCallbackEnabled=true",
+"server.port=${local.server.port}",
+"provider.payments.isProviderCallbackEnabled=true",
 })
 @SuppressWarnings({"VariableDeclarationUsageDistance", "LineLength"})
 public class ProviderPaymentsServiceTest extends AbstractMockitoConfig {
@@ -9198,12 +7982,8 @@ public class ProviderPaymentsServiceTest extends AbstractMockitoConfig {
         assertEquals(DisputeStatus.succeeded, disputeDao.get(disputeId).getStatus());
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/schedule/service/CreatedDisputesServiceTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/schedule/service/CreatedDisputesServiceTest.java
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.damsel.domain.InvoicePaymentCaptured;
@@ -9458,12 +8238,8 @@ public class CreatedDisputesServiceTest extends AbstractMockitoConfig {
         assertEquals(ProviderPaymentsStatus.create_adjustment, providerCallbackDao.get(dispute.getInvoiceId(), dispute.getPaymentId()).getStatus());
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/schedule/service/ForgottenDisputesServiceTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/schedule/service/ForgottenDisputesServiceTest.java
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.damsel.domain.InvoicePaymentCaptured;
@@ -9523,18 +8299,13 @@ public class ForgottenDisputesServiceTest extends AbstractMockitoConfig {
         assertEquals(DisputeStatus.succeeded, disputeDao.get(disputeId).getStatus());
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/schedule/service/NotificationServiceTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/schedule/service/NotificationServiceTest.java
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.disputes.config.AbstractMockitoConfig;
 import dev.vality.disputes.config.WireMockSpringBootITest;
 import dev.vality.disputes.dao.NotificationDao;
-import dev.vality.disputes.dao.model.EnrichedNotification;
 import dev.vality.disputes.domain.enums.NotificationStatus;
 import dev.vality.disputes.schedule.core.NotificationService;
 import dev.vality.disputes.util.WiremockUtils;
@@ -9557,9 +8328,8 @@ public class NotificationServiceTest extends AbstractMockitoConfig {
     public void testNotificationDelivered() {
         var disputeId = providerCallbackFlowHandler.handleSuccess();
         WiremockUtils.mockNotificationSuccess();
-        var dispute = disputeDao.get(disputeId);
-        var notification = notificationDao.get(disputeId);
-        notificationService.process(EnrichedNotification.builder().dispute(dispute).notification(notification).build());
+        var notifyRequest = notificationDao.getNotifyRequest(disputeId);
+        notificationService.process(notifyRequest);
         Assertions.assertEquals(NotificationStatus.delivered, notificationDao.get(disputeId).getStatus());
     }
 
@@ -9568,27 +8338,20 @@ public class NotificationServiceTest extends AbstractMockitoConfig {
     public void testNotificationDeliveredAfterMerchantInternalErrors() {
         var disputeId = providerCallbackFlowHandler.handleSuccess();
         WiremockUtils.mockNotification500();
-        var dispute = disputeDao.get(disputeId);
-        var notification = notificationDao.get(disputeId);
-        notificationService.process(EnrichedNotification.builder().dispute(dispute).notification(notification).build());
-        notification = notificationDao.get(disputeId);
-        Assertions.assertEquals(NotificationStatus.pending, notification.getStatus());
-        Assertions.assertEquals(4, notification.getMaxAttempts());
-        notificationService.process(EnrichedNotification.builder().dispute(dispute).notification(notification).build());
-        notification = notificationDao.get(disputeId);
-        Assertions.assertEquals(NotificationStatus.pending, notification.getStatus());
-        Assertions.assertEquals(3, notification.getMaxAttempts());
+        var notifyRequest = notificationDao.getNotifyRequest(disputeId);
+        notificationService.process(notifyRequest);
+        Assertions.assertEquals(NotificationStatus.pending, notificationDao.get(disputeId).getStatus());
+        Assertions.assertEquals(4, notificationDao.get(disputeId).getMaxAttempts());
+        notificationService.process(notifyRequest);
+        Assertions.assertEquals(NotificationStatus.pending, notificationDao.get(disputeId).getStatus());
+        Assertions.assertEquals(3, notificationDao.get(disputeId).getMaxAttempts());
         WiremockUtils.mockNotificationSuccess();
-        notificationService.process(EnrichedNotification.builder().dispute(dispute).notification(notification).build());
+        notificationService.process(notifyRequest);
         Assertions.assertEquals(NotificationStatus.delivered, notificationDao.get(disputeId).getStatus());
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/schedule/service/PendingDisputesServiceTest.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/schedule/service/PendingDisputesServiceTest.java
 package dev.vality.disputes.schedule.service;
 
 import dev.vality.damsel.domain.InvoicePaymentCaptured;
@@ -9733,12 +8496,8 @@ public class PendingDisputesServiceTest extends AbstractMockitoConfig {
         assertEquals(DisputeStatus.succeeded, disputeDao.get(disputeId).getStatus());
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/schedule/service/config/CreatedFlowHandler.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/schedule/service/config/CreatedFlowHandler.java
 package dev.vality.disputes.schedule.service.config;
 
 import dev.vality.damsel.payment_processing.InvoicingSrv;
@@ -9818,12 +8577,8 @@ public class CreatedFlowHandler {
         when(providerPaymentsThriftInterfaceBuilder.buildWoodyClient(any())).thenReturn(providerPaymentMock);
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/schedule/service/config/MerchantApiMvcPerformer.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/schedule/service/config/MerchantApiMvcPerformer.java
 package dev.vality.disputes.schedule.service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9886,12 +8641,8 @@ public class MerchantApiMvcPerformer {
         return new ObjectMapper().readValue(resultActions.andReturn().getResponse().getContentAsString(), Create200Response.class);
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/schedule/service/config/PendingFlowHandler.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/schedule/service/config/PendingFlowHandler.java
 package dev.vality.disputes.schedule.service.config;
 
 import dev.vality.disputes.dao.DisputeDao;
@@ -9942,12 +8693,8 @@ public class PendingFlowHandler {
         return disputeId;
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/schedule/service/config/ProviderCallbackFlowHandler.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/schedule/service/config/ProviderCallbackFlowHandler.java
 package dev.vality.disputes.schedule.service.config;
 
 import dev.vality.damsel.payment_processing.InvoicingSrv;
@@ -9997,12 +8744,8 @@ public class ProviderCallbackFlowHandler {
         return disputeId;
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/util/DamselUtil.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/util/DamselUtil.java
 package dev.vality.disputes.util;
 
 import dev.vality.geck.serializer.kit.mock.FieldHandler;
@@ -10036,12 +8779,8 @@ public class DamselUtil {
         return DamselUtil.mockRequiredTBaseProcessor.process(tbase, new TBaseHandler<>(type));
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/util/MockUtil.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/util/MockUtil.java
 package dev.vality.disputes.util;
 
 import dev.vality.bouncer.ctx.ContextFragment;
@@ -10265,12 +9004,8 @@ public class MockUtil {
         return new PaymentStatusResult(true).setChangedAmount(Long.MAX_VALUE);
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/util/OpenApiUtil.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/util/OpenApiUtil.java
 package dev.vality.disputes.util;
 
 import lombok.experimental.UtilityClass;
@@ -10296,7 +9031,7 @@ public class OpenApiUtil {
                   ],
                   "amount": 100,
                   "reason": "string",
-                  "notificationUrl": "https://valitydev.github.io/swag-disputes/#tag/notifications/operation/notify"
+                  "notificationUrl": "https://webhook.site/bd6cb94e-4ce0-4943-9230-65c466aa03a8"
                 }
                 """, invoiceId, paymentId);
     }
@@ -10411,12 +9146,8 @@ public class OpenApiUtil {
                 """, disputeId, providerDisputeId);
     }
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/util/TestUrlPaths.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/util/TestUrlPaths.java
 package dev.vality.disputes.util;
 
 import lombok.AccessLevel;
@@ -10432,12 +9163,8 @@ public class TestUrlPaths {
     public static final String NOTIFICATION_PATH = "/mock/v1/notify";
 
 }
-```
 
----
-### 📄 File: `./src/test/java/dev/vality/disputes/util/WiremockUtils.java`
----
-```java
+FILE: ./src/test/java/dev/vality/disputes/util/WiremockUtils.java
 package dev.vality.disputes.util;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
@@ -10478,18 +9205,12 @@ public class WiremockUtils {
                         .withStatus(500)));
     }
 }
-```
 
-## ⚙️ Extra Project Files
-
----
-### 🧾 File: `pom.xml`
----
-```xml
+FILE: pom.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>dev.vality</groupId>
@@ -10890,10 +9611,3 @@ public class WiremockUtils {
         </plugins>
     </build>
 </project>
-```
-
-## 💬 Task Prompt
-```
-This file contains a full description of my Kotlin/Java project: directory structure, full or partial source code, project stats, and key configuration files.
-Use this as context for answering architectural, structural, or implementation-level questions.
-

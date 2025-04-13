@@ -1,19 +1,19 @@
-## 🤖 context-for-ai
+## 🧾 context-for-ai
 
-**context-for-ai** is a CLI tool that generates a clean, structured Markdown snapshot of your source code project — ideal for providing full context to AI systems, documentation tools, or just for human understanding.
+**context-for-ai** is a minimalistic CLI tool that generates a flat, machine-readable snapshot of your codebase — perfect for feeding into AI tools, automations, or static analysis pipelines.
+
+Unlike the full-featured version, this tool avoids Markdown formatting and outputs raw content for each file in a simple, consistent format.
 
 ---
 
 ## ✨ Features
 
-- 📂 Pretty directory tree
-- 📄 Source code blocks (partial or full)
-- 📊 Project stats (file count, lines)
-- 🗞 Extra files like `pom.xml`, `application.yml`, etc.
-- 💬 Custom task prompt for AI agents
-- 🛠 Interactive or one-shot CLI
-- 🧱 Easy Homebrew install (`brew install`)
-- 💥 Automatically includes `tree` if not installed
+- 🧠 Machine-readable plain-text output
+- 📄 Full content of `.kt`, `.java`, and `.py` source files
+- 🧪 Smart file ordering: source files → tests → others
+- ⚙️ Includes key project config files: `pom.xml`, `build.gradle.kts`, `requirements.txt`, etc.
+- 🛠 No dependencies, no visual markup
+- 🚀 Fast and IDE/AI-friendly
 
 ---
 
@@ -57,50 +57,38 @@ Optional flags:
 
 ## 🚀 Usage
 
-### Default (recommended)
+From the root of your project:
 
 ```bash
-context-for-ai --default
+context-for-ai
 ```
 
-Includes: `.kt`, `.java`, `.xml` files, first 40 lines each, plus common configs (`pom.xml`, `application.yml`, etc).
+This generates a file called `project_snapshot.txt` with flat output like:
 
-### Full content mode
-
-```bash
-context-for-ai --default --all
 ```
+FILE: ./src/main/java/dev/vality/disputes/Servlet.java
+package dev.vality.disputes;
 
-Includes the full content of each file.
+...
 
-### With AI prompt
-
-```bash
-context-for-ai --default --all --ask "What modules can be split from this project?"
+FILE: ./tests/test_api.py
+import pytest
+...
 ```
-
-Appends a `Task Prompt` block at the bottom of the file.
-
-### Interactive mode
-
-```bash
-context-for-ai --interactive
-```
-
-Guided selection of file types, extras, and line limits.
 
 ---
 
-## 📁 Output
+## 📁 Output Format
 
-Generates `project_description.md` with the following sections:
+- No Markdown
+- Each file starts with: `FILE: ./relative/path`
+- Followed by full raw content of the file
+- One empty line between files
 
-- 📁 Directory Structure
-- 🔥 Recently Changed Files
-- 📊 Project Stats
-- 📄 Code Files
-- ⚙️ Extra Config Files
-- 💬 Task Prompt (optional)
+Perfect for:
+- LLM input
+- Parsing pipelines
+- Automated review tooling
 
 ---
 
@@ -108,30 +96,21 @@ Generates `project_description.md` with the following sections:
 
 ```text
 Usage:
-  context-for-ai [--default] [--all] [--ask "your question"]
-  context-for-ai --interactive
-  context-for-ai --version
-  context-for-ai --help
+  context-for-ai [--help] [--version]
 ```
 
 ---
 
-## 🥪 Example Output
+## 💡 Use Cases
 
-See [sample output](https://github.com/karle0wne/context-for-ai/blob/main/examples/sample-output.md)
+- AI codebase context serialization
+- Automated static review or processing
+- Lightweight backups
+- Internal tooling integrations
+- Code intelligence pipelines
 
 ---
 
 ## 📜 License
 
 [MIT](LICENSE)
-
----
-
-## 💡 Ideas for use
-
-- AI assistant input (ChatGPT, Claude, CodeWhisperer, etc.)
-- Developer onboarding
-- Code reviews and refactoring
-- Architecture mapping
-- Internal documentation
