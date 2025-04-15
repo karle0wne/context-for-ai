@@ -8,12 +8,14 @@ It outputs a simple `project_snapshot.txt` file, listing every relevant file in 
 
 ## ✨ Features
 
-- 📄 Full raw content of `.kt`, `.java`, `.py` files
+- 📄 Full raw content of `.kt`, `.java`, `.py` files — or any extensions you choose
 - 🧪 Smart file ordering: `src/` and `src/main/` → `test/` and `src/test/` → others
 - 🛡 MD5 and SHA1 checksums for every file
 - ⚙️ Includes config files like `pom.xml`, `requirements.txt`, `application.yml`, etc.
+- 🔍 Recursively searches for config files, even in nested folders (e.g., `config/application.yml`)
 - 🧠 Fully plain-text & machine-friendly — no Markdown
 - 🧱 Zero dependencies — pure bash
+- 🧰 Interactive mode for custom setup
 
 ---
 
@@ -30,7 +32,7 @@ brew install context-for-ai
 
 ```bash
 brew install --no-quarantine \
-  https://raw.githubusercontent.com/karle0wne/homebrew-tap/main/Formula/context-for-ai.rb
+  https://raw.githubusercontent.com/karle0wne/homebrew-tap/master/Formula/context-for-ai.rb
 ```
 
 ### 🧪 Or run from source
@@ -45,7 +47,7 @@ chmod +x bin/context-for-ai
 ### 🌀 Or install via curl
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/karle0wne/context-for-ai/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/karle0wne/context-for-ai/master/install.sh | bash
 ```
 
 Optional flags:
@@ -76,6 +78,21 @@ public class MyService { ... }
 
 ---
 
+### 🧰 Interactive Mode
+
+Launch with:
+
+```bash
+context-for-ai -i
+```
+
+You will be prompted to:
+- Enter file extensions (e.g., `kt,java,py`)
+- Enter config filenames (e.g., `Dockerfile,build.gradle`)
+- Enter custom output file name
+
+---
+
 ## 📁 Output Format
 
 Each file is written in this format:
@@ -101,7 +118,12 @@ Perfect for:
 
 ```text
 Usage:
-  context-for-ai [--help] [--version]
+  context-for-ai [--help] [--version] [-i]
+
+Options:
+  --help        Show this help message
+  --version     Show script version
+  -i            Interactive mode for custom config
 ```
 
 ---

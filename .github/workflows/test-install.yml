@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: 🧪 Run install.sh via curl
         run: |
-          curl -sSL https://raw.githubusercontent.com/karle0wne/context-for-ai/main/install.sh | bash
+          curl -sSL https://raw.githubusercontent.com/karle0wne/context-for-ai/master/install.sh | bash
 
       - name: ✅ Verify context-for-ai is installed and working
         run: |
