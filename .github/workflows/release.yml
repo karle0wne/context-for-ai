@@ -1,0 +1,144 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Part of version to bump (semver)'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  release:
+    name: Build and publish release
+    runs-on: ubuntu-latest
+
+    env:
+      ARCHIVE_NAME: context-for-ai
+      ARCHIVE_PATH: dist/context-for-ai
+      ARCHIVE_FILE: dist/context-for-ai.tar.gz
+
+    steps:
+      - name: 🧾 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 Get latest version tag
+        id: get_tag
+        run: |
+          git fetch --tags
+          LAST_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n1 || echo "v0.0.0")
+          echo "tag=$LAST_TAG" >> $GITHUB_OUTPUT
+
+      - name: 🧮 Compute next version
+        id: next_tag
+        run: |
+          TAG="${{ steps.get_tag.outputs.tag }}"
+          IFS='.' read -r MAJOR MINOR PATCH <<< "${TAG#v}"
+
+          case "${{ github.event.inputs.bump }}" in
+            major) MAJOR=$((MAJOR+1)); MINOR=0; PATCH=0 ;;
+            minor) MINOR=$((MINOR+1)); PATCH=0 ;;
+            patch|*) PATCH=$((PATCH+1)) ;;
+          esac
+          echo "tag=v$MAJOR.$MINOR.$PATCH" >> $GITHUB_OUTPUT
+
+      - name: 🧬 Inject version into CLI (sed)
+        run: |
+          VERSION=${{ steps.next_tag.outputs.tag }}
+          sed -i.bak "s/VERSION_PLACEHOLDER/$VERSION/" bin/context-for-ai
+
+      - name: 🏷 Create and push tag
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "${{ steps.next_tag.outputs.tag }}"
+          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git
+          git push origin "${{ steps.next_tag.outputs.tag }}"
+
+      - name: 🔧 Verify binary exists
+        run: test -f bin/context-for-ai
+
+      - name: 📦 Create release archive
+        run: |
+          chmod +x bin/context-for-ai
+          mkdir -p ${{ env.ARCHIVE_PATH }}
+          cp -r bin LICENSE README.md Formula install.sh ${{ env.ARCHIVE_PATH }}
+          tar -czf ${{ env.ARCHIVE_FILE }} -C dist context-for-ai
+
+      - name: 🔐 Compute SHA256
+        id: sha
+        run: |
+          SHA=$(shasum -a 256 ${{ env.ARCHIVE_FILE }} | awk '{print $1}')
+          echo "sha256=$SHA" >> "$GITHUB_OUTPUT"
+
+      - name: 🧪 Generate Homebrew Formula
+        run: |
+          VERSION=${{ steps.next_tag.outputs.tag }}        
+          SHA=${{ steps.sha.outputs.sha256 }}
+          cat > dist/context-for-ai.rb <<EOF
+          class ContextForAi < Formula
+            desc "CLI tool to describe your project and generate structured AI prompts"
+            homepage "https://github.com/karle0wne/context-for-ai"
+            url "https://github.com/karle0wne/context-for-ai/releases/download/$VERSION/context-for-ai.tar.gz"
+            sha256 "$SHA"
+            license "MIT"
+
+            def install
+              bin.install "bin/context-for-ai"
+            end
+
+            test do
+              assert_match version.to_s, shell_output("\#{bin}/context-for-ai --version")
+            end
+          end
+          EOF
+
+      - name: 📝 Generate changelog
+        run: |
+          PREV="${{ steps.get_tag.outputs.tag }}"
+          echo "## Changes in ${{ steps.next_tag.outputs.tag }}" > changelog.md
+          echo >> changelog.md
+
+          if git rev-parse "$PREV" >/dev/null 2>&1; then
+            git log "$PREV"..HEAD --pretty=format:"- %s" >> changelog.md
+          else
+            git log --pretty=format:"- %s" >> changelog.md
+          fi
+
+      - name: 🚀 Publish GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ env.ARCHIVE_NAME }} ${{ steps.next_tag.outputs.tag }}
+          tag_name: ${{ steps.next_tag.outputs.tag }}
+          body_path: changelog.md
+          files: |
+            ${{ env.ARCHIVE_FILE }}
+            dist/context-for-ai.rb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📬 Update Homebrew tap
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          git clone https://x-access-token:${GH_PAT}@github.com/karle0wne/homebrew-tap.git
+          cd homebrew-tap
+          cp ../dist/context-for-ai.rb Formula/context-for-ai.rb
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Formula/context-for-ai.rb
+          git commit -m "Update context-for-ai formula to ${{ steps.next_tag.outputs.tag }}"
+          git push origin main

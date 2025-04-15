@@ -1,0 +1,34 @@
+name: Test Homebrew Formula
+
+on:
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
+
+jobs:
+  homebrew-formula-test:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: 🔧 Test ../homebrew-tap/context-for-ai
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, macos-14]
+
+    steps:
+      - name: 🧾 Show OS info
+        run: |
+          echo "Running on ${{ runner.os }}"
+          uname -a
+
+      - name: 🍺 Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: ➕ Add Homebrew tap
+        run: brew tap karle0wne/homebrew-tap
+
+      - name: 🧪 Install context-for-ai
+        run: brew install karle0wne/homebrew-tap/context-for-ai
+
+      - name: 🔍 Verify context-for-ai CLI
+        run: context-for-ai --version

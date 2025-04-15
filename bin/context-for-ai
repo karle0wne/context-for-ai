@@ -1,0 +1,141 @@
+#!/bin/bash
+
+VERSION="VERSION_PLACEHOLDER"
+OUT_FILE="project_snapshot.txt"
+EXTENSIONS=("kt" "java" "py")
+EXTRA_FILES=("pom.xml" "build.gradle.kts" "application.yml" "requirements.txt" "pyproject.toml" "setup.py")
+INCLUDE_GITHUB_WORKFLOWS=true
+
+# === Show help ===
+show_help() {
+  cat << EOF
+context-for-ai — generate a plain, machine-readable snapshot of your project.
+
+Usage:
+  context-for-ai [--help] [--version] [-i]
+
+Creates a plain .txt file with full contents of source and config files.
+Adds md5 and sha1 checksums before each file.
+
+Files are listed in order:
+  1. src/ or src/main/
+  2. tests/, test/, or src/test/
+  3. others
+  4. config files (e.g., build.gradle.kts, pom.xml)
+  5. .github/workflows/* (if exists)
+
+Output: \$OUT_FILE
+
+Options:
+  --help        Show this help message
+  --version     Show script version
+  -i            Interactive mode (custom extensions, extra files, output name)
+EOF
+  exit 0
+}
+
+# === Parse arguments ===
+INTERACTIVE=false
+for arg in "$@"; do
+  case $arg in
+    --help)
+      show_help
+      ;;
+    --version)
+      echo "context-for-ai $VERSION"
+      exit 0
+      ;;
+    -i)
+      INTERACTIVE=true
+      ;;
+  esac
+done
+
+# === Interactive input ===
+if [ "$INTERACTIVE" = true ]; then
+  echo "🛠  Interactive mode activated."
+
+  read -p "Enter file extensions to include (comma-separated, e.g., kt,java,py): " ext_input
+  if [[ -n "$ext_input" ]]; then
+    IFS=',' read -r -a EXTENSIONS <<< "$ext_input"
+  fi
+
+  read -p "Enter additional config files to include (comma-separated): " extra_input
+  if [[ -n "$extra_input" ]]; then
+    IFS=',' read -r -a EXTRA_FILES <<< "$extra_input"
+  fi
+
+  read -p "Enter output file name (default: project_snapshot.txt): " out_input
+  if [[ -n "$out_input" ]]; then
+    OUT_FILE="$out_input"
+  fi
+fi
+
+# === Start snapshot ===
+echo "🧾 Creating project snapshot: $OUT_FILE"
+echo "" > "$OUT_FILE"
+
+# === Build find pattern ===
+EXT_PATTERN=""
+if [ ${#EXTENSIONS[@]} -gt 0 ]; then
+  for ext in "${EXTENSIONS[@]}"; do
+    EXT_PATTERN="$EXT_PATTERN -name '*.$ext' -o"
+  done
+  EXT_PATTERN="${EXT_PATTERN% -o}"
+fi
+
+ALL_FILES=()
+if [[ -n "$EXT_PATTERN" ]]; then
+  while IFS= read -r file; do
+    [[ "$file" =~ build/|target/|\.class$|__pycache__ ]] && continue
+    ALL_FILES+=("$file")
+  done < <(eval "find . -type f \( $EXT_PATTERN \)" | sort)
+fi
+
+# === Categorize files ===
+SRC_FILES=()
+TEST_FILES=()
+OTHER_FILES=()
+
+for file in "${ALL_FILES[@]}"; do
+  if [[ "$file" =~ (^|/)src/([^/]+/)?(main/)? ]]; then
+    SRC_FILES+=("$file")
+  elif [[ "$file" =~ (^|/)(tests|test|src/test)/ ]]; then
+    TEST_FILES+=("$file")
+  else
+    OTHER_FILES+=("$file")
+  fi
+done
+
+ORDERED_FILES=("${SRC_FILES[@]}" "${TEST_FILES[@]}" "${OTHER_FILES[@]}")
+
+# === Dump function ===
+dump_file_with_hashes() {
+  local file="$1"
+  echo "FILE: $file" >> "$OUT_FILE"
+  echo "MD5:  $(md5sum "$file" | awk '{print $1}')" >> "$OUT_FILE"
+  echo "SHA1: $(sha1sum "$file" | awk '{print $1}')" >> "$OUT_FILE"
+  cat "$file" >> "$OUT_FILE"
+  echo -e '\n' >> "$OUT_FILE"
+}
+
+# === Dump main source files ===
+for file in "${ORDERED_FILES[@]}"; do
+  dump_file_with_hashes "$file"
+done
+
+# === Dump extra config files (recursive match) ===
+for pattern in "${EXTRA_FILES[@]}"; do
+  while IFS= read -r match; do
+    dump_file_with_hashes "$match"
+  done < <(find . -type f -name "$pattern")
+done
+
+# === Include .github/workflows if present ===
+if [ "$INCLUDE_GITHUB_WORKFLOWS" = true ] && [ -d ".github/workflows" ]; then
+  while IFS= read -r workflow_file; do
+    dump_file_with_hashes "$workflow_file"
+  done < <(find .github/workflows -type f | sort)
+fi
+
+echo "✅ Snapshot created: $OUT_FILE"
