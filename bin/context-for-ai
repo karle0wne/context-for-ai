@@ -22,7 +22,7 @@ Files are listed in order:
   2. tests/, test/, or src/test/
   3. others
   4. config files (e.g., build.gradle.kts, pom.xml)
-  5. .github/workflows/* (if exists)
+  5. .github/* (if exists)
 
 Output: \$OUT_FILE
 
@@ -131,11 +131,11 @@ for pattern in "${EXTRA_FILES[@]}"; do
   done < <(find . -type f -name "$pattern")
 done
 
-# === Include .github/workflows if present ===
-if [ "$INCLUDE_GITHUB_WORKFLOWS" = true ] && [ -d ".github/workflows" ]; then
+# === Include .github/* if present ===
+if [ "$INCLUDE_GITHUB_WORKFLOWS" = true ] && [ -d ".github" ]; then
   while IFS= read -r workflow_file; do
     dump_file_with_hashes "$workflow_file"
-  done < <(find .github/workflows -type f | sort)
+  done < <(find .github -type f | sort)
 fi
 
 echo "✅ Snapshot created: $OUT_FILE"
